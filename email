@@ -1,11 +1,10 @@
 #!/bin/sh
 HMBUTTONCCU2="mh {CONFIG_URL /addons/mh/index.cgi CONFIG_DESCRIPTION {de {<li>Sicherer VPN Fernzugriff</li><li>SMS Versand</li><li>Versand von PUSH Nachrichten</li><li>Mail Versand per Skript</li>} en {<li>Secure VPN remote access</li><li>Send SMS Messages</li><li>Send push notifications</li><li>Send dynamic eMails</li>}} ID mh CONFIG_NAME meine-homematic.de}"
 MAILBUTTONCCU2="mh {CONFIG_URL /addons/mh/index.cgi CONFIG_DESCRIPTION {de {<li>Sicherer VPN Fernzugriff</li><li>SMS Versand</li><li>Versand von PUSH Nachrichten</li><li>Mail Versand per Skript</li>} en {<li>Secure VPN remote access</li><li>Send SMS Messages</li><li>Send push notifications</li><li>Send dynamic eMails</li>}} ID mh CONFIG_NAME meine-homematic.de} email {CONFIG_URL /addons/email/index.html CONFIG_DESCRIPTION {de {<li>Email-Integration</li><li>Alarmierung und Weiterleitung von Systemzustaenden</li><li>Einfache Benachrichtigungen</li><li>...</li>} en {<li>Email-Integration</li><li>Alerting and routing of System-States</li><li>Simple Notifications</li><li>...</li>}} ID email CONFIG_NAME Email}"
+MAILUNINSTCCU2=" email {CONFIG_URL /addons/email/index.html CONFIG_DESCRIPTION {de {<li>Email-Integration</li><li>Alarmierung und Weiterleitung von Systemzustaenden</li><li>Einfache Benachrichtigungen</li><li>...</li>} en {<li>Email-Integration</li><li>Alerting and routing of System-States</li><li>Simple Notifications</li><li>...</li>}} ID email CONFIG_NAME Email}"
 
 HMBUTTONCCU1="mh {CONFIG_URL /addons/mh/index.cgi CONFIG_DESCRIPTION {<li>VPN-Zugang einrichten</li><li>SMS Versand</li><li>Mail Versand per Skript</li>} ID mh CONFIG_NAME meine-homematic.de}"
 MAILBUTTONCCU1="mh {CONFIG_URL /addons/mh/index.cgi CONFIG_DESCRIPTION {<li>VPN-Zugang einrichten</li><li>SMS Versand</li><li>Mail Versand per Skript</li>} ID mh CONFIG_NAME meine-homematic.de} email {CONFIG_URL /addons/email/index.html CONFIG_DESCRIPTION {<li>Email-Integration</li><li>Alarmierung und Weiterleitung von Systemzustaenden</li><li>Einfache Benachrichtigungen</li>} ID email CONFIG_NAME Email}"
-
-MAILUNINSTCCU2=" email {CONFIG_URL /addons/email/index.html CONFIG_DESCRIPTION {de {<li>Email-Integration</li><li>Alarmierung und Weiterleitung von Systemzustaenden</li><li>Einfache Benachrichtigungen</li><li>...</li>} en {<li>Email-Integration</li><li>Alerting and routing of System-States</li><li>Simple Notifications</li><li>...</li>}} ID email CONFIG_NAME Email}"
 MAILUNINSTCCU1=" email {CONFIG_URL /addons/email/index.html CONFIG_DESCRIPTION {<li>Email-Integration</li><li>Alarmierung und Weiterleitung von Systemzustaenden</li><li>Einfache Benachrichtigungen</li>} ID email CONFIG_NAME Email}"
 MAILUNINST=""
 
@@ -38,7 +37,7 @@ case "$1" in
 	;;
 info)
 	echo "Info: <center><b>modified by HMside</b></center>"
-	echo "Version: 1.6.0"
+	echo "Version: 1.6.1"
 	echo "Name: E-Mail"
 	echo "Operations: uninstall"
 	echo "Config-Url: $CONFIG_URL"

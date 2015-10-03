@@ -6,13 +6,16 @@ ADDON_DIR=/mnt/etc/config/addons/email
 
 mkdir -p /mnt
 
-if ["$1" == ""]
-then
+if [ "$1" = "" ]; then
     echo "CCU1"
     mount -t yaffs /dev/mtdblock3 /mnt
-else
+elif [ "$1" = "CCU2" ]; then
     echo "CCU2"
     mount -t ubifs ubi1:user /mnt
+elif [ "$1" == "HM-RASPBERRYMATIC" ]; then
+    echo "HM-RASPBERRYMATIC"
+    mount /usr/local
+    mount --bind /usr/local /mnt
 fi
 
 # Startscript anlegen
@@ -26,33 +29,49 @@ cp -rp www/* $WWW_DIR
 mkdir -p $ADDON_DIR
 cp -rp addon/* $ADDON_DIR
 
-if [ ! -e $ADDON_DIR/userscript.tcl ]
-then
+if [ ! -e $ADDON_DIR/userscript.tcl ]; then
   cp -p userscript.tcl $ADDON_DIR
 fi
 
-if [ ! -e $ADDON_DIR/account.conf ]
-then
+if [ ! -e $ADDON_DIR/account.conf ]; then
   cp -p account.conf $ADDON_DIR
 fi
 
-if [ ! -e $ADDON_DIR/msmtp.conf ]
-then
+if [ ! -e $ADDON_DIR/msmtp.conf ]; then
   cp -p msmtp.conf $ADDON_DIR
 fi
 
-if [ ! -d $ADDON_DIR/mails ]
-then
+if [ ! -d $ADDON_DIR/mails ]; then
   cp -rp mails $ADDON_DIR
 fi
 
-if ["$1" == ""]
-then
+if [ "$1" = "" ]; then
   cp -p ccu1/msmtp $ADDON_DIR
-else
+elif [ "$1" = "CCU2" ]; then
   cp -p ccu2/msmtp $ADDON_DIR
+elif [ "$1" == "HM-RASPBERRYMATIC" ]; then
+  cp -p ccu-rpi2/msmtp $ADDON_DIR
 fi
 
 chown -R root:root $ADDON_DIR
 
 umount /mnt
+
+# sync filesystem to make sure all changes are written to disk
+sync
+
+if [ "$1" = "" ]; then
+  echo "CCU1"
+  lcdtool "Reboot...             "
+  lcdtool -a 0x40 -t bin 00
+  echo "x" > /dev/watchdog
+  reboot
+  while true ; do true ;  done
+elif [ "$1" = "CCU2" ]; then
+  echo "CCU2"
+  # CCU2 always reboots after Addon/Firmware Update
+elif [ "$1" = "HM-RASPBERRYMATIC" ]; then
+  echo "HM-RASPBERRYMATIC"
+  umount /usr/local
+  # RASPBERRYMATIC always reboots after Addon/Firmware Update
+fi

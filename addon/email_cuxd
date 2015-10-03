@@ -1,0 +1,217 @@
+#!/bin/tclsh
+
+##
+# @file email_cuxd
+# @brief Versendet E-Mails aus CUxD CloudMatic.Mail
+#
+# @param ...
+#
+# @author Harima-kun, Uwe Langhammer
+# @license Public Domain
+##
+
+##############################################################################
+# Hilfsfunktionen                                                            #
+##############################################################################
+  
+proc init {} {
+  variable map
+  variable alphanumeric a-zA-Z0-9
+  for {set i 0} {$i <= 256} {incr i} { 
+    set c [format %c $i]
+    if {![string match \[$alphanumeric\] $c]} {
+      set map($c) %[format %.2x $i]
+    }
+  }
+  array set map { " " + \n %0d%0a }
+}
+
+proc url-decode str {
+  set str [string map [list + { } "\\" "\\\\"] $str]
+  regsub -all -- {%([A-Fa-f0-9][A-Fa-f0-9])} $str {\\u00\1} str
+  return [subst -novar -nocommand $str]
+}
+
+##
+# @fn __loadFromFile
+# @brief Lädt eine Datei
+#
+# @param filename Dateiname
+# @return Inhalt der Datei
+##
+proc __loadFromFile { filename } {
+  set content ""
+  catch {
+    set fd [open $filename r]
+    set content [read $fd]
+    close $fd
+  }
+  return $content
+}
+  
+##
+# @fn __getMail
+# @brief Liefert die E-Mail mit der angegbenen Id
+#
+# @param id Id der E-Mail
+# @return E-Mail-Daten
+##
+proc __getMail { id } {
+  global MAIL_DIR
+    
+  array set mail {}
+  set mail(To) {}
+  set mail(CC) {}
+  set mail(Subject) {}
+  set mail(Content) {}
+  set mail(Tcl) {}
+    
+  array set mail [__loadFromFile "$MAIL_DIR/$id.mail"]
+    
+  return [array get mail]
+}
+
+init
+
+# Default-Werte initialisieren
+set param(p1) {}
+set param(p2) {}
+set param(p3) {}
+set param(p4) {}
+set param(priority) 0
+set param(template) 0
+set param(type) 0
+set OPTION_1 {}
+set OPTION_2 {}
+set OPTION_3 {}
+set OPTION_4 {}
+set OPTION_5 {}
+
+set param(device) [ lindex $argv 0 ]
+foreach v $argv {
+  set vl [ split $v "=" ]
+  set idx [ lindex $vl 0 ]
+  if { $idx == "itp" } {
+    set itp [ split [ lindex $vl 1 ] "," ]
+    set param(template) [ lindex $itp 0 ]
+    set param(type) [ lindex $itp 1 ]
+    set param(priority) [ lindex $itp 2 ]
+  } else {
+    set val [ url-decode [ lindex $vl 1 ]]
+    if { $val != "" } {
+      if { $idx == "o1" } {
+        set OPTION_1 $val
+      } elseif { $idx == "o2" } {
+        set OPTION_2 $val
+      } elseif { $idx == "o3" } {
+        set OPTION_3 $val
+      } elseif { $idx == "o4" } {
+        set OPTION_4 $val
+      } elseif { $idx == "o5" } {
+        set OPTION_4 $val
+      } else {
+        set param($idx) $val
+      }
+    }
+  }
+}
+
+#
+#parray param
+#
+#param(device)   = 1    (Email)
+#param(p1)       = Email-Text
+#param(p2)       = Email-To
+#param(p3)       = Email-CC
+#param(p4)       = Email-Betreff
+#param(priority) = *ungenutzt*
+#param(template) = Template-ID
+#param(type)     = 0..Standard, 1..HTML
+#OPTION_1        = Option 1
+#OPTION_2        = Option 2
+#OPTION_3        = Option 3
+#OPTION_4        = Option 4
+#OPTION_5        = Option 5
+#
+
+if { $param(device) != 1 } {
+  exit 1
+}
+
+# Template-ID anpassen
+set ID [ format "%02d" $param(template) ]
+
+if { [ catch {
+
+  source /etc/config/addons/email/config.tcl
+  
+set LOGFILE "/var/log/email.log"
+  
+##############################################################################
+# Einsprungpunkt                                                             #
+##############################################################################
+  
+  catch { file delete -force -- $LOGFILE }
+    
+  catch { source $USER_SCRIPT_FILE }
+ 
+  array set mail [__getMail $ID]
+
+  array set account [__loadFromFile $ACCOUNT_FILE]
+
+# Email-Text
+  if { $param(p1) != {} } {
+    set mail(Content) $param(p1)
+  }
+# Email-To
+  if { $param(p2) != {} } {
+    set mail(To) $param(p2)
+  }
+# Email-CC
+  if { $param(p3) != {} } {
+    set mail(CC) $param(p3)
+  }
+# Email-Betreff
+  if { $param(p4) != {} } {
+    set mail(Subject) $param(p4)
+  }
+
+  set fd [open "|/usr/local/etc/config/addons/email/msmtp -t -C $MSMTP_CONFIG_FILE" w]
+  if { "true" == $mail(Tcl) } {
+    puts $fd "To: [subst -nobackslashes $mail(To)]"
+    puts $fd "From: $account(From)"
+    if { $mail(CC) != {} } {
+      puts $fd "CC: $mail(CC)"
+    }
+    puts $fd "Subject: [subst -nobackslashes $mail(Subject)]"
+    puts $fd [clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
+    if {  $param(type) == 1 } {
+      puts $fd "Content-Type: text/html; charset=UTF-8"
+    } else {
+      puts $fd "Content-Type: text/plain; charset=UTF-8"
+    }
+    puts $fd "Content-Transfer-Encoding: 8bit" 
+    puts $fd ""
+    puts $fd [subst -nobackslashes $mail(Content)]
+  } else {
+    puts $fd "To: $mail(To)"
+    puts $fd "From: $account(From)"
+    if { $mail(CC) != {} } {
+      puts $fd "CC: $mail(CC)"
+    }
+    puts $fd "Subject: $mail(Subject)"
+    puts $fd [clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
+    if {  $param(type) == 1 } {
+      puts $fd "Content-Type: text/html; charset=UTF-8"
+    } else {
+      puts $fd "Content-Type: text/plain; charset=UTF-8"
+    }
+    puts $fd "Content-Transfer-Encoding: 8bit"
+    puts $fd ""
+    puts $fd $mail(Content)
+  }
+  close $fd
+} errMsg ] } then {
+  exec -- logger -t email -p user.err $errMsg
+}
+

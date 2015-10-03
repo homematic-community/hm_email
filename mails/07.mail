@@ -1,0 +1,15 @@
+Subject {HomeMatic Zentrale: Programme} Tcl false Content {Hallo,
+
+E-Mails können als Aktion eines Programms versendet werden. Dazu
+muss lediglich folgendes Skript angelegt werden:
+
+  string stdout;
+  string stderr;
+  system.Exec("/etc/config/addons/email/email 01");
+
+Das Kommando "email" erwartet einen Parameter, der die Id der 
+jeweiligen E-Mail enthält. Standardmäßig sind die Ids 01 bis 10
+vordefiniert.
+
+Mfg
+Harima-kun} To username@server.de

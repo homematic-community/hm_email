@@ -1,0 +1,96 @@
+#!/bin/tclsh
+
+##
+# @file email
+# @brief Versendet E-Mails
+#
+# @param [lindex argv 0] Id der E-Mail
+#
+# @author Harima-kun
+# @license Public Domain
+##
+
+if { [ catch {
+
+  source /etc/config/addons/email/config.tcl
+  
+  set LOGFILE "/var/log/email.log"
+  
+##############################################################################
+# Hilfsfunktionen                                                            #
+##############################################################################
+  
+##
+# @fn __loadFromFile
+# @brief Lädt eine Datei
+#
+# @param filename Dateiname
+# @return Inhalt der Datei
+##
+proc __loadFromFile { filename } {
+  set content ""
+  catch {
+    set fd [open $filename r]
+    set content [read $fd]
+    close $fd
+  }
+  return $content
+}
+  
+##
+# @fn __getMail
+# @brief Liefert die E-Mail mit der angegbenen Id
+#
+# @param id Id der E-Mail
+# @return E-Mail-Daten
+##
+proc __getMail { id } {
+  global MAIL_DIR
+    
+  array set mail {}
+  set mail(To) {}
+  set mail(Subject) {}
+  set mail(Content) {}
+  set mail(Tcl) {}
+    
+  array set mail [__loadFromFile "$MAIL_DIR/$id.mail"]
+    
+  return [array get mail]
+}
+  
+##############################################################################
+# Einsprungpunkt                                                             #
+##############################################################################
+  
+  catch { file delete -force -- $LOGFILE }
+    
+  catch { source $USER_SCRIPT_FILE }
+ 
+  array set mail [__getMail [lindex $argv 0]]
+
+  array set account [__loadFromFile $ACCOUNT_FILE]
+    
+  set fd [open "|/usr/local/etc/config/addons/email/msmtp -t -C $MSMTP_CONFIG_FILE" w]
+  if { "true" == $mail(Tcl) } {
+    puts $fd "To:[subst -nobackslashes $mail(To)]"
+    puts $fd "From: $account(From)"
+    puts $fd "Subject:[subst -nobackslashes $mail(Subject)]"
+    puts $fd [clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
+    puts $fd "Content-Type: text/plain; charset=UTF-8"
+    puts $fd "Content-Transfer-Encoding: 8bit" 
+    puts $fd ""
+    puts $fd [subst -nobackslashes $mail(Content)]
+  } else {
+    puts $fd "To:$mail(To)"
+    puts $fd "From: $account(From)"
+    puts $fd "Subject:$mail(Subject)"
+    puts $fd [clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
+    puts $fd "Content-Type: text/plain; charset=UTF-8"
+    puts $fd "Content-Transfer-Encoding: 8bit"
+    puts $fd ""
+    puts $fd $mail(Content)
+  }
+  close $fd
+} errMsg ] } then {
+  exec -- logger -t email -p user.err $errMsg
+}

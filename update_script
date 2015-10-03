@@ -1,0 +1,58 @@
+#!/bin/sh
+
+RC_DIR=/mnt/etc/config/rc.d
+WWW_DIR=/mnt/etc/config/addons/www/email
+ADDON_DIR=/mnt/etc/config/addons/email
+
+mkdir -p /mnt
+
+if ["$1" == ""]
+then
+    echo "CCU1"
+    mount -t yaffs /dev/mtdblock3 /mnt
+else
+    echo "CCU2"
+    mount -t ubifs ubi1:user /mnt
+fi
+
+# Startscript anlegen
+cp -p email $RC_DIR/email
+
+# Web-Konfiguration anlegen
+mkdir -p $WWW_DIR
+cp -rp www/* $WWW_DIR
+
+# Addon-Verzeichnis anlegen
+mkdir -p $ADDON_DIR
+cp -rp addon/* $ADDON_DIR
+
+if [ ! -e $ADDON_DIR/userscript.tcl ]
+then
+  cp -p userscript.tcl $ADDON_DIR
+fi
+
+if [ ! -e $ADDON_DIR/account.conf ]
+then
+  cp -p account.conf $ADDON_DIR
+fi
+
+if [ ! -e $ADDON_DIR/msmtp.conf ]
+then
+  cp -p msmtp.conf $ADDON_DIR
+fi
+
+if [ ! -d $ADDON_DIR/mails ]
+then
+  cp -rp mails $ADDON_DIR
+fi
+
+if ["$1" == ""]
+then
+  cp -p ccu1/msmtp $ADDON_DIR
+else
+  cp -p ccu2/msmtp $ADDON_DIR
+fi
+
+chown -R root:root $ADDON_DIR
+
+umount /mnt

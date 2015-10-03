@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>E-Mail Konfiguration</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script type="text/javascript" src="email.js"></script>
+  <script type="text/javascript" src="config_js.cgi"></script>
+
+</head>
+<body onload="startup();">
+<div id="page">
+  
+  <div id="menubar">
+    <div class="menuButton" onclick="MainMenu.select(id);" id="mailMenuButton">E-Mails</div>
+    <div class="menuButton" onclick="MainMenu.select(id);" id="accountMenuButton">Account</div>
+    <div class="menuButton" onclick="MainMenu.select(id);" id="tclMenuButton">Tcl</div>
+	<div class="menuButton" onclick="MainMenu.select(id);" id="testMenuButton">Hilfe</div>
+    <div class="menuButton" onclick="MainMenu.select(id);" id="infoMenuButton">Info</div>
+    <div style="clear: both"></div>
+  </div>
+        
+  <div id="mailContent" class="content" style="display:none;">
+    <table border="0" width="100%">
+      <tr>
+        <td>E-Mail:</td>
+        <td>
+          <select id="idListBox" onchange="MailCollection.show();">
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>An:</td>
+        <td><input id="toTextBox" type="text" /></td>
+      </tr>
+      <tr>
+        <td>Betreff:</td>
+        <td><input id="subjectTextBox" type="text"></td>
+      </tr>      
+      <tr>
+        <td colspan="2"><textarea id="contentTextArea" wrap="off"></textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2"><input id="tclCheckBox" class="checkbox" type="checkbox" />Tcl aktivieren</td>
+      </tr>
+    </table>
+    <hr/>
+    <div>
+      <div class="button" onclick="MailCollection.saveSelectedMail();">&Uuml;bernehmen</div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+
+  <div id="accountContent" class="content" style="display:none;">
+    <table border="0" style="width:100%;">
+      <colgroup>
+        <col width="35%" />
+        <col width="65%" />
+      </colgroup>
+      <tr>
+        <td>SMTP Server:</td>
+        <td><input id="smtpTextBox" type="text" /></td>
+      </tr>
+      <tr>
+        <td>Absender:</td>
+        <td><input id="fromTextBox" type="text" /></td>
+      </tr>
+      <tr>
+        <td>Authentifikation:</td>
+        <td>
+          <select id="authListBox">
+            <option value="off">Aus</option>
+            <option value="on">Auto</option>
+            <option value="plain">PLAIN</option>
+            <option value="cram-md5">CRAM-MD5</option>
+            <option value="external">EXTERNAL</option>
+            <option value="login">LOGIN</option>
+          </select>
+        </td>
+      </tr>
+            <tr>
+        <td>Port:</td>
+        <td><input id="portTextBox" type="number"  />
+      </tr>
+      <tr>
+        <td>Verschl&uuml;sselte Verbindung (TLS):</td>
+        <td><input id="tlsCheckBox" class="checkbox" type="checkbox" />
+      </tr>
+	  <tr>
+        <td>STARTTLS deaktivieren (bei Port 465):</td>
+        <td><input id="starttlsCheckBox" class="checkbox" type="checkbox" />
+      </tr>
+      <tr>
+        <td>Benutzername:</td>
+        <td><input id="userTextBox" type="text"  /></td>
+      </tr>
+      <tr>
+        <td>Passwort:</td>
+        <td><input id="passwordTextBox" type="password"  /></td>
+      </tr>
+      <tr>
+        <td>Passwort wiederholen:</td>
+        <td><input id="password2TextBox" type="password" /></td>
+      </tr>
+    </table>
+    <hr/>
+    <div>
+      <div class="button" onclick="Account.apply();">&Uuml;bernehmen</div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+
+  <div id="tclContent" class="content" style="display:none;">
+    <table width="100%" border="0">
+      <tr>
+        <td><textarea id="userScriptTextArea" wrap="off" ></textarea></td>
+      </tr>
+    </table>
+    <hr>
+    <div style="text-align:justify;">
+      An dieser Stelle kann ein benutzerdefiniertes Tcl-Skript definiert werden,
+      dass vor dem Versenden jeder E-Mail ausgef&uuml;hrt wird. Ist f&uuml;r 
+      eine E-Mail die Tcl-Option aktiviert, können dort Variablen und Prozeduren 
+      verwendet werden, die hier definiert sind.
+    </div>
+    <hr/>
+    <div>
+      <div class="button" onclick="Tcl.apply();">&Uuml;bernehmen</div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+  
+  <div id="testContent" class="content" style="display:none;">
+    <table width="100%" border="0">
+    <tr><td>
+    <div style="text-align:justify;">
+    Testmail: Hiermit kann getestet werden, ob die Account Konfiguration korrekt ist. In der Mail-Vorlage 1 muss hierzu eine Empfänger Mail-Adresse eingetragen werden.<hr></div></td></tr>
+    <tr><td>
+    <div class="buttontest" onclick="Test.apply()">Testmail senden</div>
+    </td></tr>
+<div style="clear:both;"></div>
+    <tr><td><hr>
+    <div class="divhover">Email-Log <a><img src='img/help1.png' height="15"></a><divhover>Nach CCU Neustart bzw. bei erster Verwendung des Addons ist kein Email Logfile vorhanden und es wird "404 - Not Found" oder "Die Webseite wurde nicht gefunden" angezeigt.</divhover>:
+<iframe name='logdisplay' src='/addons/email/logfile.html' width='100%' height='100' scrolling='no' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe></td></tr>
+    <tr><td><hr>
+    <div class="divhover">CCU-Syslog <a><img src='img/help1.png' height="15"></a><divhover>Hier werden die Ereignisse zum msmtp-Dienst des Email-Addons angezeigt.</divhover>:
+<iframe name='logdisplay1' src='/addons/email/messages.html' width='100%' height='100' scrolling='no' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe></td></tr>
+    <tr><td><hr>
+    Hilfe:
+    <iframe name='logdisplay' src='/addons/email/anleitung.html' width='100%' height='300' scrolling='yes' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe></td></tr>
+    </table>
+    </div>
+
+  <div id="infoContent" class="content" style="display:none;">
+    <img src="img/info_64.png" style="float:left;"/>
+    <table border="0" style="float:right;">
+      <tr>
+        <th colspan="2">HomeMatic E-Mail Zusatzsoftware</hr>
+      </tr>
+      <tr>
+        <td>Version:</td>
+        <td align="right">1.6.0</td>
+      </tr>
+      <tr>
+        <td>Autoren:</td>
+        <td align="right"><a href="http://homematic-forum.de/forum/memberlist.php?mode=viewprofile&u=5264"  target="_blank">HMside</a> (Harima-kun, Mathias)</td>
+      </tr>
+        <td>Lizenz:</td>
+        <td align="right"><a href="http://de.wikipedia.org/wiki/Gemeinfreiheit#Public_Domain"  target="_blank">Public Domain</a>
+      </tr></table>
+    <div style="clear:both"></div>
+    <hr>
+    Dieses Paket verwendet Icons von <a href="https://www.iconfinder.com/search/?q=iconset%3A20-flat-icons" target="_blank">www.iconfinder.com</a>
+  </div>
+    
+</div>
+</body>
+</html>

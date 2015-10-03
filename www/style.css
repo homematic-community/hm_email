@@ -1,0 +1,122 @@
+* {
+  font-family: Verdana ! important;
+  font-size: 10pt ! important;
+}
+
+input, select, textarea {
+	width: 100%;
+}
+
+textarea {
+  height: 300px;
+}
+
+.checkbox {
+  width: auto ! important;
+}
+
+.menuButton {
+  float: left;
+  line-height: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+  padding: 0px 5px 0px 37px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 2px solid black;
+  font-weight: bold;
+  background-color: #a0a0a0;
+  color: white;
+  cursor: pointer;
+}
+
+.activeMenuButton {
+  float: left;
+  line-height: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+  padding: 0px 5px 0px 37px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 2px solid black;
+  font-weight: bold;
+  background-color: #003366;
+  color: white;
+  cursor: pointer;
+}
+
+.button {
+  float: right;
+  border: 2px solid black;
+  padding: 5px;
+  color: white;
+  background-color: #a0a0a0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buttontest {
+  float: left;
+  border: 2px solid black;
+  padding: 5px;
+  color: white;
+  background-color: #a0a0a0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buttonlog {
+  float: right;
+  border: 2px solid black;
+  padding: 5px;
+  color: white;
+  background-color: #a0a0a0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#page {
+  margin-left: auto ! important;
+  margin-right: auto ! important;
+  width: 500px;
+}
+
+.content {
+  border: 2px solid black;
+  padding: 5px;
+}
+
+#mailMenuButton {
+  background-image: url(img/letter_32.png);
+}
+
+#accountMenuButton {
+  background-image: url(img/user_32.png);
+}
+
+#tclMenuButton {
+  background-image: url(img/gear_32.png);
+}
+
+#testMenuButton {
+  background-image: url(img/test_32.png);
+}
+
+#infoMenuButton {
+  background-image: url(img/info_32.png);
+  float: right ! important;
+  margin-right: 0px ! important;
+}
+
+divhover {
+    display: none;
+
+    height:100%;
+    width:95%;
+    margin-left:10px;
+    background-color: #f4de1c;
+}
+
+a:hover + divhover {
+    display: block;
+}

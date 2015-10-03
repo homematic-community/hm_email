@@ -1,0 +1,17 @@
+Subject {HomeMatic Zentrale: Debuggen von E-Mails} Tcl false Content {Hallo,
+
+insbesondere wenn Tcl innerhalb von E-Mails verwendet wird, ist 
+oft eine Möglichkeit zum Debuggen ganz nützlich. Hier stehen gleich
+mehrere Wege zur Verfügung:
+
+Die Datei /var/log/email.log enthält das msmtp-Log der zuletzt 
+versendeten E-Mail. Die Datei ist nur dann vorhanden, wenn bereits
+eine E-Mail verschickt wurde.
+
+Falls es während der E-Mail-Versendes zu schwerwiegenden Problemen
+kommt, wird eine entsprechende Log-Meldung erzeugt. Diese erscheint
+dann unter /var/log/messages zusammen mit allen anderen Fehler-
+Meldungen.
+
+Mfg
+Harima-kun} To username@server.de

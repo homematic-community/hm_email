@@ -12,6 +12,6 @@ cp -a update_script tmp/
 cp -a userscript.tcl tmp/
 cp -a www tmp/
 cd tmp
-tar -czvf ../email-1.6.1.tar.gz *
+tar -czvf ../email-1.6.2.tar.gz *
 cd ..
 rm -rf tmp

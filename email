@@ -37,7 +37,7 @@ case "$1" in
 	;;
 info)
 	echo "Info: <center><b>modified by HMside</b></center>"
-	echo "Version: 1.6.1"
+	echo "Version: 1.6.2"
 	echo "Name: E-Mail"
 	echo "Operations: uninstall"
 	echo "Config-Url: $CONFIG_URL"

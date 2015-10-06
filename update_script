@@ -50,7 +50,7 @@ if [ "$1" = "" ]; then
 elif [ "$1" = "CCU2" ]; then
   cp -p ccu2/msmtp $ADDON_DIR
 elif [ "$1" == "HM-RASPBERRYMATIC" ]; then
-  cp -p ccu-rpi2/msmtp $ADDON_DIR
+  cp -p ccupi/msmtp $ADDON_DIR
 fi
 
 chown -R root:root $ADDON_DIR

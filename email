@@ -39,7 +39,7 @@ info)
 	echo "Info: <b>E-Mail CCU Addon</b><br>"
 	echo "Info: (c) 2010-2015 HMside, Jens Maus<br>"
 	echo "Info: <a href='https://github.com/jens-maus/hm_email'>https://github.com/jens-maus/hm_email</a>"
-	echo "Version: 1.6.2"
+	echo "Version: 1.6.3"
 	echo "Name: E-Mail"
 	echo "Operations: uninstall"
 	echo "Config-Url: $CONFIG_URL"

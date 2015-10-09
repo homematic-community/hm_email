@@ -11,7 +11,8 @@ cp -a msmtp.conf tmp/
 cp -a update_script tmp/
 cp -a userscript.tcl tmp/
 cp -a www tmp/
+cp -a VERSION tmp/addon/
 cd tmp
-tar -czvf ../email-1.6.3.tar.gz *
+tar -czvf ../email-$(cat ../VERSION).tar.gz *
 cd ..
 rm -rf tmp

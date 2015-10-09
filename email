@@ -14,65 +14,71 @@ ADDON_DIR=/etc/config/addons/email
 CONFIG_URL=/addons/email/index.html
 
 case "$1" in
-""|start)
-        grep -i "CCU2" /etc/config/rfd.conf
-        if [ $? -eq 0 ]; then
-             echo "CCU2"
-	     mount -o rw,remount /
-	     mv /usr/local/etc/config/hm_addons.cfg /usr/local/etc/config/hm_addons.cfg_org
-	     sed -e "s|$HMBUTTONCCU2|$MAILBUTTONCCU2|g" "/usr/local/etc/config/hm_addons.cfg_org" > "/usr/local/etc/config/hm_addons.cfg"
-	     rm -rf /usr/local/etc/config/hm_addons.cfg_org
-             chmod 755 /usr/local/etc/config/hm_addons.cfg
-	     mount -o ro,remount /
-        else
-             echo "CCU1"
-	     mount -o rw,remount /
-	     mv /usr/local/etc/config/hm_addons.cfg /usr/local/etc/config/hm_addons.cfg_org
-	     sed -e "s|$HMBUTTONCCU1|$MAILBUTTONCCU1|g" "/usr/local/etc/config/hm_addons.cfg_org" > "/usr/local/etc/config/hm_addons.cfg"
-	     rm -rf /usr/local/etc/config/hm_addons.cfg_org
-             chmod 755 /usr/local/etc/config/hm_addons.cfg
-             ln -s /var/log /etc/config/addons/www/email/log
-	     mount -o ro,remount /
-        fi
-	;;
-info)
-	echo "Info: <b>E-Mail CCU Addon</b><br>"
-	echo "Info: (c) 2010-2015 HMside, Jens Maus<br>"
-	echo "Info: <a href='https://github.com/jens-maus/hm_email'>https://github.com/jens-maus/hm_email</a>"
-	echo "Version: 1.6.3"
-	echo "Name: E-Mail"
-	echo "Operations: uninstall"
-	echo "Config-Url: $CONFIG_URL"
-	;;
-restart)
-	;;
-stop)
-	;;
-uninstall)
-        grep -i "CCU2" /etc/config/rfd.conf
-        if [ $? -eq 0 ]; then
-             echo "CCU2"
-	     mount -o rw,remount /
-	     mv /usr/local/etc/config/hm_addons.cfg /usr/local/etc/config/hm_addons.cfg_org
-	     sed -e "s|$MAILUNINSTCCU2|$MAILUNINST|g" "/usr/local/etc/config/hm_addons.cfg_org" > "/usr/local/etc/config/hm_addons.cfg"
-	     rm -rf /usr/local/etc/config/hm_addons.cfg_org
-             chmod 755 /usr/local/etc/config/hm_addons.cfg
-             sync
-	     mount -o ro,remount /
+  ""|start)
+     grep -i "CCU2" /etc/config/rfd.conf
+     if [ $? -eq 0 ]; then
+        echo "CCU2"
+        mount -o rw,remount /
+        mv /usr/local/etc/config/hm_addons.cfg /usr/local/etc/config/hm_addons.cfg_org
+        sed -e "s|$HMBUTTONCCU2|$MAILBUTTONCCU2|g" "/usr/local/etc/config/hm_addons.cfg_org" > "/usr/local/etc/config/hm_addons.cfg"
+        rm -rf /usr/local/etc/config/hm_addons.cfg_org
+        chmod 755 /usr/local/etc/config/hm_addons.cfg
+        mount -o ro,remount /
+     else
+        echo "CCU1"
+        mount -o rw,remount /
+        mv /usr/local/etc/config/hm_addons.cfg /usr/local/etc/config/hm_addons.cfg_org
+        sed -e "s|$HMBUTTONCCU1|$MAILBUTTONCCU1|g" "/usr/local/etc/config/hm_addons.cfg_org" > "/usr/local/etc/config/hm_addons.cfg"
+        rm -rf /usr/local/etc/config/hm_addons.cfg_org
+        chmod 755 /usr/local/etc/config/hm_addons.cfg
+        ln -s /var/log /etc/config/addons/www/email/log
+        mount -o ro,remount /
+     fi
+  ;;
 
-        else
-             echo "CCU1"
-	     mount -o rw,remount /
-	     mv /usr/local/etc/config/hm_addons.cfg /usr/local/etc/config/hm_addons.cfg_org
-	     sed -e "s|$MAILUNINSTCCU1|$MAILUNINST|g" "/usr/local/etc/config/hm_addons.cfg_org" > "/usr/local/etc/config/hm_addons.cfg"
-	     rm -rf /usr/local/etc/config/hm_addons.cfg_org
-             chmod 755 /usr/local/etc/config/hm_addons.cfg
-             sync
-	     mount -o ro,remount /
-        fi
-	rm -rf $WWW_DIR
-	rm -rf $ADDON_DIR
-	;;
+  info)
+    VER=`cat /usr/local/etc/config/addons/email/VERSION`
+    echo "Info: <b>E-Mail CCU Addon</b><br>"
+    echo "Info: (c) 2010-2015 HMside, Jens Maus<br>"
+    echo "Info: <a href='https://github.com/jens-maus/hm_email'>https://github.com/jens-maus/hm_email</a>"
+    echo "Version: $VER"
+    echo "Name: E-Mail"
+    echo "Operations: uninstall"
+    echo "Config-Url: $CONFIG_URL"
+    echo "Update: /addons/email/update-check.cgi"
+  ;;
+
+  restart)
+  ;;
+
+  stop)
+  ;;
+
+  uninstall)
+    grep -i "CCU2" /etc/config/rfd.conf
+    if [ $? -eq 0 ]; then
+      echo "CCU2"
+      mount -o rw,remount /
+      mv /usr/local/etc/config/hm_addons.cfg /usr/local/etc/config/hm_addons.cfg_org
+      sed -e "s|$MAILUNINSTCCU2|$MAILUNINST|g" "/usr/local/etc/config/hm_addons.cfg_org" > "/usr/local/etc/config/hm_addons.cfg"
+      rm -rf /usr/local/etc/config/hm_addons.cfg_org
+      chmod 755 /usr/local/etc/config/hm_addons.cfg
+      sync
+      mount -o ro,remount /
+    else
+      echo "CCU1"
+      mount -o rw,remount /
+      mv /usr/local/etc/config/hm_addons.cfg /usr/local/etc/config/hm_addons.cfg_org
+      sed -e "s|$MAILUNINSTCCU1|$MAILUNINST|g" "/usr/local/etc/config/hm_addons.cfg_org" > "/usr/local/etc/config/hm_addons.cfg"
+      rm -rf /usr/local/etc/config/hm_addons.cfg_org
+      chmod 755 /usr/local/etc/config/hm_addons.cfg
+      sync
+      mount -o ro,remount /
+    fi
+    rm -rf $WWW_DIR
+    rm -rf $ADDON_DIR
+  ;;
+
 esac
 
 exit 0

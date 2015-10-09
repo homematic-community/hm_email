@@ -1,61 +1,58 @@
 #!/bin/sh
 
-RC_DIR=/mnt/etc/config/rc.d
-WWW_DIR=/mnt/etc/config/addons/www/email
-ADDON_DIR=/mnt/etc/config/addons/email
-
-mkdir -p /mnt
+RC_DIR=/usr/local/etc/config/rc.d
+WWW_DIR=/usr/local/etc/config/addons/www/email
+ADDON_DIR=/usr/local/etc/config/addons/email
 
 if [ "$1" = "" ]; then
-    echo "CCU1"
-    mount -t yaffs /dev/mtdblock3 /mnt
+  echo "CCU1"
+  lcdtool "Installing Addon...   "
+  mount -t yaffs /dev/mtdblock3 /usr/local
 elif [ "$1" = "CCU2" ]; then
-    echo "CCU2"
-    mount -t ubifs ubi1:user /mnt
+  echo "CCU2"
+  mount -t ubifs ubi1:user /usr/local
 elif [ "$1" == "HM-RASPBERRYMATIC" ]; then
-    echo "HM-RASPBERRYMATIC"
-    mount /usr/local
-    mount --bind /usr/local /mnt
+  echo "HM-RASPBERRYMATIC"
+  mount /usr/local
 fi
-
-# Startscript anlegen
-cp -p email $RC_DIR/email
 
 # Web-Konfiguration anlegen
 mkdir -p $WWW_DIR
-cp -rp www/* $WWW_DIR
+cp -R www/* $WWW_DIR
+chmod 755 $WWW_DIR
+
+# Startscript anlegen
+cp email $RC_DIR/
+chmod +x $RC_DIR/email
 
 # Addon-Verzeichnis anlegen
 mkdir -p $ADDON_DIR
-cp -rp addon/* $ADDON_DIR
+cp -R addon/* $ADDON_DIR
+chmod 755 $ADDON_DIR
 
 if [ ! -e $ADDON_DIR/userscript.tcl ]; then
-  cp -p userscript.tcl $ADDON_DIR
+  cp userscript.tcl $ADDON_DIR
 fi
 
 if [ ! -e $ADDON_DIR/account.conf ]; then
-  cp -p account.conf $ADDON_DIR
+  cp account.conf $ADDON_DIR
 fi
 
 if [ ! -e $ADDON_DIR/msmtp.conf ]; then
-  cp -p msmtp.conf $ADDON_DIR
+  cp msmtp.conf $ADDON_DIR
 fi
 
 if [ ! -d $ADDON_DIR/mails ]; then
-  cp -rp mails $ADDON_DIR
+  cp -R mails $ADDON_DIR/
 fi
 
 if [ "$1" = "" ]; then
-  cp -p ccu1/msmtp $ADDON_DIR
+  cp ccu1/msmtp $ADDON_DIR
 elif [ "$1" = "CCU2" ]; then
-  cp -p ccu2/msmtp $ADDON_DIR
+  cp ccu2/msmtp $ADDON_DIR
 elif [ "$1" == "HM-RASPBERRYMATIC" ]; then
-  cp -p ccupi/msmtp $ADDON_DIR
+  cp ccupi/msmtp $ADDON_DIR
 fi
-
-chown -R root:root $ADDON_DIR
-
-umount /mnt
 
 # sync filesystem to make sure all changes are written to disk
 sync
@@ -72,6 +69,5 @@ elif [ "$1" = "CCU2" ]; then
   # CCU2 always reboots after Addon/Firmware Update
 elif [ "$1" = "HM-RASPBERRYMATIC" ]; then
   echo "HM-RASPBERRYMATIC"
-  umount /usr/local
   # RASPBERRYMATIC always reboots after Addon/Firmware Update
 fi

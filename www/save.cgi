@@ -122,10 +122,13 @@ if { [catch {
   # @brief Speichert eine E-Mail
   #
   # Folgende Header werden ausgewertet:
-  #   Id:      Id der E-Mail
-  #   To:      Empfänger
-  #   Subject: Betreffzeile
-  #   Tcl:     Legt fest, ob Tcl für die E-Mail aktiv sein soll
+  #   Id:          Id der E-Mail
+  #   Description: Kurzbeschreibung der Vorlage
+  #   To:          Empfänger
+  #   Subject:     Betreffzeile
+  #   AttType:     Datei von der CCU, oder Download
+  #   Attachment:  Pfad zur Datei
+  #   Tcl:         Legt fest, ob Tcl für die E-Mail aktiv sein soll
   #
   # Der weitere Inhalt der Anfrage wird als Text der E-Mail interpretiert.
   ##
@@ -133,8 +136,11 @@ if { [catch {
     global MAIL_DIR
     
     array set mail {}
+    set mail(Description) [__args_get Description]
     set mail(To)      [__args_get To]
     set mail(Subject) [__args_get Subject]
+    set mail(AttType) [__args_get AttType]
+    set mail(Attachment) [__args_get Attachment]
     set mail(Content) [__args_get Content]
     set mail(Tcl)     [__args_get Tcl]
     
@@ -148,10 +154,12 @@ if { [catch {
   # Folgende Header werden ausgwertet:
   #   Server:   SMTP Server
   #   From:     Absender
-  #   Auth:     Form der Authentisierung
-  #               (off, auto, plain, cram-md5, external oder login)
+  #   Auth:     Form der Authentisierung (off, auto, plain, cram-md5, external oder login)
   #   User:     Benutzername
   #   Password: Passwort
+  #   Port:     Port
+  #   TLS:      Verschlüsselte Verbindung ein/aus
+  #   STARTTLS: STARTTLS ein/aus
   #
   # Der weitere Inhalt wird ignoriert.
   ##
@@ -166,7 +174,7 @@ if { [catch {
     set account(Password) [__args_get Password]
     set account(Port)     [__args_get Port]
     set account(TLS)      [__args_get TLS]
-	set account(STARTTLS) [__args_get STARTTLS]
+	  set account(STARTTLS) [__args_get STARTTLS]
     
     saveToFile $ACCOUNT_FILE [array get account]
     

@@ -163,7 +163,7 @@ MainMenu =
     {id: "mailMenuButton"   , tag: "mailContent"},
     {id: "accountMenuButton", tag: "accountContent"},
     {id: "tclMenuButton"    , tag: "tclContent"},
-	{id: "testMenuButton"   , tag: "testContent"},
+	  {id: "testMenuButton"   , tag: "testContent"},
     {id: "infoMenuButton"   , tag: "infoContent"}
   ],
 
@@ -215,8 +215,11 @@ Mail.URL = "/addons/email/save.cgi?mail"
 Mail.prototype =
 {
   m_id: null,
+  m_description: null,
   m_to: null,
   m_subject: null,
+  m_atttype: null,
+  m_attachment: null,
   m_content: null,
   m_tcl: false,
   
@@ -229,8 +232,11 @@ Mail.prototype =
   init: function(mailData)
   {
     this.m_id = mailData["id"];
+    this.m_description = mailData["description"];
     this.m_to = mailData["to"];
     this.m_subject = mailData["subject"];
+    this.m_atttype = mailData["atttype"];
+    this.m_attachment = mailData["attachment"];
     this.m_content = mailData["content"];
     this.m_tcl = mailData["tcl"];
   },
@@ -250,8 +256,11 @@ Mail.prototype =
    **/
   show: function()
   {
+    $("descriptionBox").value = this.m_description;
     $("toTextBox").value = this.m_to;
     $("subjectTextBox").value = this.m_subject;
+    $("attTypeBox").value = this.m_atttype;
+    $("attachmentTextBox").value = this.m_attachment;
     $("contentTextArea").value = this.m_content;
     $("tclCheckBox").checked = this.m_tcl;
   },
@@ -262,15 +271,21 @@ Mail.prototype =
    **/
   save: function()
   {
+    this.m_description = $("descriptionBox").value;
     this.m_to = $("toTextBox").value;
     this.m_subject = $("subjectTextBox").value;
+    this.m_atttype = $("attTypeBox").value;
+    this.m_attachment = $("attachmentTextBox").value;
     this.m_content = $("contentTextArea").value;
     this.m_tcl = $("tclCheckBox").checked;
     
     var data = "";
     data += "Id:"      + this.m_id + "\n";
+    data += "Description:" + this.m_description + "\n";
     data += "To:"      + this.m_to + "\n";
     data += "Subject:" + this.m_subject + "\n";
+    data += "AttType:" + this.m_atttype + "\n";
+    data += "Attachment:" + this.m_attachment + "\n";
     data += "Tcl:"     + this.m_tcl + "\n";
     data += "\n";
     data += this.m_content;
@@ -359,7 +374,7 @@ Account =
     $("authListBox").value = Configuration.Account["auth"];
     $("portTextBox").value = Configuration.Account["port"];
     $("tlsCheckBox").checked = Configuration.Account["tls"];
-	$("starttlsCheckBox").checked = Configuration.Account["starttls"];
+	  $("starttlsCheckBox").checked = Configuration.Account["starttls"];
     $("userTextBox").value = Configuration.Account["username"];
     $("passwordTextBox").value = Configuration.Account["password"];
     $("password2TextBox").value = Configuration.Account["password"];
@@ -373,12 +388,12 @@ Account =
       data += "Server:" + $("smtpTextBox").value  + "\n";
       data += "From:" + $("fromTextBox").value + "\n";
       data += "Auth:" + $("authListBox").options[$("authListBox").selectedIndex].value + "\n";
-	  data += "TLS:" + $("tlsCheckBox").checked + "\n";
-	  data += "STARTTLS:" + $("starttlsCheckBox").checked + "\n";
+	    data += "TLS:" + $("tlsCheckBox").checked + "\n";
+	    data += "STARTTLS:" + $("starttlsCheckBox").checked + "\n";
       data += "User:" + $("userTextBox").value + "\n";
       data += "Password:" + $("passwordTextBox").value + "\n";
       data += "Port:" + $("portTextBox").value + "\n";
-	  data += "\n";
+	    data += "\n";
     
       var result = "AJAX error";
       try { result = http.post(Account.URL, data); }
@@ -434,13 +449,40 @@ Tcl =
 };
 
 /*############################################################################*/
+/*# Test TCL                                                                 #*/
+/*############################################################################*/
+
+TestTCL =
+{
+  URL: "/addons/email/testtcl.cgi",
+  
+  /**
+   * @fn apply
+   * @brief Test TCL Skript 
+   **/
+  apply: function()
+  {
+    var data = "";
+    data += "\n";
+    data += $("userScriptTextArea").value;
+    
+    var result = "AJAX error";
+    try { result = http.m_request("GET", TestTCL.URL, null); }
+    catch (ex) { }
+    if ("TCLOK" == result) { alert("Das Tcl-Skript ist okay!"); }
+    else { alert("Das Tcl-Skript ist fehlerhaft: (" + result + ")"); }
+
+  }
+};
+
+/*############################################################################*/
 /*# Testmail                                                                 #*/
 /*############################################################################*/
 
 Test =
 {
   URL: "/addons/email/testmail.cgi?ID=1",
-  
+
   /**
    * @fn apply
    * @brief Sendet eine Testmail
@@ -456,6 +498,25 @@ Test =
     catch (ex) { }
     if ("OK" == result) { alert("Testmail wurde gesendet!"); }
     else { alert("Fehler beim Senden der Email (" + result + ")!"); }
+  }
+};
+
+/*############################################################################*/
+/*# Backup                                                                   #*/
+/*############################################################################*/
+
+Backup =
+{
+  URL: "/addons/email/backup.cgi",
+
+  apply: function()
+  {
+    var result = "AJAX error";
+    try { result = http.m_request("GET", Backup.URL, null); }
+    catch (ex) { }
+    if ("BACKUPOK" == result) { window.open('/addons/email/ver/email-backup.tar.gz');
+    }
+    else { alert("(" + result + ") Beim erstellten des Backups ist ein Fehler aufgetreten!"); }
   }
 };
 

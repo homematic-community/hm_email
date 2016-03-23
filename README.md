@@ -6,6 +6,7 @@ A HomeMatic/CCU Addon to send emails from a CCU system either by directly callin
 * HomeMatic CCU1
 * HomeMatic CCU2 (http://www.eq-3.de/produkt-detail-zentralen-und-gateways/items/homematic-zentrale-ccu-2.html)
 * RaspberryMatic (http://homematic-forum.de/forum/viewtopic.php?f=56&t=26917)
+* LXCCU (http://www.lxccu.com/)
 
 # Installation
 1. Download installation archive (```email-X.X.X.tar.gz```) from 'releases' sub directory (https://github.com/jens-maus/hm_email/releases)

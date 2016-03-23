@@ -16,20 +16,21 @@ elif [ "$1" == "HM-RASPBERRYMATIC" ]; then
   mount /usr/local
 fi
 
+# Startscript anlegen
+cp email $RC_DIR/
+chmod +x $RC_DIR/email
+
 # Web-Konfiguration anlegen
 mkdir -p $WWW_DIR
 cp -R www/* $WWW_DIR
 chmod 755 $WWW_DIR
-
-# Startscript anlegen
-cp email $RC_DIR/
-chmod +x $RC_DIR/email
 
 # Addon-Verzeichnis anlegen
 mkdir -p $ADDON_DIR
 cp -R addon/* $ADDON_DIR
 chmod 755 $ADDON_DIR
 
+# Konfigdateien und Vorlagen kopieren sofern nicht vorhanden
 if [ ! -e $ADDON_DIR/userscript.tcl ]; then
   cp userscript.tcl $ADDON_DIR
 fi
@@ -46,6 +47,14 @@ if [ ! -d $ADDON_DIR/mails ]; then
   cp -R mails $ADDON_DIR/
 fi
 
+if [ ! -f $ADDON_DIR/mails/log.mail ]; then
+  cp mails/log.mail $ADDON_DIR/mails/log.mail
+fi
+
+if [ ! -f $ADDON_DIR/mails/cam.mail ]; then
+  cp mails/cam.mail $ADDON_DIR/mails/cam.mail
+fi
+
 if [ "$1" = "" ]; then
   cp ccu1/msmtp $ADDON_DIR
 elif [ "$1" = "CCU2" ]; then
@@ -53,6 +62,18 @@ elif [ "$1" = "CCU2" ]; then
 elif [ "$1" == "HM-RASPBERRYMATIC" ]; then
   cp ccupi/msmtp $ADDON_DIR
 fi
+
+# Alte nicht mehr benötigte Dateien löschen
+if [ -e $WWW_DIR/anleitung.html ]; then
+  rm -r $WWW_DIR/anleitung.html
+fi
+
+if [ -e $WWW_DIR/img/cuxmail.png ]; then
+  rm -r $WWW_DIR/img/cuxmail.png
+fi
+
+# Symbolic Link
+ln -s $ADDON_DIR $WWW_DIR/ver
 
 # sync filesystem to make sure all changes are written to disk
 sync

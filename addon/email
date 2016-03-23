@@ -1,32 +1,25 @@
 #!/bin/tclsh
 
-##
-# @file email
-# @brief Versendet E-Mails
-#
-# @param [lindex argv 0] Id der E-Mail
-#
-# @author Harima-kun
-# @license Public Domain
-##
+set testing "0"
 
-if { [ catch {
+#######################################
+# HMside                              #
+# New email with Attachment &         #
+# Subject fix and HTML from mido      #
+# 03.2016                             #
+#######################################
+
+package require base64
+
+catch {
 
   source /etc/config/addons/email/config.tcl
-  
-  set LOGFILE "/var/log/email.log"
-  
-##############################################################################
-# Hilfsfunktionen                                                            #
-##############################################################################
-  
-##
-# @fn __loadFromFile
-# @brief Lädt eine Datei
-#
-# @param filename Dateiname
-# @return Inhalt der Datei
-##
+}
+
+# LOGGING
+set LOGFILE "/var/log/email.log"
+
+# LOAD
 proc __loadFromFile { filename } {
   set content ""
   catch {
@@ -36,14 +29,8 @@ proc __loadFromFile { filename } {
   }
   return $content
 }
-  
-##
-# @fn __getMail
-# @brief Liefert die E-Mail mit der angegbenen Id
-#
-# @param id Id der E-Mail
-# @return E-Mail-Daten
-##
+
+# LOAD MAIL PRESET LOG
 proc __getMail { id } {
   global MAIL_DIR
     
@@ -52,45 +39,189 @@ proc __getMail { id } {
   set mail(Subject) {}
   set mail(Content) {}
   set mail(Tcl) {}
-    
+  set mail(AttType) {}
+  set mail(Attachment) {}
   array set mail [__loadFromFile "$MAIL_DIR/$id.mail"]
     
   return [array get mail]
 }
-  
-##############################################################################
-# Einsprungpunkt                                                             #
-##############################################################################
-  
-  catch { file delete -force -- $LOGFILE }
-    
-  catch { source $USER_SCRIPT_FILE }
- 
-  array set mail [__getMail [lindex $argv 0]]
 
-  array set account [__loadFromFile $ACCOUNT_FILE]
-    
-  set fd [open "|/usr/local/etc/config/addons/email/msmtp -t -C $MSMTP_CONFIG_FILE" w]
+# KILL LOG
+catch { file delete -force -- $LOGFILE }
+
+# LOAD TCL USERSCRIPT
+catch { source $USER_SCRIPT_FILE } 
+
+array set mail [__getMail [lindex $argv 0]]
+
+# LOAD MAIL ACCOUNT
+array set account [__loadFromFile $ACCOUNT_FILE]
+
+  # TCL-Variablen in Texten bei Bedarf ersetzen
+  set mailContent $mail(Content)
+  set mailTo      $mail(To)
+  set mailSubject $mail(Subject)
+  set mailAttachment $mail(Attachment)
   if { "true" == $mail(Tcl) } {
-    puts $fd "To:[subst -nobackslashes $mail(To)]"
-    puts $fd "From: $account(From)"
-    puts $fd "Subject:[subst -nobackslashes $mail(Subject)]"
-    puts $fd [clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
-    puts $fd "Content-Type: text/plain; charset=UTF-8"
-    puts $fd "Content-Transfer-Encoding: 8bit" 
-    puts $fd ""
-    puts $fd [subst -nobackslashes $mail(Content)]
-  } else {
-    puts $fd "To:$mail(To)"
-    puts $fd "From: $account(From)"
-    puts $fd "Subject:$mail(Subject)"
-    puts $fd [clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
-    puts $fd "Content-Type: text/plain; charset=UTF-8"
-    puts $fd "Content-Transfer-Encoding: 8bit"
-    puts $fd ""
-    puts $fd $mail(Content)
+    set mailContent [subst -nobackslashes $mailContent]
+    set mailTo      [subst -nobackslashes $mailTo     ]
+    set mailSubject [subst -nobackslashes $mailSubject]
+    set mailAttachment [subst -nobackslashes $mailAttachment]
   }
-  close $fd
-} errMsg ] } then {
-  exec -- logger -t email -p user.err $errMsg
+
+# TEST MAILTO
+if {$testing == "1"} {
+puts "Empfänger: $mailTo"
+puts ""
+}
+
+  # zwischen HTML und reinem Text unterscheiden
+  # HTML fängt mit <!DOCTYPE oder <HTML an (Groß-/Klinschreibung macht keinen Unterschied)
+  set contentTypeCheck [string tolower [string range [string trimleft $mailContent] 0 8]]
+  set contentType "charset=UTF-8"
+  if {$contentTypeCheck == "<!doctype" || [string range $contentTypeCheck 0 4] == "<html"} {
+    set contentType "text/html; $contentType"
+  } else {
+    set contentType "text/plain; $contentType"
+  }
+
+# ATTACHMENT
+# Datum und Uhrzeit auslesen
+# Dateiname vom Pfad trennen
+# Wenn snapshot.cgi dann in snapshop.jpg wandeln
+# Wenn messages dann in CCU-Logfile.log wandeln
+# wenn AttType aus dann AttName löschen
+
+set date [clock seconds] 
+set date [clock format $date -format {%d.%m.%Y-%T}]
+
+set AttName [file tail $mailAttachment]
+
+if {$AttName == "snapshot.cgi"} {
+    set AttName "snapshot-$date.jpg"
+} elseif {$AttName == "messages"} {
+    set AttName "CCU-Logfile-$date.log"
+} elseif {$AttName == "hmserver.log"} {
+    set AttName "hmserver-$date.log"
+}
+
+if {$mail(AttType) == "off"} {
+    set AttName ""
+}
+
+#TESTING
+if {$testing == "1"} {
+puts "Attachment Typ: $mail(AttType)"
+puts "Attachment Pfad: $mailAttachment"
+puts "Dateiname: $AttName"
+puts ""
+}
+
+# SUBJECT
+set fd ""
+  set mailSubjectPartLength 30  
+  set mailSubjectPartStart "Subject: " 
+  set mailSubjectLength [string length $mailSubject]  
+  while {$mailSubjectLength > 0} {
+    if {$mailSubjectLength > $mailSubjectPartLength} {
+      set mailSubjectPart [string range $mailSubject 0                      [expr $mailSubjectPartLength - 1]] 
+      set mailSubject     [string range $mailSubject $mailSubjectPartLength [expr $mailSubjectLength     - 1]] 
+    } else {
+      set mailSubjectPart $mailSubject 
+      set mailSubject ""
+    }
+    set fd "$fd$mailSubjectPartStart=?UTF-8?B?[::base64::encode -wrapchar "" [encoding convertto utf-8 $mailSubjectPart]]?="
+    set mailSubjectPartStart "\r\n\t" 
+    set mailSubjectLength [string length $mailSubject]  
+  }
+
+# TESTING SUBJECT
+if {$testing == "1"} {
+puts "Subject:"
+puts $fd
+puts ""
+}
+
+# DEFINE EMAIL TEMPLATE
+# wenn kein AttName, dann kein Dateianhang
+# sonst Dateianhang senden
+
+if {$AttName == ""} {
+
+set tmpl "To: $mailTo
+From: $account(From)
+$fd
+MIME-Version: 1.0
+Content-Type: $contentType
+Content-Transfer-Encoding: 8bit
+
+$mailContent"
+
+} else {
+
+set tmpl "To: $mailTo
+From: $account(From)
+$fd
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary=\"=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk\"
+
+--=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk
+Content-Type: $contentType
+Content-Transfer-Encoding: 8bit
+
+$mailContent
+
+--=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk
+Content-Type: application/octet-stream; name=\"$AttName\"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=\"$AttName\"
+
+{IMGDATA}
+--=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk--"
+}
+
+# TESTING TMPL
+if {$testing == "1"} {
+puts "Email Aufbau: $tmpl"
+puts ""
+}
+
+# Get Attachment / Read Snapshot into Variable & Base64 encode
+# Wenn CCU-File dann aus Verzeichnis laden
+# Wenn Download/Snapshot dann runterladen
+
+if {$mail(AttType) == "local"} {
+    set fp [open "$mailAttachment" r]
+    fconfigure $fp -translation binary
+    set imgdata [read $fp]
+    close $fp
+    set encodeddata [base64::encode $imgdata]
+    regsub -all "{IMGDATA}" $tmpl $encodeddata tmpl
+    set AttName [file tail $mailAttachment]
+
+} elseif {$mail(AttType) == "down"} {
+    exec wget --no-check-certificate -q -O /usr/local/etc/config/addons/email/tmp/$AttName $mailAttachment
+    set fp [open "/usr/local/etc/config/addons/email/tmp/$AttName" r]
+    fconfigure $fp -translation binary
+    set imgdata [read $fp]
+    close $fp
+    set encodeddata [base64::encode $imgdata]
+    regsub -all "{IMGDATA}" $tmpl $encodeddata tmpl
+    set AttName [file tail $mailAttachment]
+}
+
+# WRITING READY MAIL FROM TMPL TO READY.EML
+set fp [open "/usr/local/etc/config/addons/email/tmp/ready.eml" w]
+puts $fp $tmpl
+close $fp
+
+# SEND READY.EML USING MSMTP
+exec cat /usr/local/etc/config/addons/email/tmp/ready.eml | /usr/local/etc/config/addons/email/msmtp -t -C /etc/config/addons/email/msmtp.conf
+
+# CLEAN UP
+exec rm -f /usr/local/etc/config/addons/email/tmp/ready.eml
+if {$mail(AttType) == "local"} {
+exec rm -f /usr/local/etc/config/addons/email/tmp/$AttName
+} elseif {$mail(AttType) == "down"} {
+exec rm -f /usr/local/etc/config/addons/email/tmp/$AttName
 }

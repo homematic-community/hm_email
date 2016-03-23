@@ -1,0 +1,45 @@
+#!/bin/sh
+
+ADDON_DIR=/usr/local/etc/config/addons/email
+
+if [ "$1" = "" ]; then
+  echo "CCU1"
+  lcdtool "Installing Addon...   "
+  mount -t yaffs /dev/mtdblock3 /usr/local
+elif [ "$1" = "CCU2" ]; then
+  echo "CCU2"
+  mount -t ubifs ubi1:user /usr/local
+elif [ "$1" == "HM-RASPBERRYMATIC" ]; then
+  echo "HM-RASPBERRYMATIC"
+  mount /usr/local
+fi
+
+# Vorhandene Dateien löschen
+rm -r /usr/local/etc/config/addons/email/mails
+rm -r /usr/local/etc/config/addons/email/msmtp.conf
+rm -r /usr/local/etc/config/addons/email/account.conf
+rm -r /usr/local/etc/config/addons/email/userscript.tcl
+
+# Dateien aus dem Backup kopieren
+cp -p -R userscript.tcl $ADDON_DIR
+cp -p -R account.conf $ADDON_DIR
+cp -p -R msmtp.conf $ADDON_DIR
+cp -p -R mails $ADDON_DIR/
+
+# sync filesystem to make sure all changes are written to disk
+sync
+
+if [ "$1" = "" ]; then
+  echo "CCU1"
+  lcdtool "Reboot...             "
+  lcdtool -a 0x40 -t bin 00
+  echo "x" > /dev/watchdog
+  reboot
+  while true ; do true ;  done
+elif [ "$1" = "CCU2" ]; then
+  echo "CCU2"
+  # CCU2 always reboots after Addon/Firmware Update
+elif [ "$1" = "HM-RASPBERRYMATIC" ]; then
+  echo "HM-RASPBERRYMATIC"
+  # RASPBERRYMATIC always reboots after Addon/Firmware Update
+fi

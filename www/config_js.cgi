@@ -74,8 +74,11 @@ proc putMails {} {
     if { 1 != $first } then { puts "    ," } else { set first 0 }
     array set mail {}
     set mail(Id)     $id
+    set mail(Description) {}
     set mail(To)      {}
     set mail(Subject) {}
+    set mail(AttType) {}
+    set mail(Attachment) {}
     set mail(Content) {}
     set mail(Tcl)     "false"
     
@@ -84,8 +87,11 @@ proc putMails {} {
     
     puts "    \{"
     puts "      \"id\": \"[jsstring $mail(Id)]\","
+    puts "      \"description\": \"[jsstring $mail(Description)]\","
     puts "      \"to\": \"[jsstring $mail(To)]\","
     puts "      \"subject\": \"[jsstring $mail(Subject)]\","
+    puts "      \"atttype\": \"[jsstring $mail(AttType)]\","
+    puts "      \"attachment\": \"[jsstring $mail(Attachment)]\","
     puts "      \"content\": \"[jsstring $mail(Content)]\","
     puts "      \"tcl\": $mail(Tcl)"
     puts "    \}"

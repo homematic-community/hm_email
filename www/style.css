@@ -7,6 +7,30 @@ input, select, textarea {
 	width: 100%;
 }
 
+.input1 {
+  width: 99%;
+}
+
+.select1 {
+  width: 100%;
+}
+
+.select2 {
+  width: 25%;
+}
+
+.select3 {
+  width: 26%;
+}
+
+.select4 {
+  width: 35%;
+}
+
+.input3 {
+  width: 72%;
+}
+
 textarea {
   height: 300px;
 }
@@ -56,6 +80,26 @@ textarea {
 }
 
 .buttontest {
+  float: right;
+  border: 2px solid black;
+  padding: 5px;
+  color: white;
+  background-color: #a0a0a0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buttonbackup {
+  float: right;
+  border: 2px solid black;
+  padding: 5px;
+  color: white;
+  background-color: #a0a0a0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buttontesttcl {
   float: left;
   border: 2px solid black;
   padding: 5px;

@@ -13,6 +13,6 @@ cp -a userscript.tcl tmp/
 cp -a www tmp/
 cp -a VERSION tmp/addon/
 cd tmp
-tar -czvf ../email-$(cat ../VERSION).tar.gz *
+tar --owner=root --group=root -czvf ../email-$(cat ../VERSION).tar.gz *
 cd ..
 rm -rf tmp

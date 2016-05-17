@@ -21,10 +21,10 @@ rm -r /usr/local/etc/config/addons/email/account.conf
 rm -r /usr/local/etc/config/addons/email/userscript.tcl
 
 # Dateien aus dem Backup kopieren
-cp -p -R userscript.tcl $ADDON_DIR
-cp -p -R account.conf $ADDON_DIR
-cp -p -R msmtp.conf $ADDON_DIR
-cp -p -R mails $ADDON_DIR/
+cp -a userscript.tcl $ADDON_DIR
+cp -a account.conf $ADDON_DIR
+cp -a msmtp.conf $ADDON_DIR
+cp -a mails $ADDON_DIR/
 
 # sync filesystem to make sure all changes are written to disk
 sync

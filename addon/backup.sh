@@ -10,10 +10,10 @@ ACCOUNT_CONF=/usr/local/etc/config/addons/email/account.conf
 USER_SCRIPT=/usr/local/etc/config/addons/email/userscript.tcl
 
 # Files/Folder nach Backup kopieren
-cp -p -R $MAIL_DIR $BACKUP
-cp -p -R $MSMTP_CONF $BACKUP
-cp -p -R $ACCOUNT_CONF $BACKUP
-cp -p -R $USER_SCRIPT $BACKUP
+cp -a $MAIL_DIR $BACKUP
+cp -a $MSMTP_CONF $BACKUP
+cp -a $ACCOUNT_CONF $BACKUP
+cp -a $USER_SCRIPT $BACKUP
 
 # Backup erstellen
 cd /usr/local/etc/config/addons/email/backup

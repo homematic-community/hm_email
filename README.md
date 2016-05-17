@@ -9,7 +9,7 @@ A HomeMatic/CCU Addon to send emails from a CCU system either by directly callin
 * LXCCU (http://www.lxccu.com/)
 
 # Installation
-1. Download installation archive (```email-X.X.X.tar.gz```) from 'releases' sub directory (https://github.com/jens-maus/hm_email/releases)
+1. Download installation archive (`email-X.X.X.tar.gz`) from 'releases' sub directory (https://github.com/jens-maus/hm_email/releases)
 2. Log into your WebUI interface
 3. Upload installation archive (don't unarchive tar.gz) to the WebUI
 4. Start installation
@@ -22,4 +22,4 @@ http://CCU/addons/email
 where you have to replace 'CCU' with the ip address or hostname of your ccu device.
 
 # Authors
-Copyright (c) 2015 Harima-kun, Mathias, HMside, Jens Maus <mail@jens-maus.de>
+Copyright (c) 2015-2016 Harima-kun, Mathias, HMside, Jens Maus

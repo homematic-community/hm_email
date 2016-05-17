@@ -54,9 +54,9 @@ case "$1" in
         fi
 	;;
   info)
-    VER=`cat /usr/local/etc/config/addons/email/VERSION.txt`
+    VER=`cat /usr/local/etc/config/addons/email/VERSION`
     echo "Info: <b>E-Mail CCU Addon</b><br>"
-    echo "Info: (c) 2010-2015 HMside, Jens Maus<br>"
+    echo "Info: (c) 2010-2016 HMside, Jens Maus<br>"
     echo "Info: <a href='https://github.com/jens-maus/hm_email'>https://github.com/jens-maus/hm_email</a>"
     echo "Version: $VER"
     echo "Name: E-Mail"

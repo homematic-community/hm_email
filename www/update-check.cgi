@@ -1,6 +1,6 @@
 #!/bin/tclsh
 
-set checkURL    "https://raw.githubusercontent.com/jens-maus/hm_email/master/VERSION.txt"
+set checkURL    "https://raw.githubusercontent.com/jens-maus/hm_email/master/VERSION"
 set downloadURL "https://github.com/jens-maus/hm_email/releases"
 
 catch {

@@ -514,7 +514,7 @@ Backup =
     var result = "AJAX error";
     try { result = http.m_request("GET", Backup.URL, null); }
     catch (ex) { }
-    if ("BACKUPOK" == result) { window.open('/addons/email/ver/email-backup.tar.gz');
+    if ("BACKUPOK" == result) { window.open('/addons/email/addon/email-backup.tar.gz');
     }
     else { alert("(" + result + ") Beim erstellten des Backups ist ein Fehler aufgetreten!"); }
   }

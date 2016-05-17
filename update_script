@@ -72,8 +72,9 @@ if [ -e $WWW_DIR/img/cuxmail.png ]; then
   rm -r $WWW_DIR/img/cuxmail.png
 fi
 
-# Symbolic Link
-ln -s $ADDON_DIR $WWW_DIR/ver
+# Symbolic Links
+ln -sf $ADDON_DIR/VERSION $WWW_DIR/VERSION.txt
+ln -sf $ADDON_DIR $WWW_DIR/addon
 
 # sync filesystem to make sure all changes are written to disk
 sync

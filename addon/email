@@ -151,6 +151,7 @@ if {$AttName == ""} {
 set tmpl "To: $mailTo
 From: $account(From)
 $fd
+[clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
 MIME-Version: 1.0
 Content-Type: $contentType
 Content-Transfer-Encoding: 8bit
@@ -162,6 +163,7 @@ $mailContent"
 set tmpl "To: $mailTo
 From: $account(From)
 $fd
+[clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
 MIME-Version: 1.0
 Content-Type: multipart/mixed; boundary=\"=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk\"
 

@@ -52,6 +52,9 @@ case "$1" in
              ln -s /var/log /etc/config/addons/www/email/log
 	     mount -o ro,remount /
         fi
+       # make sure we have the tmp folder
+       mkdir -p /usr/local/etc/config/addons/email/tmp
+       chmod 755 /usr/local/etc/config/addons/email/tmp
 	;;
   info)
     VER=`cat /usr/local/etc/config/addons/email/VERSION`

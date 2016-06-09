@@ -1,0 +1,49 @@
+#!/bin/sh
+
+ADDONNAME=email
+ADDON_DIR=/usr/local/etc/config/addons/${ADDONNAME}
+WWW_DIR=/usr/local/etc/config/addons/www/${ADDONNAME}
+RCD_DIR=/usr/local/etc/config/rc.d
+
+case "$1" in
+
+  ""|start)
+    # make sure a /var/log/email.log exists
+    touch /var/log/email.log
+    ;;
+
+  info)
+    echo "Info: <b>E-Mail CCU Addon</b><br>"
+    echo "Info: (c) 2010-2016 HMside, Jens Maus<br>"
+    echo "Info: <a href='https://github.com/jens-maus/hm_email'>https://github.com/jens-maus/hm_email</a>"
+    echo "Version: $(cat ${ADDON_DIR}/VERSION)"
+    echo "Name: E-Mail"
+    echo "Operations: uninstall"
+    echo "Config-Url: /addons/${ADDONNAME}/"
+    echo "Update: /addons/${ADDONNAME}/update-check.cgi"
+    ;;
+
+  restart)
+    ;;
+
+  stop)
+    ;;
+
+  uninstall)
+    # remove the addon button
+    ${ADDON_DIR}/update_addon email
+
+    # remove the whole addon related stuff
+    rm -rf ${ADDON_DIR}
+    rm -rf ${WWW_DIR}
+    rm -f ${RCD_DIR}/${ADDONNAME}
+    ;;
+
+  *)
+    echo "Usage: ${ADDONNAME} {info|uninstall}" >&2
+    exit 1
+    ;;
+
+esac
+
+exit $?

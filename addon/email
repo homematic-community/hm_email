@@ -202,8 +202,8 @@ if {$mail(AttType) == "local"} {
     set AttName [file tail $mailAttachment]
 
 } elseif {$mail(AttType) == "down"} {
-    exec wget --no-check-certificate -q -O /usr/local/etc/config/addons/email/tmp/$AttName $mailAttachment
-    set fp [open "/usr/local/etc/config/addons/email/tmp/$AttName" r]
+    exec wget --no-check-certificate -q -O /tmp/$AttName $mailAttachment
+    set fp [open "/tmp/$AttName" r]
     fconfigure $fp -translation binary
     set imgdata [read $fp]
     close $fp
@@ -213,17 +213,17 @@ if {$mail(AttType) == "local"} {
 }
 
 # WRITING READY MAIL FROM TMPL TO READY.EML
-set fp [open "/usr/local/etc/config/addons/email/tmp/ready.eml" w]
+set fp [open "/tmp/ready.eml" w]
 puts $fp $tmpl
 close $fp
 
 # SEND READY.EML USING MSMTP
-exec cat /usr/local/etc/config/addons/email/tmp/ready.eml | /usr/local/etc/config/addons/email/msmtp -t -C /etc/config/addons/email/msmtp.conf
+exec cat /tmp/ready.eml | /usr/local/etc/config/addons/email/msmtp -t -C /etc/config/addons/email/msmtp.conf
 
 # CLEAN UP
-exec rm -f /usr/local/etc/config/addons/email/tmp/ready.eml
+exec rm -f /tmp/ready.eml
 if {$mail(AttType) == "local"} {
-exec rm -f /usr/local/etc/config/addons/email/tmp/$AttName
+exec rm -f /tmp/$AttName
 } elseif {$mail(AttType) == "down"} {
-exec rm -f /usr/local/etc/config/addons/email/tmp/$AttName
+exec rm -f /tmp/$AttName
 }

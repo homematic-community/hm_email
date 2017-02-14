@@ -49,6 +49,11 @@ if [ ! -f ${ADDON_DIR}/mails/cam.mail ]; then
   cp -af mails/cam.mail ${ADDON_DIR}/mails/cam.mail
 fi
 
+# Alte Dateien löschen da diese vom kommenden Copy
+# Kommando ersetzt werden (auch durch Links)
+rm -f ${ADDON_DIR}/msmtp
+
+# Nun alle Addon datein platformspezifisch kopieren
 if [ "$1" = "" ]; then
   cp -af ccu1/* ${ADDON_DIR}/
 elif [ "$1" = "CCU2" ]; then

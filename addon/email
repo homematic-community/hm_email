@@ -4,20 +4,22 @@ set testing "0"
 
 #######################################
 # HMside                              #
-# New email with Attachment &         #
-# Subject fix and HTML from mido      #
-# 03.2016                             #
+# 02.2017                             #
 #######################################
 
 package require base64
 
-catch {
+if { [ catch {
 
   source /etc/config/addons/email/config.tcl
-}
 
 # LOGGING
 set LOGFILE "/var/log/email.log"
+
+# CLEAN UP
+exec rm -r -f /usr/local/etc/config/addons/email/tmp
+exec mkdir /usr/local/etc/config/addons/email/tmp/
+exec chmod 755 /usr/local/etc/config/addons/email/tmp/
 
 # LOAD
 proc __loadFromFile { filename } {
@@ -39,8 +41,11 @@ proc __getMail { id } {
   set mail(Subject) {}
   set mail(Content) {}
   set mail(Tcl) {}
+  set mail(Prio) {}
   set mail(AttType) {}
   set mail(Attachment) {}
+  set mail(Snapuser) {}
+  set mail(Snappass) {}
   array set mail [__loadFromFile "$MAIL_DIR/$id.mail"]
     
   return [array get mail]
@@ -62,16 +67,31 @@ array set account [__loadFromFile $ACCOUNT_FILE]
   set mailTo      $mail(To)
   set mailSubject $mail(Subject)
   set mailAttachment $mail(Attachment)
+  set mailSnapuser $mail(Snapuser)
+  set mailSnappass $mail(Snappass)
   if { "true" == $mail(Tcl) } {
     set mailContent [subst -nobackslashes $mailContent]
     set mailTo      [subst -nobackslashes $mailTo     ]
     set mailSubject [subst -nobackslashes $mailSubject]
     set mailAttachment [subst -nobackslashes $mailAttachment]
+    set mailSnapuser [subst -nobackslashes $mailSnapuser]
+    set mailSnappass [subst -nobackslashes $mailSnappass]
+  }
+  if { "true" == $mail(Prio) } {
+    set mailPrio "X-Priority: 1"
+  } else {
+    set mailPrio "X-Priority: 3"
   }
 
 # TEST MAILTO
 if {$testing == "1"} {
+puts "Inhalt: $mailContent"
 puts "Empfänger: $mailTo"
+puts "Betreff: $mailSubject"
+puts "Prio: $mailPrio"
+puts "Anhang: $mailAttachment"
+puts "SnapUser: $mailSnapuser"
+puts "SnapPW: $mailSnappass"
 puts ""
 }
 
@@ -97,23 +117,28 @@ set date [clock format $date -format {%d.%m.%Y-%T}]
 
 set AttName [file tail $mailAttachment]
 
-if {$AttName == "snapshot.cgi"} {
-    set AttName "snapshot-$date.jpg"
-} elseif {$AttName == "messages"} {
-    set AttName "CCU-Logfile-$date.log"
+if {$AttName == "messages"} {
+    set AttNewName "CCU-Logfile-$date.log"
 } elseif {$AttName == "hmserver.log"} {
-    set AttName "hmserver-$date.log"
+    set AttNewName "hmserver-$date.log"
 }
 
-if {$mail(AttType) == "off"} {
-    set AttName ""
+if {$mail(AttType) == "snapshot"} {
+	set AttNewName "snapshot-$date.jpg"
+} elseif {$mail(AttType) == "snapshot1"} {
+    set AttNewName "snapshot-$date.jpg"
+} elseif {$mail(AttType) == "off"} {
+    set AttNewName ""
 }
 
 #TESTING
 if {$testing == "1"} {
 puts "Attachment Typ: $mail(AttType)"
 puts "Attachment Pfad: $mailAttachment"
-puts "Dateiname: $AttName"
+puts "Attachment Tail: $AttName"
+puts "Dateiname: $AttNewName"
+puts "Username: $mailSnapuser"
+puts "Password: $mailSnappass"
 puts ""
 }
 
@@ -143,16 +168,17 @@ puts ""
 }
 
 # DEFINE EMAIL TEMPLATE
-# wenn kein AttName, dann kein Dateianhang
+# wenn kein AttNewName, dann kein Dateianhang
 # sonst Dateianhang senden
 
-if {$AttName == ""} {
+if {$AttNewName == ""} {
 
 set tmpl "To: $mailTo
 From: $account(From)
 $fd
 [clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
 MIME-Version: 1.0
+$mailPrio
 Content-Type: $contentType
 Content-Transfer-Encoding: 8bit
 
@@ -165,6 +191,7 @@ From: $account(From)
 $fd
 [clock format [clock seconds] -format "Date: %a, %d %b %Y %H:%M:%S %z"]
 MIME-Version: 1.0
+$mailPrio
 Content-Type: multipart/mixed; boundary=\"=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk\"
 
 --=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk
@@ -174,9 +201,9 @@ Content-Transfer-Encoding: 8bit
 $mailContent
 
 --=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk
-Content-Type: application/octet-stream; name=\"$AttName\"
+Content-Type: application/octet-stream; name=\"$AttNewName\"
 Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename=\"$AttName\"
+Content-Disposition: attachment; filename=\"$AttNewName\"
 
 {IMGDATA}
 --=_542bc72c.5lV8m7jWYOrj//k2cdijZPr9Fjy8v4J0l/m4onTDRLUmUDMk--"
@@ -184,7 +211,8 @@ Content-Disposition: attachment; filename=\"$AttName\"
 
 # TESTING TMPL
 if {$testing == "1"} {
-puts "Email Aufbau: $tmpl"
+puts "Email Aufbau:"
+puts "$tmpl"
 puts ""
 }
 
@@ -199,31 +227,55 @@ if {$mail(AttType) == "local"} {
     close $fp
     set encodeddata [base64::encode $imgdata]
     regsub -all "{IMGDATA}" $tmpl $encodeddata tmpl
-    set AttName [file tail $mailAttachment]
+    set AttNewName [file tail $mailAttachment]
 
 } elseif {$mail(AttType) == "down"} {
-    exec wget --no-check-certificate -q -O /tmp/$AttName $mailAttachment
-    set fp [open "/tmp/$AttName" r]
+    exec wget --no-check-certificate -q -O /usr/local/etc/config/addons/email/tmp/$AttNewName $mailAttachment
+    set fp [open "/usr/local/etc/config/addons/email/tmp/$AttNewName" r]
     fconfigure $fp -translation binary
     set imgdata [read $fp]
     close $fp
     set encodeddata [base64::encode $imgdata]
     regsub -all "{IMGDATA}" $tmpl $encodeddata tmpl
-    set AttName [file tail $mailAttachment]
+    set AttNewName [file tail $mailAttachment]
+
+} elseif {$mail(AttType) == "snapshot"} {
+    exec wget -q -r -nd --user=$mailSnapuser --password=$mailSnappass --auth-no-challenge -P /usr/local/etc/config/addons/email/tmp/ "$mailAttachment"
+    exec mv /usr/local/etc/config/addons/email/tmp/$AttName /usr/local/etc/config/addons/email/tmp/snapshot.jpg
+    set fp [open "/usr/local/etc/config/addons/email/tmp/snapshot.jpg" r]
+    fconfigure $fp -translation binary
+    set imgdata [read $fp]
+    close $fp
+    set encodeddata [base64::encode $imgdata]
+    regsub -all "{IMGDATA}" $tmpl $encodeddata tmpl
+    set AttNewName [file tail $mailAttachment]
+
+} elseif {$mail(AttType) == "snapshot1"} {
+    exec wget -q -r -nd -A jpg,jpeg,png,cgi --user=$mailSnapuser --password=$mailSnappass --auth-no-challenge -P /usr/local/etc/config/addons/email/tmp/ "$mailAttachment"
+    exec /usr/local/etc/config/addons/email/rename
+    set fp [open "/usr/local/etc/config/addons/email/tmp/snapshot.jpg" r]
+    fconfigure $fp -translation binary
+    set imgdata [read $fp]
+    close $fp
+    set encodeddata [base64::encode $imgdata]
+    regsub -all "{IMGDATA}" $tmpl $encodeddata tmpl
+    set AttNewName [file tail $mailAttachment]
 }
 
 # WRITING READY MAIL FROM TMPL TO READY.EML
-set fp [open "/tmp/ready.eml" w]
+set fp [open "/usr/local/etc/config/addons/email/tmp/ready.eml" w]
 puts $fp $tmpl
 close $fp
 
 # SEND READY.EML USING MSMTP
-exec cat /tmp/ready.eml | /usr/local/etc/config/addons/email/msmtp -t -C /etc/config/addons/email/msmtp.conf
+exec cat /usr/local/etc/config/addons/email/tmp/ready.eml | /usr/local/etc/config/addons/email/msmtp -t -C /etc/config/addons/email/msmtp.conf
 
 # CLEAN UP
-exec rm -f /tmp/ready.eml
-if {$mail(AttType) == "local"} {
-exec rm -f /tmp/$AttName
-} elseif {$mail(AttType) == "down"} {
-exec rm -f /tmp/$AttName
+exec rm -r -f /usr/local/etc/config/addons/email/tmp
+exec mkdir /usr/local/etc/config/addons/email/tmp/
+exec chmod 755 /usr/local/etc/config/addons/email/tmp/
+
+} errMsg ] } then {
+    exec -- logger -t email -p user.err $errMsg
+  break
 }

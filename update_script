@@ -71,6 +71,10 @@ if [ -e ${WWW_DIR}/img/cuxmail.png ]; then
   rm -r ${WWW_DIR}/img/cuxmail.png
 fi
 
+if [ -e ${WWW_DIR}/anleitung.pdf ]; then
+  rm -r ${WWW_DIR}/anleitung.pdf
+fi
+
 # add menu entry
 touch /usr/local/etc/config/hm_addons.cfg
 ${ADDON_DIR}/update_addon email ${ADDON_DIR}/hm_email-addon.cfg

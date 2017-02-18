@@ -64,15 +64,15 @@ fi
 
 # Alte nicht mehr benötigte Dateien löschen
 if [ -e ${WWW_DIR}/anleitung.html ]; then
-  rm -r ${WWW_DIR}/anleitung.html
+  rm -f ${WWW_DIR}/anleitung.html
 fi
 
 if [ -e ${WWW_DIR}/img/cuxmail.png ]; then
-  rm -r ${WWW_DIR}/img/cuxmail.png
+  rm -f ${WWW_DIR}/img/cuxmail.png
 fi
 
 if [ -e ${WWW_DIR}/anleitung.pdf ]; then
-  rm -r ${WWW_DIR}/anleitung.pdf
+  rm -f ${WWW_DIR}/anleitung.pdf
 fi
 
 # add menu entry

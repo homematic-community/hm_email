@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Email Addon Anleitung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="icon" 
+      type="image/ico" 
+      href="email.ico">
+</head>
+<body>
+
+<div class="container">
+
+<div class="page-header">
+    <table width="535" border="0">
+  <tbody>
+    <tr>
+      <td width="125" rowspan="4"><span style="margin-bottom: 0in; line-height: 100%"><IMG SRC="logo.png" NAME="Bild 1" HSPACE=12 WIDTH=128 HEIGHT=128 BORDER=0></span></td>
+		<td width="500"><h4 class="panel-title"><FONT COLOR="#0070c0">HomeMatic Email Addon</FONT></h4>   </td>
+    </tr>
+    <tr>
+      <td>v1.6.7</td>
+    </tr>
+    <tr>
+      <td>Dokumentation</td>
+    </tr>
+    <tr>
+      <td>Letzte Änderung: 18.02.2017 HMside</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Bootstrap FAQ - START -->
+<div class="container"><br />
+
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <p>Bitte lesen Sie vor der Verwendung des Email Addons zunächst sorgfältig diese Anleitung. Sollten Sie dennoch Fragen offen bleiben, können diese <A HREF="http://homematic-forum.de/forum/viewtopic.php?f=41&t=18610" target="_blank">hier</A> gestellt werden.    </p>
+    </div>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">Installation</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    Die Installation des Addons erfolgt in der HomeMatic WebUI über Einstellungen -&gt; Systemsteuerung -&gt; Zusatzsoftware. Die tar.gz-Datei darf nicht entpackt werden. Safari-User sollten generell das automatische entpacken deaktivieren, da auch die CCU-Firmware Updates ansonsten entpackt werden. Anleitung zum deaktivieren siehe <A HREF="http://digitalesleben.info/2014/05/safari-automatisches-entpacken-einer-zip-datei-vermeiden/" target="_blank">hier</A>.</div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Update</a></h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Eine neue Version des Addons kann einfach über die alte Version installiert werden, alle bereits getätigten Einstellungen (Account, Vorlagen, Tcl-Skript) bleiben hierbei erhalten. 
+              </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Browser-Cache</a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+				<div class="panel-body"><b>WICHTIG! Bitte nach der Installation/Update den Browser-Cache leeren!</b><br><br>Wie geht das?<br><br>In den meisten Fällen reicht es mittels der Tastenkombination "STRG + F5"<br> bzw. Mac-User "CMD + SHIFT + R" den Seitencache zu löschen.<br><br>Alternativ:<br><u>Internet Explorer 9 - 11:</u> Strg + Shift + Entf -> Wählen Sie "Temporäre Internetdateien" und klicken Sie dann auf "Löschen"<br><u>Firefox:</u> Strg + Shift + Entf -> Aktivieren Sie die Option "Cache" und klicken Sie dann auf "Jetzt löschen"<br><u>Safari:</u> Strg + Alt+ E -> Klicken Sie anschließend auf "Leeren"<br><u>Chrome:</u> Strg + Shift + Entf -> Bei "Folgendes für diesen Zeitraum löschen" den Eintrag "Gesamter Zeitraum" wählen, "Cache löschen" aktivieren und auf "Browserdaten löschen" klicken.
+                </div>
+            </div>
+        </div>
+
+        <div class="faqHeader"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Account</a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+				<div class="panel-body">Unter dem Reiter <u>Account</u> wird der Email-Account zum Versenden der Mail eingetragen. Hierzu wird der SMTP-Server, der Absender (Mailadresse des Kontos), der Benutzername (häufig auch die Email-Adresse) und das Passwort benötigt.<br><br>Des Weiteren muss die Authentifikation (meist Login oder Plain), der Port und ob eine Verschlüsselte Verbindung verwendet wird eingestellt werden. Zudem kann es bei der Verwendung von Port 465 (SSL/TLS) erforderlich sein STARTTLS zu deaktivieren.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse5">Getestete Account Konfigurationen</a></h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body"><TABLE WIDTH=100% border="1" align="left" CELLPADDING=7 CELLSPACING=0>
+  <TR VALIGN=TOP>
+    <TD WIDTH=222 BGCOLOR="#f4db80" STYLE="text-align: center"><P><b>SMTP Server</b></P></TD>
+    <TD WIDTH=126 BGCOLOR="#f4db80" STYLE="text-align: center"><P><b>Authentifikation</b></P></TD>
+    <TD WIDTH=58 BGCOLOR="#f4db80" STYLE="text-align: center"><P><b>Port</b></P></TD>
+    <TD WIDTH=52 BGCOLOR="#f4db80" STYLE="text-align: center"><P><b>TLS</b></P></TD>
+    <TD WIDTH=93 BGCOLOR="#f4db80" STYLE="text-align: center"><P><b>STARTTLS</b></P></TD>
+    <TD WIDTH=534 BGCOLOR="#f4db80" STYLE="text-align: center"><P><b>Besonderheit</b></P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD WIDTH=222 HEIGHT=7 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>smtp.smart-mail.de</P></TD>
+    <TD WIDTH=126 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>Login</P></TD>
+    <TD WIDTH=58 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>25</P></TD>
+    <TD WIDTH=52 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>nein</P></TD>
+    <TD WIDTH=93 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>nein</P></TD>
+    <TD WIDTH=534 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>nein</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD WIDTH=222 HEIGHT=6 STYLE="text-align: center"><P>mail.gmx.net </P></TD>
+    <TD WIDTH=126 STYLE="text-align: center"><P>Login</P></TD>
+    <TD WIDTH=58 STYLE="text-align: center"><P>587</P></TD>
+    <TD WIDTH=52 STYLE="text-align: center"><P>ja</P></TD>
+    <TD WIDTH=93 STYLE="text-align: center"><P>nein</P></TD>
+    <TD WIDTH=534 STYLE="text-align: center"><P>nein</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD WIDTH=222 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>smtp.web.de</P></TD>
+    <TD WIDTH=126 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>Login</P></TD>
+    <TD WIDTH=58 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>587</P></TD>
+    <TD WIDTH=52 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>ja</P></TD>
+    <TD WIDTH=93 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>nein</P></TD>
+    <TD WIDTH=534 BGCOLOR="#d9d9d9" STYLE="text-align: center"><P><FONT COLOR="#ff0000">siehe 2.2</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD STYLE="text-align: center"><P>smtp.mail.yahoo.com</P></TD>
+    <TD STYLE="text-align: center"><P>Login</P></TD>
+    <TD STYLE="text-align: center"><P>587</P></TD>
+    <TD STYLE="text-align: center"><P>ja</P></TD>
+    <TD STYLE="text-align: center"><P>nein</P></TD>
+    <TD STYLE="text-align: center"><P>nein</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>smtp.gmail.com</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>Login</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>587</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>ja</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>nein</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P><FONT COLOR="#ff0000">siehe 2.3</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD STYLE="text-align: center"><P>smtp.ewe.net</P></TD>
+    <TD STYLE="text-align: center"><P>Login</P></TD>
+    <TD STYLE="text-align: center"><P>587</P></TD>
+    <TD STYLE="text-align: center"><P>ja</P></TD>
+    <TD STYLE="text-align: center"><P>nein</P></TD>
+    <TD STYLE="text-align: center"><P>Absender &amp; Benutzername =
+	Mailadresse</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>Alfahosting</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>Login</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>465</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>ja</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>ja</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>nein</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD STYLE="text-align: center"><P>securesmtp.t-online.de</P></TD>
+    <TD STYLE="text-align: center"><P>Login</P></TD>
+    <TD STYLE="text-align: center"><P>587</P></TD>
+    <TD STYLE="text-align: center"><P>ja</P></TD>
+    <TD STYLE="text-align: center"><P>nein</P></TD>
+    <TD STYLE="text-align: center"><P>nein</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>securesmtp.t-online.de</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>Login</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>465</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>ja</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>ja</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>nein</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD STYLE="text-align: center"><P>mx.freenet.de</P></TD>
+    <TD STYLE="text-align: center"><P>Login</P></TD>
+    <TD STYLE="text-align: center"><P>587</P></TD>
+    <TD STYLE="text-align: center"><P>ja</P></TD>
+    <TD STYLE="text-align: center"><P>nein</P></TD>
+    <TD STYLE="text-align: center"><P>nein</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>smtp.strato.de</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>Login</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>465</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>ja</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>ja</P></TD>
+    <TD BGCOLOR="#d9d9d9" STYLE="text-align: center"><P>Absender &amp; Benutzername =
+	Mailadresse</P></TD>
+  </TR>
+  <TR VALIGN=TOP>
+    <TD STYLE="text-align: center"><P>smtp.kabelmail.de</P></TD>
+    <TD STYLE="text-align: center"><P>Login</P></TD>
+    <TD STYLE="text-align: center"><P>465</P></TD>
+    <TD STYLE="text-align: center"><P>ja</P></TD>
+    <TD STYLE="text-align: center"><P>ja</P></TD>
+    <TD STYLE="text-align: center"><P>Absender &amp; Benutzername =
+    Mailadresse</P></TD>
+  </TR>
+</TABLE>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse6">Authentifizierungsprobleme bei Web.de</a>
+                </h4>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">Seit 04/2015 verlangen einige Mail-Provider aus Sicherheitsgründen spezielle Einstellungen bzw. eine Freigabe durch den Nutzer, um Email über eine Drittanbieter Software wie dieses Addon Emails versenden zu können. Für web.de ist erforderlich in den E-Mail Einstellungen unter „POP3/IMAP Abruf“ den Haken für „E-Mails per externem Programm (Outlook, Thunderbird) versenden und empfangen“ zu setzen (siehe Screenshot).<br><br><IMG SRC="webde.png" NAME="Bild 3" ALIGN=BOTTOM WIDTH=70% BORDER=0>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse7">Authentifizierungsprobleme bei Gmail</a>
+                </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">Für Nutzer von Gmail ist es erforderlich das Gmail-Konto auf die 2-Step Verification umzustellen. Anschließend kann über den Google App-Passwörter Bereich für das HomeMatic Email-Addon ein separates App-Passwort eingerichtet werden (siehe Screenshot). Dieses Passwort wird dann im Email-Addon unter Account eingegeben.<br><br>Hilfe zu App-Passwörtern und 2-Step Verification findet man <A HREF="https://support.google.com/accounts/answer/185833?hl=de" target="_blank">hier</A>.<br><br><IMG SRC="gmail.png" NAME="Bild 6" ALIGN=BOTTOM WIDTH=40% BORDER=0>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse8">Vorlagen Einstellungen</a>
+                </h4>
+            </div>
+            <div id="collapse8" class="panel-collapse collapse">
+				<div class="panel-body">Unter dem Reiter E-Mails können 50 individuelle Mail-Vorlagen definiert werden. Folgend werden die einzelnen Felder kurz beschrieben.<br><br><ul><li>Über die <u>E-Mail ID</u> Auswahl wird die gewünschte Vorlage (1-50) aufgerufen.</li><li>Daneben im Feld <u>Beschreibung</u> kann der Vorlage zur besseren Übersicht eine Kurzbeschreibung hinzugefügt werden.</li><li>In der Zeile <u>An</u> wird die Mail-Adresse des Empfängers eingetragen.</li><li>Unter <u>Betreff</u> wird der Betreff der Mail eingetragen.</li><li>Über die Auswahl für <u>Dateianhang</u> kann der Typ des Anhangs definiert werden (Aus, CCU-File, Download, Snapshot, Snapshot 1).</li><li>Im Feld darunter wird der <u>Dateipfad</u> angegeben (<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse9">mehr Infos siehe hier</a>).</li><li>Des Weiteren kann für den Anhangtyp Snapshot der <u>Benutzername</u> sowie das <u>Passwort</u> der Kamera angegeben werden.</li><li>In das große Eingabefeld wird der eigentliche <u>Email Text</u> eingetragen, hier können auch zuvor unter dem Reiter Tcl definierte Variablen bzw. Platzhalter mittels einem vorangestellten Dollar-Zeichen ($) eingebunden werden (<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse19">mehr Infos siehe hier</a>).</li><li>Sofern Variablen/Platzhalter verwendet werden sollen, muss unten der Haken für <u>Tcl</u> aktivieren gesetzt werden.</li><li>Zudem kann durch setzen des Hakens bei <u>Mail mit hoher Priorität</u> eine Email mit hoher Priorität z.B. für Alarmmeldungen versendet werden.</li></ul><br><img src="vorlage.png" width="40%" alt=""/>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse9">Dateianhänge versenden</a>
+                </h4>
+            </div>
+            <div id="collapse9" class="panel-collapse collapse">
+				<div class="panel-body">Ab der Addon Version 1.6.5 ist es möglich mit der CCU auch Dateianhänge zu versenden. Für die CCU1 steht die Funktion nur sehr eingeschränkt zur Verfügung, lediglich die Optionen CCU-File und Download (kein https) können eingesetzt werden die Snapshot Optionen haben hier keine Funktion.<br><br>Hierzu muss im Reiter <u>E-Mails</u> für die gewünschte E-Mail Vorlage eingestellt werden um was für einen Anhangs-Typ es sich handelt.<br><br><TABLE WIDTH=100% CELLPADDING=7 CELLSPACING=0 align="left">
+    <TR VALIGN=TOP>
+      <TD WIDTH=98 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;">
+        <P><B>Typ</B></P>
+      </TD>
+      <TD WIDTH=755 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;">
+        <P><B>Erläuterung</B></P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=98 HEIGHT=7 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;">
+        <P>Aus</P>
+      </TD>
+      <TD WIDTH=755 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;">
+        <P>Es wird kein Dateianhang gesendet</P>
+      </TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=98 HEIGHT=6 STYLE="border: 1px solid #00000a;">
+        <P>CCU-File</P>
+      </TD>
+      <TD WIDTH=755 STYLE="border: 1px solid #00000a;">
+        <P>Die zu versendende Datei befindet sich lokal auf
+          der CCU, z.B. das CCU-Logfile</P>
+      </TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=98 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;">
+        <P>Download</P>
+      </TD>
+      <TD WIDTH=755 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;">
+        <P>Die zu versendende Datei muss von einer externen
+          Quelle geladen werden. </P>
+      </TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>Snapshot</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Diese Funktion ist  für das
+        versenden von Kamera-Snapshots vorgesehen. Diese Variante funktioniert für Kameras die keinen klaren Dateityp ausgeben. Wie z.B. <font face="Courier New, serif">http://<FONT FACE="Courier New, serif">KAMERA-IP:PORT/CGIProxy.fcgi?cmd=snapPicture2&amp;amp;usr=admin&amp;amp;pwd=meinPW</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Snapshot 1</P></TD>
+      <TD BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Diese Funktion ist  für das
+        versenden von Kamera-Snapshots vorgesehen. In dieser Variante werden lediglich die Dateiformate jpg, jpeg, png und cgi geladen und ggf. entsprechend gewandelt. Wie z.B. <font face="Courier New, serif">http://<FONT FACE="Courier New, serif">KAMERA-IP:PORT/snapshot.cgi</P></TD>
+    </TR>
+  </TABLE>
+                  <br style="clear: both">
+                  <br>
+In das Eingabefeld unter dem Anhang-Typ muss der entsprechende Pfad zum Dateianhang eingetragen werden. Es kann immer nur eine Datei je Vorlage versendet werden. Folgend ein paar Beispiele.<br>
+<br>
+<u>Anhang-Typ = CCU-File:</u><br>
+<br>
+HomeMatic Systemprotokoll: <font face="Courier New, serif">/etc/config/addons/www/email/log/messages</font><br>
+<br>
+HomeMatic &amp; Homematic IP Java Server Logfile: <font face="Courier New, serif">/etc/config/addons/www/email/log/hmserver.log</font><br>
+<br>
+Die CCU-Logfiles „massages“ und „hmserver.log“ werden vom Email-Addon automatisch umbenannte und dem Dateinamen wird einen Zeitstempel hinzugefügt.<br>
+<br>
+<font face="Courier New, serif">CCU-Logfile-DD.MM.JJJJ-HH:MM:SS.log</font><strong> bzw. </strong><font face="Courier New, serif">hmserver-DD.MM.JJJJ-HH:MM:SS.log</font><br>
+<br>
+<u>Anhang-Typ = Download:</u><br>
+<br>
+Mit dem Anhang-Typ Download können Dateien von externen Quellen versendet werden:<br>
+<br>
+<font face="Courier New, serif">http://www.adresse.de/name-bild.jpg</font><b> oder </b><font face="Courier New, serif">http://www.adresse.de/name-tabelle.xls</font><br>
+<br>
+<u>Anhang-Typ = Snapshot:</u><br>
+<br>
+Der Anhang-Typ Snapshot wird zum versenden von Kamera-Bildern verwendet. Diese Variante funktioniert für Kameras die keinen klaren Dateityp ausgeben. Das Email-Addon wandelt diesen in eine JPEG-Datei und fügt dem Dateinamen einen Zeitstempel hinzu (<font face="Courier New, serif">snapshot-DD.MM.JJJJ-HH:MM:SS.jpg</font>).<br>
+<br>
+Weitere Informationen zum Kamera Snapshot Pfad können der Bedienungsanleitung der jeweiligen Kamera oder der Übersichtseite von <a href="https://www.ispyconnect.com/sources.aspx" target="_blank">iSpyConnect</a> entnommen werden.<br>
+<br>
+<u>Anhang-Typ = Snapshot 1:</u><br>
+<br>
+Auch der Anhang-Typ Snapshot 1 wird zum versenden von Kamera-Bildern verwendet. In dieser Variante werden lediglich die Dateiformate jpg, jpeg, png und cgi geladen und ggf. entsprechend gewandelt. Das Email-Addon wandelt diesen in eine JPEG-Datei und fügt dem Dateinamen einen Zeitstempel hinzu (<font face="Courier New, serif">snapshot-DD.MM.JJJJ-HH:MM:SS.jpg</font>).<br>
+<br>
+Weitere Informationen zum Kamera Snapshot Pfad können der Bedienungsanleitung der jeweiligen Kamera oder der Übersichtseite von <a href="https://www.ispyconnect.com/sources.aspx" target="_blank">iSpyConnect</a> entnommen werden.<br>
+<br>
+<strong>ACHTUNG: Bei der Verwendung von Snapshot und Snapshot 1 sind zudem folgende Hinweise zu beachten:</strong><br>
+<br>
+<ul><li>Bitte vor der Verwendung von Kamera-Snapshots im Browser prüfen, ob unter dem angegeben Snapshot Pfad tatsächlich ein Einzelbild ausgegeben wird.</li><li>Der Benutzername und das Passwort für das Kamera Login können ab Version 1.6.7 direkt in die Eingabefelder der Vorlage eingegeben werden, bei manchen Kameras greift das Setzen des Benutzernamens und Passworts über diese Eingabefelder nicht. Es ist dann erforderlich dies im Aufruf selbst einzusetzen. Wie z.B. <font face="Courier New, serif">http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW</font></li></ul><br>Getestete Kameras:<br><TABLE WIDTH=100% align="left" CELLPADDING=7 CELLSPACING=0>
+    <TR VALIGN=TOP>
+      <TD WIDTH=122 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><B>Kameramodell</B></P></TD>
+      <TD WIDTH=615 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><B>Snapshot Pfad</B></P></TD>
+      <TD WIDTH=98 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><B>Download Typ</B></P></TD>
+      <TD WIDTH=125 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><b>Username &amp; Passwort Eingabe</b></P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=122 HEIGHT=7 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Instar IN-3001</P></TD>
+      <TD WIDTH=615 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P><FONT FACE="Courier New, serif">http://KAMERA-IP:PORT/snapshot.cgi</P></TD>
+      <TD WIDTH=98 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Snapshot 1</P></TD>
+      <TD WIDTH=125 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Im Eingabefeld</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=122 HEIGHT=6 STYLE="border: 1px solid #00000a;"><P>Instar IN-6014HD</P></TD>
+      <TD WIDTH=615 STYLE="border: 1px solid #00000a;"><P><FONT FACE="Courier New, serif">http://KAMERA-IP<FONT FACE="Courier New, serif">:PORT<FONT FACE="Courier New, serif">/tmpfs/snap.jpg</P></TD>
+      <TD WIDTH=98 STYLE="border: 1px solid #00000a;"><P>Snapshot 1</P></TD>
+      <TD WIDTH=125 STYLE="border: 1px solid #00000a;"><P>Im Eingabefeld</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD HEIGHT=6 STYLE="border: 1px solid #00000a;"><P>Instar IN-5907HD</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P><FONT FACE="Courier New, serif">http://<FONT FACE="Courier New, serif">[USERNAME]<FONT FACE="Courier New, serif">:<FONT FACE="Courier New, serif">[PASSWORD]<FONT FACE="Courier New, serif">@<FONT FACE="Courier New, serif">KAMERA-IP<FONT FACE="Courier New, serif">:PORT<FONT FACE="Courier New, serif">/tmpfs/snap.jpg</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Snapshot </P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Im Snapshot Pfad</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#FFFFFF">
+      <TD WIDTH=122 STYLE="border: 1px solid #00000a;"><P>Edimax IC9110W</P></TD>
+      <TD WIDTH=615 STYLE="border: 1px solid #00000a;"><P><FONT FACE="Courier New, serif">http://KAMERA-IP<FONT FACE="Courier New, serif">:PORT<FONT FACE="Courier New, serif">/snapshot.jpg</P></TD>
+      <TD WIDTH=98 STYLE="border: 1px solid #00000a;"><P>Snapshot 1</P></TD>
+      <TD WIDTH=125 STYLE="border: 1px solid #00000a;"><P>Im Eingabefeld</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><P>Edimax IC7112W</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P><FONT FACE="Courier New, serif">http://KAMERA-IP<FONT FACE="Courier New, serif">:PORT<FONT FACE="Courier New, serif">/snapshot.jpg</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Snapshot 1</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Im Eingabefeld</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>Doorbird</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><FONT FACE="Courier New, serif">http://[<FONT FACE="Courier New, serif">USERNAME<FONT FACE="Courier New, serif">]:[<FONT FACE="Courier New, serif">PASSWORD<FONT FACE="Courier New, serif">]@[<FONT FACE="Courier New, serif">KAMERA-IP<FONT FACE="Courier New, serif">]/bha-api/image.cgi</TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Snapshot 1</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Im Snapshot Pfad</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><P>Digitus OptiVario</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><FONT FACE="Courier New, serif">http://KAMERA-IP<FONT FACE="Courier New, serif">:PORT<FONT FACE="Courier New, serif">/web/cgi-bin/hi3510/snap.cgi?&-getpic</TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Snapshot</P></TD>
+      <TD STYLE="border: 1px solid #00000a;">&nbsp;</TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>D-Link DCS942L</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><FONT FACE="Courier New, serif">http://<FONT FACE="Courier New, serif">KAMERA-IP<FONT FACE="Courier New, serif">:PORT<FONT FACE="Courier New, serif">/image/jpeg.cgi</TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Snapshot 1</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Im Eingabefeld</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><p>Foscam FI9804W / FI9805W / FI9821W / FI9828W / FI9900P (Technaxx TX-62)</p></TD>
+      <TD STYLE="border: 1px solid #00000a;"><FONT FACE="Courier New, serif">http://KAMERA-IP:PORT/cgi-bin/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=[USERNAME]&amp;pwd=[PASSWORD]</TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Snapshot</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Im Snapshot Pfad</P></TD>
+    </TR>
+  </TABLE>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse10">Emails mit HTML-Code</a>
+                </h4>
+            </div>
+            <div id="collapse10" class="panel-collapse collapse">
+				<div class="panel-body">Ab der Addon Version 1.6.5 ist es möglich im Email Text Feld auch HTML-Code einzufügen.<br>
+				  <br>
+				  Um eine HTML-Mail zu verschicken, muss der Email Text mit <font face="Courier New, serif">&lt;html</font> oder <font face="Courier New, serif">&lt;!DOCTYPE</font> beginnen und eine komplette HTML-Seite sein. Groß- bzw. Kleinschreibung wird, hierbei nicht berücksichtigt. Auch die definierten TCL Platzhalten/Variablen können in diesen HTML-Code eingefügt werden.<br>
+				  <br><u>
+					Beispiel HTML-Code:</u><br>
+				  <br>
+				  <font face="Courier New, serif"> &lt;html&gt;<br>
+				  &lt;font color="#E01316"&gt;Folgend der Wert eines TCL Platzhalters: $v1&lt;/font&gt;<br>
+				  &lt;font color="#10C900"&gt;Dies ist ein nur ein Text: ÄäÖöÜü&lt;/font&gt;<br>
+					  &lt;/html&gt;</font><br>
+				  <br><u>
+					Ergebnis im Mail-Programm:</u><br><br><IMG SRC="html.png" NAME="Bild 11" ALIGN=BOTTOM WIDTH=50% BORDER=0> </div>
+            </div>
+        </div>
+        
+
+        <div class="faqHeader"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse11">Das Skript zum Versenden der Mail</a>
+                </h4>
+            </div>
+            <div id="collapse11" class="panel-collapse collapse">
+                <div class="panel-body">
+					<font COLOR="#ff0000"><b>ACHTUNG! Es wird dringend empfohlen das Original Script zum Versenden der Email, welches die undokumentierte und instabile „system.Exec()“-Funktion der CCU nutzt, NICHT zu verwenden.</b></font><br><br>Die fehlerhafter Nutzungsweise bzw. häufiger Ausführung der „system.Exec()“-Funktion kann zum Stillstand/Aufhängen das Systems (der CCU) führen. Bitte verwenden Sie daher das vom CUxD-Addon angebotene und optimierte System-Gerät Typ 28 mit der Exec-Funktion bzw. dass CUxD-Gerät 91. Die Einrichtung der CUxD-Geräte wird <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12">hier</a> bzw. <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse13">hier</a> beschrieben.<br><br>Zudem wird dringend empfohlen, zu kontrollieren, ob auch andere installierte Zusatzsoftware bzw. verwendete Skripte die „system.Exec()“-Funktion verwendet. Auch diese sollten durch die CUxD Exec-Funktion ersetzt werden. Weitere Informationen zum ersetzen der „system.Exec()“-Funktion finden Sie <A HREF="http://homematic-forum.de/forum/viewtopic.php?f=31&amp;t=12780&amp;sid=947eee72913b350f9fc15d6e091e286c" target="_blank">hier</A>.<br><br><u>Das Original Script - nicht verwenden!</u><br><br><table width="100%" border="0">
+  <tbody>
+    <tr>
+      <td><IMG SRC="no.png" NAME="Bild 20" ALIGN=LEFT HSPACE=12 WIDTH=92 HEIGHT=90 BORDER=0></td>
+      <td><font face="Courier New, serif" COLOR="#ff0000">string
+        stdout;</FONT></P>
+        <font face="Courier New, serif" color="#ff0000">string
+          stderr;></font>
+        </P>
+        <font face="Courier New, serif" COLOR="#ff0000">system.Exec(&quot;/etc/config/addons/email/email
+      ID&quot;, &amp;stdout, &amp;stderr);</FONT></P></td>
+    </tr>
+  </tbody>
+</table><br><br><u>Nutzen Sie das folgende Script unter Verwendung des CUxD System-Gerät Typ 28:</u><br><br><table width="100%" border="0">
+  <tbody>
+    <tr>
+		<td><IMG SRC="yes.jpg" NAME="Bild 20" ALIGN=LEFT HSPACE=12 WIDTH=92 HEIGHT=90 BORDER=0></td><td><font face="Courier New, serif" color="#00b050">dom.GetObject(&quot;CUxD.CUX2801001:1.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email</font><font face="Courier New, serif" color="#ff0000">ID</font><font face="Courier New, serif" color="#00b050">&quot;);</font></td>
+    </tr>
+  </tbody>
+</table><br>Die in der Skript Zeile rot markierte <font face="Courier New, serif" COLOR="#ff0000"><I>ID</I></FONT> ist durch die gewünschte Vorlagen ID zu ersetzen.<br><br>Beispiel: Sie möchten die Vorlage 9 verwenden, so ist <font face="Courier New, serif" COLOR="#ff0000"><I>09</I></FONT> einzutragen. Die Skript-Zeile sieht dann also folgendermaßen aus:<br><br><font face="Courier New, serif" COLOR="#00b050"><I>dom.GetObject(&quot;CUxD.CUX2801001:1.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email
+  </I></FONT><font face="Courier New, serif" COLOR="#ff0000"><I>09</I></FONT><font face="Courier New, serif" COLOR="#00b050"><I>&quot;);</I></FONT>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12">Einrichtung des CUxD System-Gerät Typ 28</a>
+                </h4>
+            </div>
+            <div id="collapse12" class="panel-collapse collapse">
+                <div class="panel-body">
+					Aktuelle <A HREF="http://www.homematic-inside.de/software/cuxdaemon" target="_blank">CUx-Daemon</A> Addon Version herunterladen (tar.gz darf nicht entpackt werden).<br><br>1. Anschließend CUxD über die WebUI -> Einstellungen -> Systemsteuerung -> Zusatzsoftware installieren.<br><br>2. Nach dem CCU Neustart über die WebUI -> Einstellungen -> Systemsteuerung -> CUx-Daemon -> Geräte -><br><br><ul><li> Für CUxD Gerätetyp: (28) System auswählen</li><li> Funktion: Exec</li><li>Die Seriennummer für das Gerät wird automatisch vergeben, wenn hier 1 steht wird das CUxD-Gerät mit der Seriennummer <font color="#00b050">CUX2801001</font> erstellt, welche auch in den Skripten verwendet wird. Solltet hier eine andere Seriennummer stehen, ist die letzte Zahl von der CUxD-Gerät Seriennummer auch in den Skripten anzupassen (z.B. <font COLOR="#ff0000">3</font> = <font color="#00b050">CUX280100</font><font COLOR="#ff0000">3</font> ).</li><li>Dann auf „Gerät auf CCU erzeugen klicken!“</li><br><IMG SRC="cuxd28.jpg" NAME="Bild 15" ALIGN=BOTTOM WIDTH=391 HEIGHT=213 BORDER=0></ul><br style="clear: both">
+                  <br>3. Nun in der WebUI -> Einstellungen -> Geräte – Posteingang -> auf „Fertig“ klicken um das Gerät zu übernehmen.<br><br><IMG SRC="cuxd28-webui.png" NAME="Bild 5" ALIGN=BOTTOM WIDTH=561 HEIGHT=80 BORDER=0>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse13">Mails mittels CUxD Gerätetyp 91 versenden</a>
+                </h4>
+            </div>
+            <div id="collapse13" class="panel-collapse collapse">
+                <div class="panel-body">
+					Das CCU Addon <A HREF="http://homematic-forum.de/forum/viewtopic.php?f=37&amp;t=15298" target="_blank">CUx-Daemon</A> ist in der Lage, neue "virtuelle" Geräte direkt in die CCU einzubinden. Mit dem CUxD Gerätetyp 91 (CloudMatic Mail) ist es ab Version 0.67 möglich durch Anpassung des CMD_EXEC Parameters die Mails direkt im Zentralen Programmen zu definieren ohne hierfür ein Skript zu verwenden.<br><br><b>Hinweis:</b> Hierzu wird kein meine-homematic bzw. CloudMatic Zugang benötigt. Die Account Einstellungen werden nach wie vor im Email-Addon vorgenommen.<br><br><u>Vorgehensweise:</u><br><br><ul><li>Über CUxD ein neues Gerät (91 CloudMatic Mail) erstellen.</li><li>In der WebUI unter -> Einstellungen -> Posteingang -> das neue Gerät in die CCU übernehmen (auf Fertig klicken).</li><li>In der WebUI unter -> Einstellungen -> Geräte -> hinten zu diesem Gerät auf "Einstellen" klicken.</li><li>Die Zeile aus dem unteren Eingabefeld (SYSTEM|CMD_EXEC) durch folgende Zeile ersetzen: <font face="Courier New, serif" color="#00b050">/etc/config/addons/email/email_cuxd</font></li><li>CCU neustarten!</li></ul><br>Im Zentralen-Programm kann dann wie im folgenden Bild zusehen durch mehrfaches Einfügen des CUxD-Email-Gerätes die Mail aufgebaut und abschließend mit dem Parameter SEND abgeschickt werden:<br><br><IMG SRC="cuxd-mail.png" NAME="Bild 22" ALIGN=BOTTOM WIDTH=450 HEIGHT=99 BORDER=0><br><br><TABLE WIDTH=100% CELLPADDING=7 CELLSPACING=0 align="left">
+    <TR VALIGN=TOP>
+      <TD colspan="2" BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><B>Mögliche Parameter</B></P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=114 HEIGHT=7 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>SEND</P></TD>
+      <TD WIDTH=548 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Tastendruck auf WebUI zum Versenden der Mail</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=114 HEIGHT=6 STYLE="border: 1px solid #00000a;"><P>MAILTO</P></TD>
+      <TD WIDTH=548 STYLE="border: 1px solid #00000a;"><P>Email-Empfänger</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=114 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>MAILCC</P></TD>
+      <TD WIDTH=548 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Kopie der Email an weiteren Empfänger</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>SUBJECT</P></TD>
+      <TD STYLE="border: 1px solid #00000a;">Betreff der Mail</TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>TYPE=STANDARD</P></TD>
+      <TD BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Email im Text-Format</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>TYPE=HTML</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>Email im HTML-Format</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>TEXT</P></TD>
+      <TD BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>Der Text der Email</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>TEMPLATEID</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>1 - 50, zur Verwendung der Email-Vorlagen aus dem
+        Addon</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>OPTION_1 bis OPTION_5</P></TD>
+      <TD BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>für vordefiniertes Template, können in den
+        Geräteeinstellungen definiert werden</P></TD>
+    </TR>
+  </TABLE>
+                </div>
+            </div>
+        </div>
+      <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse14">Beispiel Zentralenprogramm zum versenden einer Mail</a>
+                </h4>
+            </div>
+            <div id="collapse14" class="panel-collapse collapse">
+                <div class="panel-body">
+					Nachdem die Gundlegenden Einstellungen des Email-Addons getätigt wurden, kann nun der Email Versand durch eine Zentralenprogram angestoßen werden. Damit eine Email versendet werden kann, muss zunächst unter "Bedingung: Wenn..." ein auslösendes (triggerndes) Ereignis definiert werden.<br><br>Beispiel:<br><br>Wenn... "Geräteauswahl" Türkontakt bei "offen" "bei Änderung auslösen".<br><br>Oder<br><br>Wenn... "Geräteauswahl" 2-fach Wandtaster Kanal 1 bei „Tastendruck kurz“<br><br>Nun folgt der Dann-Teil, welcher beim öffnen des Fensters oder durch einen kurzen Tastendruck des Wandtasters ausgeführt wird. Das erforderliche Skript zum versenden der Mail wird also nun unter...<br><br>Aktivität: Dann.. -> Skript -> Skript erstellen in das Eingabefeld eingefügt. Die <font COLOR="#ff0000">ID</font> am Ende der Skript-Zeile muss durch die Nummer der entsprechenden Mail-Vorlagen ID (01 - 50) ersetzt werden (siehe <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse8">hier</a> bzw. <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse11">hier</a>).<br><br><IMG SRC="script.png" NAME="Bild 13" ALIGN=BOTTOM WIDTH=60% BORDER=0>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse15">Das Hilfe Menü</a>
+                </h4>
+            </div>
+            <div id="collapse15" class="panel-collapse collapse">
+                <div class="panel-body">
+					Unter dem Reiter <u>Hilfe</u> gelangen Sie zu dieser Anleitung. Sofern trotz dieser Anleitung Fragen offen bleiben sollten, es Probleme, oder Verbesserungsvorschläge gibt, können diese in <A HREF="http://homematic-forum.de/forum/viewtopic.php?f=41&amp;t=18610" target="_blank">homematic-forum
+      Support-Thread</A> mitgeteilt werden.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse16">Testmail senden</a>
+                </h4>
+            </div>
+            <div id="collapse16" class="panel-collapse collapse">
+                <div class="panel-body">
+					Wie schon im Addon selber beschrieben, kann über den „Testmail senden“ Button getestet werden ob die Account Einstellungen korrekt sind. Voraussetzung hierfür ist, dass unter dem Reiter <u>E-Mails</u> in der Vorlage 1 eine Empfänger Email-Adresse eingetragen ist.<br><br>Sofern es hierbei eine Fehlermedlung aufpoppt, erschein nach der Bestätigung eine zugehöriger Eintrag im Syslog Fenster. Sollte hier keine Eintrag erscheinen, kann mittels des folgenden Skripts über die WebUI unter "Skript testen" ggf. eine erweiterete Fehlerausgabe gestartet werden.<br><br><font face="Courier New, serif" color="#00b050">
+string stdout;<br>string stderr;<br>system.Exec("/etc/config/addons/email/email 01",&stdout,&stderr);<br>WriteLine("FEHLER:\n "#stderr);<br>
+WriteLine("AUSGABE:\n"#stdout);<br></font>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse17">Backup erstellen</a>
+                </h4>
+            </div>
+            <div id="collapse17" class="panel-collapse collapse">
+                <div class="panel-body">
+					Mit dem Button „Backup erstellen“ wird eine komplette Sicherung der Addon Einstellungen erstellt. Im Backup sind die Account-Daten, alle Email-Vorlagen und auch das Tcl-Script enthalten. Das im tar.gz Format ausgegebene Backup kann so jederzeit über die HomeMatic WebUI unter Einstellungen -> Systemsteuerung -> Zusatzsoftware wieder eingespielt werden bzw. auch in eine andere Zentral übertragen werden. Die tar.gz Datei darf nicht entpackt werden.<br><br><IMG SRC="hilfe.png" NAME="Bild 21" ALIGN=BOTTOM WIDTH=40% BORDER=0>
+                </div>
+            </div>
+        </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse18">Fehlermeldungen der Logfiles</a>
+                </h4>
+            </div>
+            <div id="collapse18" class="panel-collapse collapse">
+                <div class="panel-body">
+					Des Weiteren werden im Hilfe-Bereich zwei verschiedene Logfiles angezeigt, diese werden alle 10 Sekunden automatisch aktualisiert. Je nach Art des Fehlers kann es bis zur Anzeige des Log-Eintrags mehrere Minuten dauern. Die "email.log" welche direkt vom Email-Addon erstellt wird, gibt Meldungen über erfolgreiches oder fehlerhaftes Senden einer Email aus. Das zweite Logfile "CCU-Syslog", gibt Meldungen über ggf. fehlerhafte Nutzung des msmtp-Diensts aus.<br><br>Mögliche Meldungen:<TABLE WIDTH=100% align="left" CELLPADDING=7 CELLSPACING=0>
+    <TR VALIGN=TOP>
+      <TD WIDTH=305 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><B>Meldung email.log</B></P></TD>
+      <TD WIDTH=281 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><B>Meldung Syslog</B></P></TD>
+      <TD WIDTH=310 BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><b><font size="3">Beschreibung</b></P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=305 HEIGHT=7 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>exitcode=EX_OK</P></TD>
+      <TD WIDTH=281 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>kein Eintrag</P></TD>
+      <TD WIDTH=310 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#34a028">Die Email wurde
+        erfolgreich gesendet</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=305 HEIGHT=6 STYLE="border: 1px solid #00000a;"><P>Connection timed out'
+        exitcode=EX_TEMPFAIL</P></TD>
+      <TD WIDTH=281 STYLE="border: 1px solid #00000a;"><P>msmtp: cannot connect to <BR>
+        SMTP-SERVER, port XXX: <BR>
+        Connection timed out msmtp: <BR>
+        could
+        not send mail</P></TD>
+      <TD WIDTH=310 STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#d50003">Zeitüberschreitung:
+        falscher Port </P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD HEIGHT=6 STYLE="border: 1px solid #00000a;"><P>Error: authentication failed: <BR>
+        authentication failure' <BR>
+        errormsg='authentication failed <BR>
+        (method PLAIN)' exitcode=EX_NOPERM</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>msmtp: authentication <BR>
+        failed
+        (method PLAIN)</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#d50003">Authentifikation
+        fehlgeschlagen: Benutzername oder Kennwort falsch, bzw. falsche
+        Authentifikations-Methode</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#FFFFFF">
+      <TD WIDTH=305 STYLE="border: 1px solid #00000a;"><P>errormsg='the server does <BR>
+        not
+        support authentication method XXX' <BR>
+        exitcode=EX_UNAVAILABLE</P></TD>
+      <TD WIDTH=281 STYLE="border: 1px solid #00000a;"><P>msmtp: the server does <BR>
+        not
+        support authentication <BR>
+        method XXX</P></TD>
+      <TD WIDTH=310 STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#d50003">Ausgewählte
+        Authentifikations-Methode wird vom Server nicht unterstützt</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><P>errormsg='cannot locate host <BR>
+        SMTP-SERVER.de: Name or service <BR>
+        not known'
+        exitcode=EX_NOHOST</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>msmtp: cannot locate host <BR>
+        SMTP-SERVER.de: Name or <BR>
+        service not known</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#d50003">SMTP-Server
+        Adresse ist falsch</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>errormsg='cannot connect to <BR>
+        SMTP-SERVER.de, port 587: Network <BR>
+        is unreachable'
+        exitcode=EX_TEMPFAIL</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>msmtp: cannot connect to <BR>
+        SMTP-SERVER.de, port 587: <BR>
+        Network is unreachable</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#d50003">Internetverbindung
+        unterbrochen oder CCU-Netzwerkeinstellungen fehlerhaft: Gateway
+        prüfen</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><P>errormsg='envelope from address <BR>
+        TEST@TEST.de not accepted by <BR>
+        the server'
+        exitcode=EX_DATAERR</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>msmtp: envelope from address <BR>
+        TEST@TEST.de not accepted <BR>
+        by the server</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><FONT COLOR="#d50003">Authentifikation
+        ausgeschaltet - versenden ohne Authentifikation nicht möglich</TD>
+    </TR>
+  </TABLE>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse19">Was ist Tcl?</a>
+                </h4>
+            </div>
+            <div id="collapse19" class="panel-collapse collapse">
+                <div class="panel-body">
+					Grundlegenden Informationen zur Open-Source-Skriptsprache Tcl (Tool command language) sind auf <A HREF="https://de.wikipedia.org/wiki/Tcl" target="_blank">Wikipedia</A> oder auf <A HREF="http://tcl.tk/" target="_blank">tcl.tk</A> zu finden.<br><br>Tcl ist ein mächtiges Werkzeug, welches die Möglichkeit bietet Platzhalter für eine Mail-Vorlage zu definieren. In diese Platzhalter können ausgelesene CCU Variablen oder Zuständen von HomeMatic Geräten gespeichert werden und somit an die Email-Vorlage übergaben werden.<br><br>Ein erstelltes Tcl-Skript wird vor dem Versand einer E-Mail ausgeführt, sofern die Tcl-Option in der Mail-Vorlage aktiviert ist (siehe <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse8">hier</a>).<br><br>Es folgt ein Tcl-Skript Beispiel, welches zudem als Funktionsbeschreibung dient, alle weiteren Beispiele bauen hierauf auf.<br><br>Mit diesem Tcl-Skript wird der Temperatur-Wert <font face="Courier New, serif" color="#00b050">TEMPERATURE</font> und Luftfeuchte-Wert <font face="Courier New, serif" color="#00b050">HUMIDITY</font> eines HomeMatic Sensors mit der Seriennummer <font face="Courier New, serif" COLOR="#ff0000">FEQ0001234</font> ausgelesen und in die Variablen „v1“ und „v2“ geschrieben. Damit die Werte beim versenden der Mail ausgelesen und in die Email eingefügt werden, müssen die Variablen <font face="Courier New, serif" COLOR="#7030a0">v1</font> und <font face="Courier New, serif" COLOR="#7030a0">v2</font> mit vorangestellten Dollar-Zeichen <font face="Courier New, serif" COLOR="#7030a0">$v1</font> und <font face="Courier New, serif" COLOR="#7030a0">$v2</font> in den Email Text oder sofern gewünscht in die Betreff-Zeile eingefügt werden.<br><br>Die Seriennummer im Tcl-Skript muss durch die Seriennummer Ihrer HomeMatic Komponente ersetzt werden.<br><br>Sofern Werte/Zustände von anderen HomeMatic Geräten per Email versandt werden sollen, hilft ein Blick in die <A HREF="http://www.eq-3.de/Downloads/eq3/download%20bereich/hm_web_ui_doku/hm_devices_Endkunden.pdf" target="_blank">Datenpunkt-Beschreibung</A> von eQ-3, hier sind alle Gerät mit Ihren Datenpunkten beschrieben.<br><br>Nun folgt das Skript, welches unter dem Reiter <u>Tcl</u> im Email-Addon eingefügt wird (siehe folgendes Bild). Die mittels # auskommentierten Zeilen dienen lediglich zur Erklärung und können entfernt werden. Bei größeren Tcl-Skripten empfiehlt es sich Teilsegment entsprechend zu kommentieren, damit man nicht den Überblick verliert.<br><br><font face="Courier New, serif" COLOR="#00b050">load tclrega.so</font><br>
+<font face="Courier New, serif" COLOR="#0070c0"># Mit tclrega.so wird der Zugriff auf den HomeMatic Script Interpreter ermöglicht.</font><br>
+<font face="Courier New, serif" COLOR="#00b050">array set values [rega_script {<br></font>
+
+<font face="Courier New, serif" COLOR="#00b050">var</font><font face="Courier New, serif" COLOR="#7030a0"> v1</font><font face="Courier New, serif" COLOR="#00b050"> = dom.GetObject("BidCos-RF.</font><font face="Courier New, serif" COLOR="#d50003">FEQ0001234:1</font><font face="Courier New, serif" COLOR="#00b050">.TEMPERATURE").Value().ToString(1);</font><br>
+<font face="Courier New, serif" COLOR="#00b050">var</font><font face="Courier New, serif" COLOR="#7030a0"> v2</font><font face="Courier New, serif" COLOR="#00b050"> = dom.GetObject("BidCos-RF.</font><font face="Courier New, serif" COLOR="#d50003">FEQ0001234:1</font><font face="Courier New, serif" COLOR="#00b050">.HUMIDITY").Value().ToString(0);</font><br>
+<font face="Courier New, serif" COLOR="#00b050">} ]</font><br>
+<font face="Courier New, serif" COLOR="#0070c0"># Mittels dieser drei Zeilen werden die Werte (Value) des Geräts ausgelesen und an die<br>
+# Variablen (v1/v2) übergeben. Mittels ToString werden in diesem Fall die überflüssigen<br>
+# Dezimalstellen der Werte abgeschnitten, damit keine Wert mit fünf Nachkommastellen<br>
+# übergeben werden, (ToString(1) = z.B. 10.5°C und ToString(0) = z.B. 70% Luftfeuchte).</font><br>
+<font face="Courier New, serif" COLOR="#00b050">set</font><font face="Courier New, serif" COLOR="#7030a0"> v1</font><font face="Courier New, serif" COLOR="#00b050"> $values(</font><font face="Courier New, serif" COLOR="#7030a0">v1</font><font face="Courier New, serif" COLOR="#00b050">)</font><br>
+<font face="Courier New, serif" COLOR="#00b050">set</font><font face="Courier New, serif" COLOR="#7030a0"> v2</font><font face="Courier New, serif" COLOR="#00b050"> $values(</font><font face="Courier New, serif" COLOR="#7030a0">v2</font><font face="Courier New, serif" COLOR="#00b050">)</font><br>
+<font face="Courier New, serif" COLOR="#0070c0"># Mittels set wird der übergebene Wert in der Variable (v1/v2) gespeichert</font><br><br><IMG SRC="tcl.png" NAME="Bild 4" ALIGN=BOTTOM WIDTH=45% BORDER=0><br><br>Hinweis: Mittels der im Tcl-Skript definierten Platzhalter können nicht nur Werte und Zustände von HomeMatic Geräten oder Variablen in den Email-Text oder den Betreff übergeben werden, sondern auch die Empfänger Email-Adresse oder einen Pfad für den Dateianhang.
+                </div>
+            </div>
+        </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse20">Tcl-Skript auf Fehler prüfen</a>
+                </h4>
+            </div>
+            <div id="collapse20" class="panel-collapse collapse">
+                <div class="panel-body">
+					Ab der Version 1.6.5 ist es möglich ein erstelltes Tcl-Skript auf eventuelle Fehler zu prüfen, hierzu ist unter dem Reiter <u>Tcl</u> ein Button „Tcl-Check“ zu finden. Vor einer Fehlerprüfung muss das erstellte Skript durch einen Klick auf „Übernehmen“ gespeichert werden. Zudem ist zu beachten, dass immer der zuerst gefundene Fehler des Skripts ausgegeben wird. Nach der Korrektur des Skripts und erneuten speichern, muss somit erneut auf Tcl-Check geklickt werden um ggf. weitere Fehler auswendig zu machen.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse21">Tcl-Skript Beispiele</a>
+                </h4>
+            </div>
+            <div id="collapse21" class="panel-collapse collapse">
+                <div class="panel-body">
+					<u>Status eines Fensterkontakts auslesen:</u><br><br>
+Damit in der Email nicht die Zustände "true" bzw. "false" stehen, sondern „offen“ bzw. „geschlossen“, kann man die Zustände wie folgt übersetzt.<br><br><font face="Courier New, serif" COLOR="#00b050">load tclrega.so<br>
+array set values [rega_script {<br>
+if<br>
+(dom.GetObject("BidCos-RF.</font><font face="Courier New, serif" COLOR="#d50003">LEQ0187617:1</font><font face="Courier New, serif" COLOR="#00b050">.STATE").Value() == 'false') {<br>
+var</font><font face="Courier New, serif" COLOR="#7030a0"> v1</font><font face="Courier New, serif" COLOR="#00b050"> = "offen";<br>
+}else {<br>
+var</font><font face="Courier New, serif" COLOR="#7030a0"> v1</font><font face="Courier New, serif" COLOR="#00b050"> = "geschlossen";<br>
+}<br>
+} ]<br>
+					set</font><font face="Courier New, serif" COLOR="#7030a0"> v1</font><font face="Courier New, serif" COLOR="#00b050"> $values(</font><font face="Courier New, serif" COLOR="#7030a0">v1</font><font face="Courier New, serif" COLOR="#00b050">)</font><br><br><u>Variable vom Typ Logikwert auslesen:</u><br><br>Damit bei einer ausgelesenen Variable (Typ: Logikwert) nicht "true" bzw. "false" in der Email steht, können die Zustände wie folgt übersetzt werden.<br><br><font face="Courier New, serif" COLOR="#00b050">load tclrega.so<br>
+array set values [rega_script {<br>
+if<br>
+if (dom.GetObject("</font><font face="Courier New, serif" COLOR="#d50003">Anwesenheit</font><font face="Courier New, serif" COLOR="#00b050">").Value() == 'false') {<br>
+var</font><font face="Courier New, serif" COLOR="#7030a0"> v1</font><font face="Courier New, serif" COLOR="#00b050"> = "anwesend";<br>
+}else {<br>
+var</font><font face="Courier New, serif" COLOR="#7030a0"> v1</font><font face="Courier New, serif" COLOR="#00b050"> = "nicht anwesend";<br>
+}<br>
+} ]<br>
+set</font><font face="Courier New, serif" COLOR="#7030a0"> v1</font><font face="Courier New, serif" COLOR="#00b050"> $values(</font><font face="Courier New, serif" COLOR="#7030a0">v1</font><font face="Courier New, serif" COLOR="#00b050">)</font><br><br><u>Letztes geöffnetes Fenster per Email melden:</u><br><br>
+1. Eine Variable vom Typ Zeichenkette mit dem Namen „letztes Fenster“ erstellen.<br><br><IMG SRC="fenster-vari.png" NAME="Bild 8" ALIGN=BOTTOM WIDTH=60% BORDER=0><br><br>2. Ein Zentralenprogramm erstellen und unter Bedingung alle Fensterkontakte als Oder-Verknüpfung einfügen und unter Aktivität das folgende Skript einfügen (siehe Screenshot).<br><br><font face="Courier New, serif" COLOR="#00b050">!Namen des Programmauslöser Gerät und Zeit in Systemvariable schreiben<br>
+string list = "";<br>
+object dp = dom.GetObject("$src$");<br>
+var ch = dom.GetObject(dp.Channel());<br>
+var dev = dom.GetObject(ch.Device());<br>
+ch = ch.Name();<br>
+dev = dev.Name();<br>
+string zeit = system.Date("%d.%m. %H:%M Uhr");<br>
+list = list # dev #" am: "#zeit ;<br>
+dom.GetObject("letztes Fenster").State(list);<br>
+dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("/etc/config/addons/email/email</font><font face="Courier New, serif" COLOR="#d50003"> 01</font><font face="Courier New, serif" COLOR="#00b050">");</font><br><br><IMG SRC="fenster-prog.png" NAME="Bild 9" ALIGN=BOTTOM WIDTH=60% BORDER=0><br><br>3. Im Email-Addon unter Tcl folgendes Skript einfügen<br><br>
+<font face="Courier New, serif" COLOR="#00b050">load tclrega.so<br>
+array set values [rega_script {<br>
+var v1 = dom.GetObject("letztes Fenster").Value();<br>
+}]<br>
+set v1 [encoding convertfrom utf-8 $values(v1)]</font><br><br><IMG SRC="fenster-tcl.png" NAME="Bild 14" ALIGN=BOTTOM WIDTH=40% BORDER=0><br><br>4. Zum Abschluss noch den Platzhalter in den Email-Text einfügen.<br><br><IMG SRC="fenster-vorlage.png" NAME="Bild 12" ALIGN=BOTTOM WIDTH=40% BORDER=0><br><br><u>Welcher Rauchmelder hat Ausgelöst:</u> Eine detaillierte Beschreibung gibt es <A HREF="http://homematic-forum.de/forum/viewtopic.php?f=26&amp;t=29433" target="_blank">hier</A>.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse22">Umlaute richtig anzeigen</a>
+                </h4>
+            </div>
+            <div id="collapse22" class="panel-collapse collapse">
+                <div class="panel-body">
+					Damit die Umlaute welche sich in einer CCU-Systemvariable befinden korrekt in der Mail dargestellt werden, muss der Zeichensatz der Variable konvertiert werden. Dies kann mit der folgenden Zeile umgesetzt werden.<br><br>
+<font face="Courier New, serif" COLOR="#00b050">set test [encoding convertfrom utf-8 $values(test)]</font><br><br>
+					Beispiel: Auslesen der CCU-Systemvariable mit dem Namen <font face="Courier New, serif" COLOR="#d50003">test</font> und dem Typ Zeichenkette<br><br>
+<font face="Courier New, serif" COLOR="#00b050">load tclrega.so<br>
+array set values [rega_script {<br>
+var v1 = dom.GetObject("</font><font face="Courier New, serif" COLOR="#d50003">test</font><font face="Courier New, serif" COLOR="#00b050">").Value();<br>
+} ]<br>
+set v1 [encoding convertfrom utf-8 $values(v1)]</font>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse23">Wieso kann ich keine Mails versenden?</a>
+                </h4>
+            </div>
+            <div id="collapse23" class="panel-collapse collapse">
+                <div class="panel-body">
+					Sofern trotz korrekter Account-Einstellungen keine Mails versandt werden können, liegt dies häufig an einer fehlerhaften Netzwerk-Konfiguration der CCU. Unter -> Einstellungen -> Systemsteuerung -> Netzwerkeinstellungen kann geprüft werden, ob die Netzwerk-Einstellungen nach folgenden Schema eingetragen sind. Bei Routern im privaten Heimnetzwerk sind die ersten <font COLOR="#00b050">drei Segmente</font> der IP-Adresse, des Gateways und des DNS-Servers üblicherweise identisch. Zudem entspricht die IP-Adresse des Gateways und des Bevorzugten DNS-Servers in der Regel der IP-Adresse des Routers.<br><br><TABLE WIDTH=100% align="left" CELLPADDING=7 CELLSPACING=0>
+    <TR VALIGN=TOP>
+      <TD colspan="3" BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><B>Beispiel (bei  Verwendung einer FritzBox):</B></P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=140 HEIGHT=7 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>IP-Adresse:</P></TD>
+      <TD WIDTH=114 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#00b050">192.168.178.xxx</P></TD>
+      <TD WIDTH=273 BGCOLOR="#d9d9d9" STYLE="border: 1px solid #00000a;"><P>xxx steht für eine beliebige freie Adresse</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD WIDTH=140 HEIGHT=6 STYLE="border: 1px solid #00000a;"><P>Subnetmaske:</P></TD>
+      <TD WIDTH=114 STYLE="border: 1px solid #00000a;"><P>255.255.255.0</P></TD>
+      <TD WIDTH=273 STYLE="border: 1px solid #00000a;"><P>&nbsp;</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD HEIGHT=6 STYLE="border: 1px solid #00000a;">Gateway:</TD>
+      <TD STYLE="border: 1px solid #00000a;"><FONT COLOR="#00b050">192.168.178.1</TD>
+      <TD STYLE="border: 1px solid #00000a;">IP-Adresse des Routers</TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#FFFFFF">
+      <TD WIDTH=140 STYLE="border: 1px solid #00000a;"><P>Bevorzugter DNS-Server:</P></TD>
+      <TD WIDTH=114 STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#00b050">192.168.178.1</P></TD>
+      <TD WIDTH=273 STYLE="border: 1px solid #00000a;"><P>IP-Adresse des Routers</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><P>Alternativer DNS-Server:</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>0.0.0.0</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>&nbsp;</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD colspan="3" BGCOLOR="#f4db80" STYLE="border: 1px solid #00000a;"><P><B>Beispiel (bei  Verwendung eines Speedports):</B></P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><P>IP-Adresse:</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#00b050">192.168.2.xxx</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>xxx steht für eine beliebige freie Adresse</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>Subnetmaske:</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>255.255.255.0</P></TD>
+      <TD STYLE="border: 1px solid #00000a;">&nbsp;</TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><P>Gateway:</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#00b050">192.168.2.1</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>IP-Adresse des Routers</P></TD>
+    </TR>
+    <TR VALIGN=TOP>
+      <TD STYLE="border: 1px solid #00000a;"><P>Bevorzugter DNS-Server:</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P><FONT COLOR="#00b050">192.168.2.1</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>IP-Adresse des Routers</P></TD>
+    </TR>
+    <TR VALIGN=TOP bgcolor="#d9d9d9">
+      <TD STYLE="border: 1px solid #00000a;"><P>Alternativer DNS-Server:</P></TD>
+      <TD STYLE="border: 1px solid #00000a;"><P>0.0.0.0</P></TD>
+      <TD STYLE="border: 1px solid #00000a;">&nbsp;</TD>
+    </TR>
+  </TABLE><br style="clear: both"><br>Mit dem folgenden Skript kann zusätzlich über die WebUI unter -> Programme & Zentralenverknüpfung -> Skript testen, geprüft werden, ob die CCU mit der Außenwelt kommunizieren kann.<br><br>
+<font face="Courier New, serif" COLOR="#00b050">string stderr;<br>
+string stdout;<br>
+integer Auslese;<br>
+system.Exec("ping -c 1 www.google.com",&stdout, &stderr);<br>
+Auslese = stdout.Find("ms");<br>
+if ( Auslese == -1 )<br>
+{<br>
+WriteLine("CCU ist NICHT mit der Welt verbunden");<br>
+}<br>
+if ( Auslese > 0)<br>
+{<br>
+WriteLine('CCU ist mit der Welt verbunden, und der DNS funktioniert');<br>
+}</font><br><br>
+Sofern das Skript ausgibt, das die CCU ist NICHT mit der Welt verbunden ist, sollten folgende Punkte geprüft werden.<br><br>
+<ul><li>Ist die Internetverbindung okay?</li><li>Ist das Netzwerkkabel in Ordnung?</li><li>Bei der Fritz!Box für den LAN-Port an dem die CCU hängt von GreenMode auf PowerMode umstellen (<A HREF="http://avm.de/nc/service/fritzbox/fritzbox-7390/wissensdatenbank/publication/show/318_LAN-Verbindung-zur-FRITZ-Box-nicht-moeglich/" target="_blank">7
+        Energieeinstellungen der FRITZ!Box anpassen</A>).</li><li>Der CCU nach dem obengenannten Schema eine Feste-IP zuweisen.</li><li>Für das vierte Segment der CCU IP-Adresse eine zweistellige und freie Adresse vergeben (z.B. 192.168.x.22).</li><ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse24">Funktionsweise / Ablaufdiagramm</a>
+                </h4>
+            </div>
+            <div id="collapse24" class="panel-collapse collapse">
+                <div class="panel-body">
+					Im folgenden Ablaufdiagramm wird die Funktionsweise des Addons zum besseren Verständnis beschrieben.<br><br><IMG SRC="ablauf.png" NAME="Bild 2" ALIGN=BOTTOM WIDTH=70% BORDER=0>
+                </div>
+            </div>
+        </div>
+        </div>   
+    </div>
+</div>
+
+<style>
+    .faqHeader {
+        font-size: 27px;
+        margin: 20px;
+    }
+
+    .panel-heading [data-toggle="collapse"]:after {
+        font-family: 'Glyphicons Halflings';
+        content: "\e072"; /* "play" icon */
+        float: right;
+        color: #F58723;
+        font-size: 18px;
+        line-height: 22px;
+        /* rotate "play" icon from > (right arrow) to down arrow */
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
+
+    .panel-heading [data-toggle="collapse"].collapsed:after {
+        /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+        color: #454444;
+    }
+</style>
+
+<!-- Bootstrap FAQ - END -->
+
+</div>
+
+</body>
+</html>

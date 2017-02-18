@@ -128,6 +128,8 @@ if { [catch {
   #   Subject:     Betreffzeile
   #   AttType:     Datei von der CCU, oder Download
   #   Attachment:  Pfad zur Datei
+  #   Snapuser:    Benutzername für Kamera Snapshots
+  #   Snappass:    Kennwort für Kamera Snapshots
   #   Tcl:         Legt fest, ob Tcl für die E-Mail aktiv sein soll
   #
   # Der weitere Inhalt der Anfrage wird als Text der E-Mail interpretiert.
@@ -141,8 +143,11 @@ if { [catch {
     set mail(Subject) [__args_get Subject]
     set mail(AttType) [__args_get AttType]
     set mail(Attachment) [__args_get Attachment]
+    set mail(Snapuser) [__args_get Snapuser]
+    set mail(Snappass) [__args_get Snappass]
     set mail(Content) [__args_get Content]
     set mail(Tcl)     [__args_get Tcl]
+    set mail(Prio)     [__args_get Prio]
     
     saveToFile "$MAIL_DIR/[__args_get Id].mail" [array get mail]
   }

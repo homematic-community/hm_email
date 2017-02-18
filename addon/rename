@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Rename the downloaded snapshot file to snapshot.jpg in every case
+
+for file in /usr/local/etc/config/addons/email/tmp/*.jpg; do
+    if [ -f $file ]; then
+          mv /usr/local/etc/config/addons/email/tmp/*.jpg /usr/local/etc/config/addons/email/tmp/snapshot.jpg
+    fi
+done
+
+for file in /usr/local/etc/config/addons/email/tmp/*.cgi; do
+    if [ -f $file ]; then
+          mv /usr/local/etc/config/addons/email/tmp/*.cgi /usr/local/etc/config/addons/email/tmp/snapshot.jpg
+    fi
+done

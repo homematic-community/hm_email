@@ -39,21 +39,30 @@
         <td><input class="input1" id="subjectTextBox" type="text"></td>
       </tr>      
       <tr>
-        <td>Dateianhang (Typ / Pfad):
+        <td><div class="tooltip">Dateianhang:<span class="tooltiptext"><u>Snapshot:</u>
+für Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"<br><br>
+<u>Snapshot 1:</u> es werden lediglich die Dateiformate jpg, jpeg, png und cgi geladen und ggf. entsprechend gewandelt.<br>wie z.B. http://meine-cam-ip:port/snapshot.cgi</span>
             <td><select class="select3" id="attTypeBox">
             <option value="off">Aus</option>
             <option value="local">CCU-File</option>
             <option value="down">Download</option>
-          </select><tr>
+            <option value="snapshot">Snapshot</option>
+            <option value="snapshot1">Snapshot 1</option>
+          </select></div>
+          <tr>
+          
         </td>
         <td>
-        <td><input class="input1" id="attachmentTextBox" type="text"></td>
+        <tr><td>Pfad:</td><td><input class="input1" id="attachmentTextBox" type="text"></td></tr>
+        <tr><td><div class="tooltip">Benutzer:<span class="tooltiptext">Bei manchen Kameras greift das setzen des Benutzernamens und Passworts über die Eingabefelder nicht. Es ist dann erforderlich dies im Aufruf selbst einzusetzen. Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"</span>
+        </td><td><input class="input2" id="snapuserTextBox" type="text"></td></tr>
+        <tr><td>Passwort:</td><td><input class="input2" id="snappassTextBox" type="password"></td></tr>
         </tr>
       <tr>
         <td colspan="2"><textarea id="contentTextArea" wrap="off"></textarea></td>
       </tr>
       <tr>
-        <td colspan="2"><input id="tclCheckBox" class="checkbox" type="checkbox" />Tcl aktivieren</td>
+        <td colspan="2"><input id="tclCheckBox" class="checkbox" type="checkbox" />Tcl aktivieren <input id="prioCheckBox" class="checkbox" type="checkbox" />Mail mit hoher Priorität</td>
       </tr>
     </table>
     <hr/>
@@ -152,7 +161,7 @@
     </tr>
     <tr><td>
     <center><img src='img/achtung.png' height="25"><b> Bitte erst die Anleitung lesen und dann <a href="http://homematic-forum.de/forum/viewtopic.php?f=41&t=18610" target="_blank">Fragen</a> stellen.</b><br><br>
-    <a href="/addons/email/anleitung.pdf"  target="_blank"><b>Hier geht es zur Anleitung!</b></a></center>
+    <a href="/addons/email/anleitung/"  target="_blank"><b>Hier geht es zur Anleitung!</b></a></center>
     <hr>
     <b>Testmail:</b> Hiermit kann getestet werden, ob die Account Konfiguration korrekt ist. In der Mail-Vorlage 1 muss hierzu eine Empfänger Mail-Adresse eingetragen werden.<br>
     <div class="buttontest" align="right" onclick="Test.apply()">Testmail senden</div><br><br><hr>

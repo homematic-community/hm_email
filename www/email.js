@@ -220,8 +220,11 @@ Mail.prototype =
   m_subject: null,
   m_atttype: null,
   m_attachment: null,
+  m_snapuser: null,
+  m_snappass: null,
   m_content: null,
   m_tcl: false,
+  m_prio: false,
   
   /**
    * @fn init
@@ -237,8 +240,11 @@ Mail.prototype =
     this.m_subject = mailData["subject"];
     this.m_atttype = mailData["atttype"];
     this.m_attachment = mailData["attachment"];
+    this.m_snapuser = mailData["snapuser"];
+    this.m_snappass = mailData["snappass"];
     this.m_content = mailData["content"];
     this.m_tcl = mailData["tcl"];
+    this.m_prio = mailData["prio"];
   },
 
   /**
@@ -261,8 +267,11 @@ Mail.prototype =
     $("subjectTextBox").value = this.m_subject;
     $("attTypeBox").value = this.m_atttype;
     $("attachmentTextBox").value = this.m_attachment;
+    $("snapuserTextBox").value = this.m_snapuser;
+    $("snappassTextBox").value = this.m_snappass;
     $("contentTextArea").value = this.m_content;
     $("tclCheckBox").checked = this.m_tcl;
+    $("prioCheckBox").checked = this.m_prio;
   },
   
   /**
@@ -276,8 +285,11 @@ Mail.prototype =
     this.m_subject = $("subjectTextBox").value;
     this.m_atttype = $("attTypeBox").value;
     this.m_attachment = $("attachmentTextBox").value;
+    this.m_snapuser = $("snapuserTextBox").value;
+    this.m_snappass = $("snappassTextBox").value;
     this.m_content = $("contentTextArea").value;
     this.m_tcl = $("tclCheckBox").checked;
+    this.m_prio = $("prioCheckBox").checked;
     
     var data = "";
     data += "Id:"      + this.m_id + "\n";
@@ -286,7 +298,10 @@ Mail.prototype =
     data += "Subject:" + this.m_subject + "\n";
     data += "AttType:" + this.m_atttype + "\n";
     data += "Attachment:" + this.m_attachment + "\n";
+    data += "Snapuser:" + this.m_snapuser + "\n";
+    data += "Snappass:" + this.m_snappass + "\n";
     data += "Tcl:"     + this.m_tcl + "\n";
+    data += "Prio:"     + this.m_prio + "\n";
     data += "\n";
     data += this.m_content;
     

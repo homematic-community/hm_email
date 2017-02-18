@@ -79,8 +79,11 @@ proc putMails {} {
     set mail(Subject) {}
     set mail(AttType) {}
     set mail(Attachment) {}
+    set mail(Snapuser) {}
+    set mail(Snappass) {}
     set mail(Content) {}
     set mail(Tcl)     "false"
+    set mail(Prio)     "false"
     
     catch { array set mail [loadFromFile "$MAIL_DIR/$id.mail"] } 
     
@@ -92,8 +95,11 @@ proc putMails {} {
     puts "      \"subject\": \"[jsstring $mail(Subject)]\","
     puts "      \"atttype\": \"[jsstring $mail(AttType)]\","
     puts "      \"attachment\": \"[jsstring $mail(Attachment)]\","
+    puts "      \"snapuser\": \"[jsstring $mail(Snapuser)]\","
+    puts "      \"snappass\": \"[jsstring $mail(Snappass)]\","
     puts "      \"content\": \"[jsstring $mail(Content)]\","
-    puts "      \"tcl\": $mail(Tcl)"
+    puts "      \"tcl\": \"$mail(Tcl)\","
+    puts "      \"prio\": $mail(Prio)"
     puts "    \}"
   }
   

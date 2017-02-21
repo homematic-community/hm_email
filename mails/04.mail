@@ -1,9 +1,9 @@
-Subject {HomeMatic Zentrale: Tcl-Skript} Tcl false Content {Hallo,
+Subject {HomeMatic Zentrale: Tcl-Skript} Description {} Snappass {} Snapuser {} Attachment {} Prio false Tcl true Content {Hallo,
 
 das Tcl-Skript wird in jedem Fall ausgeführt, sobald eine E-Mail 
 verschickt wird, unabhängig davon, ob irgendwelche Häkchen
 gesetzt sind oder nicht.
-Daduch kann man leicht eine Logger-Funktion implementieren.
+Dadurch kann man leicht eine Logger-Funktion implementieren.
 
 MfG
-Harima-kun} To username@server.de
+HMside} AttType off To username@server.de

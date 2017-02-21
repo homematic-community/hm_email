@@ -1,1 +1,1 @@
-Subject {Beispiel Kamera Snapshot} Description {Kamera Snapshot} Attachment http://benutzer:passwort@Kamera-IP/snapshot.cgi Tcl false Content {} AttType down To {}
+Subject {Beispiel Kamera Snapshot} Description {Kamera Snapshot} Snappass passwort Snapuser benutzer Attachment http://Kamera-IP/snapshot.cgi Prio false Tcl true Content {} AttType snapshot1 To {}

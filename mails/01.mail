@@ -1,6 +1,6 @@
-Subject {HomeMatic Zentrale: E-Mail} Tcl false Content {Hallo,
+Subject {HomeMatic Zentrale: E-Mail} Description {} Snappass {} Snapuser {} Attachment {} Prio false Tcl true Content {Hallo,
 
-die HomeMatic Zentrale kann jetzt auch E-Mail verschicken!
+deine HomeMatic Zentrale kann jetzt E-Mails verschicken!
 
 MfG
-Hariam-kun } To username@server.de
+HMside} AttType off To username@server.de

@@ -1,15 +1,1 @@
-Subject {HomeMatic Zentrale: Wie geht's weiter?} Tcl false Content {Hallo,
-
-eigentlich bin ich erst einmal froh, dass alles läuft.
-Momentan habe ich nicht direkt vor, an Erweiterungen zu arbeiten.
-
-Dennoch kann ich schon jetzt ein zwei Features nennen, die ich als
-sinnvoll und wichtig erachten würde:
-
-  2) E-Mail in der Oberfläche hinzufügen
-  1) TLS
-
-Vielleich findet sich jemand, der das noch einbaut...
-
-Mfg
-Harima-kun} To username@server.de
+Subject {} Description {} Snappass {} Snapuser {} Attachment {} Prio false Tcl true Content {} AttType off To {}

@@ -1,17 +1,19 @@
-Subject {HomeMatic Zentrale: Debuggen von E-Mails} Tcl false Content {Hallo,
+Subject {HomeMatic Zentrale: Debuggen von E-Mails} Description {} Snappass {} Snapuser {} Attachment {} Prio false Tcl true Content {Hallo,
 
 insbesondere wenn Tcl innerhalb von E-Mails verwendet wird, ist 
-oft eine Möglichkeit zum Debuggen ganz nützlich. Hier stehen gleich
-mehrere Wege zur Verfügung:
+eine Möglichkeit zum Debuggen ganz nützlich. Es stehen gleich
+mehrere Möglichkeiten zur Fehlereingrenzung zur Verfügung:
 
-Die Datei /var/log/email.log enthält das msmtp-Log der zuletzt 
-versendeten E-Mail. Die Datei ist nur dann vorhanden, wenn bereits
-eine E-Mail verschickt wurde.
+Der "Tcl-Check" Button unter dem Reiter "Tcl" prüft das erstellte 
+Tcl-Script auf eventuelle Fehler.
 
-Falls es während der E-Mail-Versendes zu schwerwiegenden Problemen
-kommt, wird eine entsprechende Log-Meldung erzeugt. Diese erscheint
-dann unter /var/log/messages zusammen mit allen anderen Fehler-
-Meldungen.
+Zudem stehen unter dem Reiter "Hilfe" das Email-Logfile
+sowie Ergebnisse aus dem CCU-Syslog bezüglich msmtp Error zur 
+Verfügung
 
-Mfg
-Harima-kun} To username@server.de
+Falls es während des E-Mail Versands zu schwerwiegenden 
+Problemen kommt, wird eine entsprechende Log-Meldung erzeugt. 
+Diese erscheint dann unter unter dem Reiter "Hilfe".
+
+MfG
+HMside} AttType off To username@server.de

@@ -1,13 +1,1 @@
-Subject {HomeMatic Zentrale: Mehr E-Mails} Tcl false Content {Hallo,
-
-falls 10 E-Mails nicht ausreichen sollten, kann man sich mit etwas
-Programmiererfahrung weitere hinzufügen. Dazu muss lediglich die
-Datei /etc/config/addons/email/config.tcl angepasst werden.
-
-Die Variable MAIL_IDS enthält eine Liste der definierten IDs. Hier 
-können ohne weiteres zusätzliche Ids definiert werden. Es müssen
-auch nicht immer nur Zahlen sein, sondern es können auch sprechende
-Namen verwendet werden.
-
-MfG
-Harima-kun} To username@server.de
+Subject {} Description {} Snappass {} Snapuser {} Attachment {} Prio false Tcl true Content {} AttType off To {}

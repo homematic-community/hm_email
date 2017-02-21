@@ -1,4 +1,4 @@
-Subject {HomeMatic Zentrale: Tcl in E-Mail (2)} Tcl false Content {Hallo,
+Subject {HomeMatic Zentrale: Tcl in E-Mail (2)} Description {} Snappass {} Snapuser {} Attachment {} Prio false Tcl true Content {Hallo,
 
 damit auf Tcl-Variablen zugegriffen werden kann, muss in der E-Mail
 das Häkchen "Tcl aktivieren" gesetzt sein. Ansonsten werden die
@@ -6,4 +6,4 @@ Platzhalter nicht ersetzt.
 
 MfG
 $author
-} To username@server.de
+} AttType off To username@server.de

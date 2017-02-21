@@ -117,6 +117,10 @@ set date [clock format $date -format {%d.%m.%Y-%T}]
 
 set AttName [file tail $mailAttachment]
 
+if {$mail(AttType) == ""} {
+    set AttNewName ""
+}
+
 if {$AttName == "messages"} {
     set AttNewName "CCU-Logfile-$date.log"
 } elseif {$AttName == "hmserver.log"} {

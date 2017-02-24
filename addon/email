@@ -17,7 +17,7 @@ if { [ catch {
 set LOGFILE "/var/log/email.log"
 
 # CLEAN UP
-exec rm -r -f /usr/local/etc/config/addons/email/tmp
+exec rm -r /usr/local/etc/config/addons/email/tmp
 exec mkdir /usr/local/etc/config/addons/email/tmp/
 exec chmod 755 /usr/local/etc/config/addons/email/tmp/
 
@@ -275,7 +275,7 @@ close $fp
 exec cat /usr/local/etc/config/addons/email/tmp/ready.eml | /usr/local/etc/config/addons/email/msmtp -t -C /etc/config/addons/email/msmtp.conf
 
 # CLEAN UP
-exec rm -r -f /usr/local/etc/config/addons/email/tmp
+exec rm -r /usr/local/etc/config/addons/email/tmp
 exec mkdir /usr/local/etc/config/addons/email/tmp/
 exec chmod 755 /usr/local/etc/config/addons/email/tmp/
 

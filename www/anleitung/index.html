@@ -29,7 +29,7 @@
       <td>Dokumentation</td>
     </tr>
     <tr>
-      <td>Letzte Änderung: 18.02.2017 HMside</td>
+      <td>Letzte Änderung: 08.04.2017 HMside</td>
     </tr>
   </tbody>
 </table>
@@ -40,7 +40,7 @@
 
     <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <p>Bitte lesen Sie vor der Verwendung des Email Addons zunächst sorgfältig diese Anleitung. Sollten Sie dennoch Fragen offen bleiben, können diese <A HREF="http://homematic-forum.de/forum/viewtopic.php?f=41&t=18610" target="_blank">hier</A> gestellt werden.    </p>
+        <p>Bitte lesen Sie vor der Verwendung des Email Addons zunächst sorgfältig diese Anleitung. Sollten dennoch Fragen offen bleiben, können diese <A HREF="http://homematic-forum.de/forum/viewtopic.php?f=41&t=18610" target="_blank">hier</A> gestellt werden.    </p>
     </div>
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -237,7 +237,7 @@
                 </h4>
             </div>
             <div id="collapse8" class="panel-collapse collapse">
-				<div class="panel-body">Unter dem Reiter E-Mails können 50 individuelle Mail-Vorlagen definiert werden. Folgend werden die einzelnen Felder kurz beschrieben.<br><br><ul><li>Über die <u>E-Mail ID</u> Auswahl wird die gewünschte Vorlage (1-50) aufgerufen.</li><li>Daneben im Feld <u>Beschreibung</u> kann der Vorlage zur besseren Übersicht eine Kurzbeschreibung hinzugefügt werden.</li><li>In der Zeile <u>An</u> wird die Mail-Adresse des Empfängers eingetragen.</li><li>Unter <u>Betreff</u> wird der Betreff der Mail eingetragen.</li><li>Über die Auswahl für <u>Dateianhang</u> kann der Typ des Anhangs definiert werden (Aus, CCU-File, Download, Snapshot, Snapshot 1).</li><li>Im Feld darunter wird der <u>Dateipfad</u> angegeben (<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse9">mehr Infos siehe hier</a>).</li><li>Des Weiteren kann für den Anhangtyp Snapshot der <u>Benutzername</u> sowie das <u>Passwort</u> der Kamera angegeben werden.</li><li>In das große Eingabefeld wird der eigentliche <u>Email Text</u> eingetragen, hier können auch zuvor unter dem Reiter Tcl definierte Variablen bzw. Platzhalter mittels einem vorangestellten Dollar-Zeichen ($) eingebunden werden (<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse19">mehr Infos siehe hier</a>).</li><li>Sofern Variablen/Platzhalter verwendet werden sollen, muss unten der Haken für <u>Tcl</u> aktivieren gesetzt werden.</li><li>Zudem kann durch setzen des Hakens bei <u>Mail mit hoher Priorität</u> eine Email mit hoher Priorität z.B. für Alarmmeldungen versendet werden.</li></ul><br><img src="vorlage.png" width="40%" alt=""/>
+				<div class="panel-body">Unter dem Reiter E-Mails können 50 individuelle Mail-Vorlagen definiert werden. Folgend werden die einzelnen Felder kurz beschrieben.<br><br><ul><li>Über die <u>E-Mail ID</u> Auswahl wird die gewünschte Vorlage (1-50) aufgerufen.</li><li>Daneben im Feld <u>Beschreibung</u> kann der Vorlage zur besseren Übersicht eine Kurzbeschreibung hinzugefügt werden.</li><li>In der Zeile <u>An</u> wird die Mail-Adresse des Empfängers eingetragen. Sofern die Email an mehrere Empfänger gesendet werden soll, können weitere Adresse durch Semikolon getrennt hinzugefügt werden.</li><li>Unter <u>Betreff</u> wird der Betreff der Mail eingetragen.</li><li>Über die Auswahl für <u>Dateianhang</u> kann der Typ des Anhangs definiert werden (Aus, CCU-File, Download, Snapshot, Snapshot 1).</li><li>Im Feld darunter wird der <u>Dateipfad</u> angegeben (<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse9">mehr Infos siehe hier</a>).</li><li>Des Weiteren kann für den Anhangtyp Snapshot der <u>Benutzername</u> sowie das <u>Passwort</u> der Kamera angegeben werden.</li><li>In das große Eingabefeld wird der eigentliche <u>Email Text</u> eingetragen, hier können auch zuvor unter dem Reiter Tcl definierte Variablen bzw. Platzhalter mittels einem vorangestellten Dollar-Zeichen ($) eingebunden werden (<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse19">mehr Infos siehe hier</a>).</li><li>Sofern Variablen/Platzhalter verwendet werden sollen, muss unten der Haken für <u>Tcl</u> aktivieren gesetzt werden.</li><li>Zudem kann durch setzen des Hakens bei <u>Mail mit hoher Priorität</u> eine Email mit hoher Priorität z.B. für Alarmmeldungen versendet werden.</li></ul><br><img src="vorlage.png" width="40%" alt=""/>
                 </div>
             </div>
         </div>
@@ -423,29 +423,35 @@ Weitere Informationen zum Kamera Snapshot Pfad können der Bedienungsanleitung d
                 </h4>
             </div>
             <div id="collapse11" class="panel-collapse collapse">
-                <div class="panel-body">
-					<font COLOR="#ff0000"><b>ACHTUNG! Es wird dringend empfohlen das Original Script zum Versenden der Email, welches die undokumentierte und instabile „system.Exec()“-Funktion der CCU nutzt, NICHT zu verwenden.</b></font><br><br>Die fehlerhafter Nutzungsweise bzw. häufiger Ausführung der „system.Exec()“-Funktion kann zum Stillstand/Aufhängen das Systems (der CCU) führen. Bitte verwenden Sie daher das vom CUxD-Addon angebotene und optimierte System-Gerät Typ 28 mit der Exec-Funktion bzw. dass CUxD-Gerät 91. Die Einrichtung der CUxD-Geräte wird <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12">hier</a> bzw. <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse13">hier</a> beschrieben.<br><br>Zudem wird dringend empfohlen, zu kontrollieren, ob auch andere installierte Zusatzsoftware bzw. verwendete Skripte die „system.Exec()“-Funktion verwendet. Auch diese sollten durch die CUxD Exec-Funktion ersetzt werden. Weitere Informationen zum ersetzen der „system.Exec()“-Funktion finden Sie <A HREF="http://homematic-forum.de/forum/viewtopic.php?f=31&amp;t=12780&amp;sid=947eee72913b350f9fc15d6e091e286c" target="_blank">hier</A>.<br><br><u>Das Original Script - nicht verwenden!</u><br><br><table width="100%" border="0">
+                <div class="panel-body"><font color="#ff0000"><strong>ACHTUNG! Es wird dringend empfohlen das Original Script zum Versenden der Email, welches die undokumentierte und instabile „system.Exec()“-Funktion der CCU nutzt, NICHT zu verwenden.</strong></font><br>
+                  <br>
+                  Die fehlerhafter Nutzungsweise bzw. häufiger Ausführung der „system.Exec()“-Funktion kann zum Stillstand/Aufhängen das Systems (der CCU) führen. Bitte verwenden Sie daher das vom CUxD-Addon angebotene und optimierte System-Gerät Typ 28 mit der Exec-Funktion bzw. dass CUxD-Gerät 91. Die Einrichtung der CUxD-Geräte wird <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12">hier</a> bzw. <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse13">hier</a> beschrieben.<br>
+                  <br>
+                  Zudem wird dringend empfohlen, zu kontrollieren, ob auch andere installierte Zusatzsoftware bzw. verwendete Skripte die „system.Exec()“-Funktion verwendet. Auch diese sollten durch die CUxD Exec-Funktion ersetzt werden. Weitere Informationen zum ersetzen der „system.Exec()“-Funktion finden Sie <a href="http://homematic-forum.de/forum/viewtopic.php?f=31&amp;t=12780&amp;sid=947eee72913b350f9fc15d6e091e286c" target="_blank">hier</a>.<br>
+                  <br>
+                  <u>Das Original Script - nicht verwenden!</u><br>
+                  <br>
+                  <table width="100%" border="0">
   <tbody>
     <tr>
       <td><IMG SRC="no.png" NAME="Bild 20" ALIGN=LEFT HSPACE=12 WIDTH=92 HEIGHT=90 BORDER=0></td>
-      <td><font face="Courier New, serif" COLOR="#ff0000">string
-        stdout;</FONT></P>
-        <font face="Courier New, serif" color="#ff0000">string
-          stderr;></font>
-        </P>
-        <font face="Courier New, serif" COLOR="#ff0000">system.Exec(&quot;/etc/config/addons/email/email
-      ID&quot;, &amp;stdout, &amp;stderr);</FONT></P></td>
+      <td><font face="Courier New, serif" COLOR="#ff0000">string stdout;<br>string stderr;<br>system.Exec(&quot;/etc/config/addons/email/email
+      ID&quot;, &amp;stdout, &amp;stderr);</FONT></td>
     </tr>
   </tbody>
 </table><br><br><u>Nutzen Sie das folgende Script unter Verwendung des CUxD System-Gerät Typ 28:</u><br><br><table width="100%" border="0">
   <tbody>
     <tr>
-		<td><IMG SRC="yes.jpg" NAME="Bild 20" ALIGN=LEFT HSPACE=12 WIDTH=92 HEIGHT=90 BORDER=0></td><td><font face="Courier New, serif" color="#00b050">dom.GetObject(&quot;CUxD.CUX2801001:1.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email</font><font face="Courier New, serif" color="#ff0000">ID</font><font face="Courier New, serif" color="#00b050">&quot;);</font></td>
+		<td><IMG SRC="yes.jpg" NAME="Bild 20" ALIGN=LEFT HSPACE=12 WIDTH=92 HEIGHT=90 BORDER=0></td><td><font face="Courier New, serif" color="#00b050">dom.GetObject(&quot;CUxD.CUX2801001:1.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email</font><font face="Courier New, serif" color="#ff0000"> ID</font><font face="Courier New, serif" color="#00b050">&quot;);</font></td>
     </tr>
   </tbody>
-</table><br>Die in der Skript Zeile rot markierte <font face="Courier New, serif" COLOR="#ff0000"><I>ID</I></FONT> ist durch die gewünschte Vorlagen ID zu ersetzen.<br><br>Beispiel: Sie möchten die Vorlage 9 verwenden, so ist <font face="Courier New, serif" COLOR="#ff0000"><I>09</I></FONT> einzutragen. Die Skript-Zeile sieht dann also folgendermaßen aus:<br><br><font face="Courier New, serif" COLOR="#00b050"><I>dom.GetObject(&quot;CUxD.CUX2801001:1.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email
-  </I></FONT><font face="Courier New, serif" COLOR="#ff0000"><I>09</I></FONT><font face="Courier New, serif" COLOR="#00b050"><I>&quot;);</I></FONT>
-                </div>
+</table>
+<br>
+Die in der Skript Zeile rot markierte <font face="Courier New, serif" color="#ff0000"><em>ID</em></font> ist durch die gewünschte Vorlagen ID zu ersetzen.<br>
+<br>
+Beispiel: Sie möchten die Vorlage 9 verwenden, so ist <font face="Courier New, serif" color="#ff0000"><em>09</em></font> einzutragen. Die Skript-Zeile sieht dann also folgendermaßen aus:<br>
+<br>
+<font face="Courier New, serif" color="#00b050"><em>dom.GetObject(&quot;CUxD.CUX2801001:1.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email </em></font><font face="Courier New, serif" color="#ff0000"><em>09</em></font><font face="Courier New, serif" color="#00b050"><em>&quot;);</em></font></div>
             </div>
         </div>
         <div class="panel panel-default">

@@ -4,7 +4,7 @@ set testing "0"
 
 #######################################
 # HMside                              #
-# 02.2017                             #
+# 04.2017                             #
 #######################################
 
 package require base64
@@ -17,9 +17,14 @@ if { [ catch {
 set LOGFILE "/var/log/email.log"
 
 # CLEAN UP
-exec rm -r /usr/local/etc/config/addons/email/tmp
-exec mkdir /usr/local/etc/config/addons/email/tmp/
-exec chmod 755 /usr/local/etc/config/addons/email/tmp/
+if { [file exists /usr/local/etc/config/addons/email/tmp] == 1} {
+        exec rm -r /usr/local/etc/config/addons/email/tmp
+        exec mkdir /usr/local/etc/config/addons/email/tmp/
+        exec chmod 755 /usr/local/etc/config/addons/email/tmp/
+    } else {
+    exec mkdir /usr/local/etc/config/addons/email/tmp/
+    exec chmod 755 /usr/local/etc/config/addons/email/tmp/
+    }
 
 # LOAD
 proc __loadFromFile { filename } {
@@ -128,7 +133,7 @@ if {$AttName == "messages"} {
 }
 
 if {$mail(AttType) == "snapshot"} {
-	set AttNewName "snapshot-$date.jpg"
+  set AttNewName "snapshot-$date.jpg"
 } elseif {$mail(AttType) == "snapshot1"} {
     set AttNewName "snapshot-$date.jpg"
 } elseif {$mail(AttType) == "off"} {
@@ -275,9 +280,11 @@ close $fp
 exec cat /usr/local/etc/config/addons/email/tmp/ready.eml | /usr/local/etc/config/addons/email/msmtp -t -C /etc/config/addons/email/msmtp.conf
 
 # CLEAN UP
-exec rm -r /usr/local/etc/config/addons/email/tmp
-exec mkdir /usr/local/etc/config/addons/email/tmp/
-exec chmod 755 /usr/local/etc/config/addons/email/tmp/
+if { [file exists /usr/local/etc/config/addons/email/tmp] == 1} {
+        exec rm -r /usr/local/etc/config/addons/email/tmp
+        #exec mkdir /usr/local/etc/config/addons/email/tmp/
+        #exec chmod 755 /usr/local/etc/config/addons/email/tmp/
+    }
 
 } errMsg ] } then {
     exec -- logger -t email -p user.err $errMsg

@@ -75,6 +75,11 @@ if [ -e ${WWW_DIR}/anleitung.pdf ]; then
   rm -f ${WWW_DIR}/anleitung.pdf
 fi
 
+# Fix for issue with incorrect prio parameter in templates, replace brackets
+if [ -d ${ADDON_DIR}/mails ]; then
+  sed -i 's/Prio {}/Prio false/g' ${ADDON_DIR}/mails/*.mail
+fi
+
 # add menu entry
 touch /usr/local/etc/config/hm_addons.cfg
 ${ADDON_DIR}/update_addon email ${ADDON_DIR}/hm_email-addon.cfg

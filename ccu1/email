@@ -130,7 +130,7 @@ if {$AttName == "messages"} {
     set AttNewName "CCU-Logfile-$date.log"
 } elseif {$AttName == "hmserver.log"} {
     set AttNewName "hmserver-$date.log"
-}
+} else {set AttNewName $AttName}
 
 if {$mail(AttType) == "snapshot"} {
 	set AttNewName "snapshot-$date.jpg"

@@ -10,6 +10,10 @@ case "$1" in
   ""|start)
     # make sure a /var/log/email.log exists
     touch /var/log/email.log
+    # Fix for issue with incorrect prio parameter in templates, replace brackets
+    if [ -d ${ADDON_DIR}/mails ]; then
+    sed -i 's/Prio {}/Prio false/g' ${ADDON_DIR}/mails/*.mail
+    fi
     ;;
 
   info)

@@ -73,17 +73,17 @@ proc putMails {} {
   foreach id $MAIL_IDS {
     if { 1 != $first } then { puts "    ," } else { set first 0 }
     array set mail {}
-    set mail(Id)     $id
+    set mail(Id) $id
     set mail(Description) {}
-    set mail(To)      {}
+    set mail(To) {}
     set mail(Subject) {}
     set mail(AttType) {}
     set mail(Attachment) {}
     set mail(Snapuser) {}
     set mail(Snappass) {}
     set mail(Content) {}
-    set mail(Tcl)     "false"
-    set mail(Prio)     "false"
+    set mail(Tcl) "false"
+    set mail(Prio) "false"
     
     catch { array set mail [loadFromFile "$MAIL_DIR/$id.mail"] } 
     
@@ -98,8 +98,8 @@ proc putMails {} {
     puts "      \"snapuser\": \"[jsstring $mail(Snapuser)]\","
     puts "      \"snappass\": \"[jsstring $mail(Snappass)]\","
     puts "      \"content\": \"[jsstring $mail(Content)]\","
-    puts "      \"tcl\": \"$mail(Tcl)\","
-    puts "      \"prio\": $mail(Prio)"
+    puts "      \"tcl\": [jsstring $mail(Tcl)],"
+    puts "      \"prio\": [jsstring $mail(Prio)]"
     puts "    \}"
   }
   
@@ -133,8 +133,8 @@ proc putAccount {} {
   puts "    \"username\": \"[jsstring $account(Username)]\","
   puts "    \"password\": \"[jsstring $account(Password)]\","
   puts "    \"port\": \"[jsstring $account(Port)]\","
-  puts "    \"tls\": \"[jsstring $account(TLS)]\","
-  puts "    \"starttls\": $account(STARTTLS)"
+  puts "    \"tls\": [jsstring $account(TLS)],"
+  puts "    \"starttls\": [jsstring $account(STARTTLS)]"
   puts "  \}"
 }
 

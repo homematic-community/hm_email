@@ -1,9 +1,9 @@
 load tclrega.so
 
 array set values [rega_script {
-var v1 = dom.GetObject("EmailEmpfaenger").Value();
-var v2 = dom.GetObject("EmailBetreff").Value();
-var v3 = dom.GetObject("EmailText").Value();
+var v1 = dom.GetObject("Anwesenheit").Value();
+var v2 = dom.GetObject("Alarmmeldungen").Value();
+var v3 = dom.GetObject("Servicemeldungen").Value();
 } ]
 
 set v1 $values(v1)

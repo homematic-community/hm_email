@@ -423,35 +423,56 @@ Weitere Informationen zum Kamera Snapshot Pfad können der Bedienungsanleitung d
                 </h4>
             </div>
             <div id="collapse11" class="panel-collapse collapse">
-                <div class="panel-body"><font color="#ff0000"><strong>ACHTUNG! Es wird dringend empfohlen das Original Script zum Versenden der Email, welches die undokumentierte und instabile „system.Exec()“-Funktion der CCU nutzt, NICHT zu verwenden.</strong></font><br>
-                  <br>
-                  Die fehlerhafter Nutzungsweise bzw. häufiger Ausführung der „system.Exec()“-Funktion kann zum Stillstand/Aufhängen das Systems (der CCU) führen. Bitte verwenden Sie daher das vom CUxD-Addon angebotene und optimierte System-Gerät Typ 28 mit der Exec-Funktion bzw. dass CUxD-Gerät 91. Die Einrichtung der CUxD-Geräte wird <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12">hier</a> bzw. <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse13">hier</a> beschrieben.<br>
-                  <br>
-                  Zudem wird dringend empfohlen, zu kontrollieren, ob auch andere installierte Zusatzsoftware bzw. verwendete Skripte die „system.Exec()“-Funktion verwendet. Auch diese sollten durch die CUxD Exec-Funktion ersetzt werden. Weitere Informationen zum ersetzen der „system.Exec()“-Funktion finden Sie <a href="http://homematic-forum.de/forum/viewtopic.php?f=31&amp;t=12780&amp;sid=947eee72913b350f9fc15d6e091e286c" target="_blank">hier</a>.<br>
-                  <br>
-                  <u>Das Original Script - nicht verwenden!</u><br>
+              <div class="panel-body">
+                 <u>Das Original Script</u><br>
                   <br>
                   <table width="100%" border="0">
   <tbody>
     <tr>
-      <td><IMG SRC="no.png" NAME="Bild 20" ALIGN=LEFT HSPACE=12 WIDTH=92 HEIGHT=90 BORDER=0></td>
-      <td><font face="Courier New, serif" COLOR="#ff0000">string stdout;<br>string stderr;<br>system.Exec(&quot;/etc/config/addons/email/email
-      ID&quot;, &amp;stdout, &amp;stderr);</FONT></td>
+      <td width="30px"></td>
+      <td><font face="Courier New, serif" COLOR="#00b050">string stdout;<br>string stderr;<br>system.Exec(&quot;/etc/config/addons/email/email
+      <font face="Courier New, serif" color="#ff0000"> ID</font>&quot;, &amp;stdout, &amp;stderr);</FONT></td>
     </tr>
   </tbody>
-</table><br><br><u>Nutzen Sie das folgende Script unter Verwendung des CUxD System-Gerät Typ 28:</u><br><br><table width="100%" border="0">
+</table><br>
+              Die in der letzten Skript Zeile rot markierte <font face="Courier New, serif" color="#ff0000"><em>ID </em></font>  ist durch die gewünschte Vorlagen ID zu ersetzen.<br>
+              Beispiel: Sie möchten die Vorlage 9 verwenden, so ist <font face="Courier New, serif" color="#ff0000"><em>09</em></font> einzutragen. Die Skript sieht dann also folgendermaßen aus:<br>
+<br>
+<table width="100%" border="0">
   <tbody>
     <tr>
-		<td><IMG SRC="yes.jpg" NAME="Bild 20" ALIGN=LEFT HSPACE=12 WIDTH=92 HEIGHT=90 BORDER=0></td><td><font face="Courier New, serif" color="#00b050">dom.GetObject(&quot;CUxD.CUX2801001:1.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email</font><font face="Courier New, serif" color="#ff0000"> ID</font><font face="Courier New, serif" color="#00b050">&quot;);</font></td>
+      <td width="30px"></td>
+      <td><font face="Courier New, serif" COLOR="#00b050">string stdout;<br>string stderr;<br>system.Exec(&quot;/etc/config/addons/email/email
+      <font face="Courier New, serif" color="#ff0000"> 09</font>&quot;, &amp;stdout, &amp;stderr);</FONT></td>
+    </tr>
+  </tbody>
+</table>
+               <br>
+                Bei Verwendung der CCU2 bzw. CCU3 mit aktueller Firmware und eingestellter Logikschicht-Version "Standard" oder "Community", kann das Original Script verwendet werden. Die Logikschicht Version kann über die WebUI unter Einstellungen > Systemsteuerung > Systemwartung eingestellt werden.<br><hr>
+				  <font><strong>Hinweis: Bei Verwendung der CCU1 oder CCU2 mit älteren Firmware Ständen, wird empfohlen das obrige Original Script zum Versenden der Email, welches die bis dato nicht optimierte „system.Exec()“-Funktion der CCU nutzt, <font COLOR="#ff0000">NICHT</font> zu verwenden.</strong></font><br>
+                <br>
+Hier kann die fehlerhafter Nutzungsweise bzw. häufiger Ausführung der „system.Exec()“-Funktion zum Stillstand/Aufhängen das Systems (der CCU) führen. Es sollte daher das vom Addon CUx-Deamon angebotene und optimierte System-Gerät Typ 28 mit der Exec-Funktion bzw. dass CUxD-Gerät 91 verwendet werden. Die Einrichtung dieser CUxD-Geräte ist <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12">hier</a> bzw. <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse13">hier</a> beschrieben.<br>
+<br>
+<u>Script unter Verwendung des CUxD System-Gerät Typ 28:</u><br>
+<br>
+<table width="100%" border="0">
+  <tbody>
+    <tr>
+		<td width="30px"></td><td><font face="Courier New, serif" color="#00b050">dom.GetObject(&quot;CUxD.<font face="Courier New, serif" color="#ff0000">CUX2801001:1</font>.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email</font><font face="Courier New, serif" color="#ff0000"> ID</font><font face="Courier New, serif" color="#00b050">&quot;);</font></td>
     </tr>
   </tbody>
 </table>
 <br>
-Die in der Skript Zeile rot markierte <font face="Courier New, serif" color="#ff0000"><em>ID</em></font> ist durch die gewünschte Vorlagen ID zu ersetzen.<br>
+Die in der Skript Zeile rot markierte Seriennummer des erstellten CUxD-Geräts <font face="Courier New, serif" color="#ff0000"><em>CUX2801001:1</em></font> und die <font face="Courier New, serif" color="#ff0000"><em>ID </em></font>  der gewünschte Vorlagen ID ist entsprecht zu ersetzen.<br>
+Beispiel: Sie möchten die Vorlage 5 verwenden, so ist <font face="Courier New, serif" color="#ff0000"><em>05</em></font> einzutragen. Die Skript-Zeile sieht dann also folgendermaßen aus:<br>
 <br>
-Beispiel: Sie möchten die Vorlage 9 verwenden, so ist <font face="Courier New, serif" color="#ff0000"><em>09</em></font> einzutragen. Die Skript-Zeile sieht dann also folgendermaßen aus:<br>
-<br>
-<font face="Courier New, serif" color="#00b050"><em>dom.GetObject(&quot;CUxD.CUX2801001:1.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email </em></font><font face="Courier New, serif" color="#ff0000"><em>09</em></font><font face="Courier New, serif" color="#00b050"><em>&quot;);</em></font></div>
+<table width="100%" border="0">
+  <tbody>
+    <tr>
+		<td width="30px"></td><td><font face="Courier New, serif" color="#00b050">dom.GetObject(&quot;CUxD.<font face="Courier New, serif" color="#ff0000">CUX2801001:1</font>.CMD_EXEC&quot;).State(&quot;/etc/config/addons/email/email</font><font face="Courier New, serif" color="#ff0000"> 05</font><font face="Courier New, serif" color="#00b050">&quot;);</font></td>
+    </tr>
+  </tbody>
+</table></div>
             </div>
         </div>
         <div class="panel panel-default">

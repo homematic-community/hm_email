@@ -13,6 +13,6 @@ cp -a userscript.tcl tmp/
 cp -a www tmp/
 cp -a VERSION tmp/addon/
 cd tmp
-tar --owner=root --group=root --exclude=.DS_Store --disable-copyfile -czvf ../email-$(cat ../VERSION).tar.gz *
+tar --owner=root --group=root --exclude=.DS_Store --exclude=._* -czvf ../email-$(cat ../VERSION).tar.gz *
 cd ..
 rm -rf tmp

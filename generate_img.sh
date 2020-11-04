@@ -4,7 +4,7 @@ cp -a account.conf tmp/
 cp -a addon tmp/
 cp -a ccu1 tmp/
 cp -a ccu2 tmp/
-cp -a ccurm tmp/
+cp -a ccu3 tmp/
 cp -a rc.d tmp/
 cp -a mails tmp/
 cp -a msmtp.conf tmp/

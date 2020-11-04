@@ -34,7 +34,15 @@
 # @license Public Domain
 ##
 
-if { [catch {
+load tclrega.so
+source session.tcl
+source querystring.tcl
+
+puts "Content-Type: text/plain; charset=iso-8859-1"
+puts ""
+
+if { [info exists sid] && [check_session $sid] } {
+  if { [catch {
 
   source /etc/config/addons/email/config.tcl
 
@@ -90,7 +98,14 @@ if { [catch {
   
     # 3. CGI-Query übernehmen
     if { [info exists env(QUERY_STRING)] } then {
-      set __args(Query) $env(QUERY_STRING)
+      set input $env(QUERY_STRING)
+      set pairs [split $input &]
+      foreach pair $pairs {
+        if {0 == [regexp "^(\[^=]*)=(.*)$" $pair dummy varname val]} {
+          set __args(Query) $pair
+          break
+        }
+      }
     }
   }
 
@@ -249,14 +264,11 @@ if { [catch {
     default    { error "Unknown Command [__args_get Query]" }
   }
   
-  puts "Content-Type: text/plain"
-  puts ""
   puts -nonewline "OK"
 
-} errorMessage] } then {
-  puts "Content-Type: text/plain"
-  puts ""
-  puts "ERROR $errorMessage"
+  } errorMessage] } then {
+    puts -nonewline "ERROR $errorMessage"
+  }
+} else {
+  puts -nonewline "ERROR: no valid session"
 }
-
-

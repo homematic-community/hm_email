@@ -6,6 +6,9 @@
  * @license Public Domain
  **/
  
+var SessionId = "";
+var Configuration;
+
 /*############################################################################*/
 /*# DOM-Funktionen                                                           #*/
 /*############################################################################*/
@@ -210,7 +213,7 @@ Mail = function(mailData)
  * @const Mail.URL
  * @brief URL zum Speichern von E-Mails.
  **/
-Mail.URL = "/addons/email/save.cgi?mail"
+Mail.URL = "/addons/email/save.cgi";
 
 Mail.prototype =
 {
@@ -306,7 +309,7 @@ Mail.prototype =
     data += this.m_content;
     
     var result = "AJAX error";
-    try { result = http.post(Mail.URL, data); }
+    try { result = http.post(Mail.URL + '?sid=' + SessionId + '&mail', data); }
     catch (ex) { }
     if ("OK" == result) { alert("E-Mail wurde erfolgreich gespeichert!"); }
     else { alert("Fehler beim Speichern der E-Mail (" + result + ")!"); }
@@ -380,7 +383,7 @@ MailCollection =
 
 Account =
 {
-  URL: "/addons/email/save.cgi?account",
+  URL: "/addons/email/save.cgi",
   
   init: function()
   {
@@ -411,7 +414,7 @@ Account =
 	    data += "\n";
     
       var result = "AJAX error";
-      try { result = http.post(Account.URL, data); }
+      try { result = http.post(Account.URL + '?sid='+SessionId+'&account', data); }
       catch (ex) { }
       if ("OK" == result) { alert("Kontodaten wurden erfolgreich gespeichert!"); }
       else { alert("Fehler beim Speichern der Kontodaten (" + result + ")!"); }
@@ -434,7 +437,7 @@ Account =
  **/
 Tcl =
 {
-  URL: "/addons/email/save.cgi?userScript",
+  URL: "/addons/email/save.cgi",
   
   /**
    * @fn init
@@ -456,7 +459,7 @@ Tcl =
     data += $("userScriptTextArea").value;
     
     var result = "AJAX error";
-    try { result = http.post(Tcl.URL, data); }
+    try { result = http.post(Tcl.URL + '?sid='+SessionId+'&userScript', data); }
     catch (ex) { }
     if ("OK" == result) { alert("Tcl Script wurde erfolgreich gespeichert!"); }
     else { alert("Fehler beim Speichern des Tcl Scripts (" + result + ")!"); }
@@ -482,7 +485,7 @@ TestTCL =
     data += $("userScriptTextArea").value;
     
     var result = "AJAX error";
-    try { result = http.m_request("GET", TestTCL.URL, null); }
+    try { result = http.m_request("GET", TestTCL.URL + '?sid='+SessionId, null); }
     catch (ex) { }
     if ("TCLOK" == result) { alert("Das Tcl-Skript ist okay!"); }
     else { alert("Das Tcl-Skript ist fehlerhaft: (" + result + ")"); }
@@ -496,7 +499,7 @@ TestTCL =
 
 Test =
 {
-  URL: "/addons/email/testmail.cgi?ID=1",
+  URL: "/addons/email/testmail.cgi",
 
   /**
    * @fn apply
@@ -509,7 +512,7 @@ Test =
     data += $("userScriptTextArea").value;
     
     var result = "AJAX error";
-    try { result = http.m_request("GET", Test.URL, null); }
+    try { result = http.m_request("GET", Test.URL + '?sid='+SessionId+'&ID=1', null); }
     catch (ex) { }
     if ("OK" == result) { alert("Testmail wurde gesendet!"); }
     else { alert("Fehler beim Senden der Email (" + result + ")!"); }
@@ -527,7 +530,7 @@ Backup =
   apply: function()
   {
     var result = "AJAX error";
-    try { result = http.m_request("GET", Backup.URL, null); }
+    try { result = http.m_request("GET", Backup.URL + '?sid='+SessionId, null); }
     catch (ex) { }
     if ("BACKUPOK" == result) { window.open('/addons/email/addon/email-backup.tar.gz');
     }
@@ -545,8 +548,25 @@ Backup =
  **/
 startup = function()
 {
-  MailCollection.init();
-  Account.init();
-  Tcl.init();
-  MainMenu.select("mailMenuButton");
+  if (location.search)
+  {
+    if (location.search.indexOf("sid=") > -1)
+    {
+      var teil = location.search.substring(location.search.indexOf("sid=") + 4);
+      if (teil.indexOf("&") > -1)
+        SessionId = teil.substring(0, teil.indexOf("&"));
+      else
+        SessionId = teil;
+    }
+  }
+
+  Configuration = JSON.parse(http.m_request("GET", "/addons/email/config_js.cgi?sid="+SessionId, null));
+  if (typeof(Configuration.Mails) !== 'undefined') {
+    MailCollection.init();
+    Account.init();
+    Tcl.init();
+    MainMenu.select("mailMenuButton");
+  } else {
+    alert("ERROR: no valid session");
+  }
 };

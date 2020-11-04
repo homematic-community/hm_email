@@ -8,6 +8,9 @@
 # @license Public Domain
 ##
 
+load tclrega.so
+source querystring.tcl
+source session.tcl
 source /etc/config/addons/email/config.tcl
 
 ################################################################################
@@ -67,8 +70,7 @@ proc putMails {} {
   global MAIL_DIR MAIL_IDS
   set first 1
   
-  puts "  Mails:"
-  puts "  \["
+  puts "  \"Mails\": \["
   
   foreach id $MAIL_IDS {
     if { 1 != $first } then { puts "    ," } else { set first 0 }
@@ -125,8 +127,7 @@ proc putAccount {} {
   
   catch { array set account [loadFromFile $ACCOUNT_FILE] }
   
-  puts "  Account:"
-  puts "  \{"
+  puts "  \"Account\": \{"
   puts "    \"server\": \"[jsstring $account(Server)]\","
   puts "    \"from\": \"[jsstring $account(From)]\","
   puts "    \"auth\": \"[jsstring $account(Auth)]\","
@@ -154,11 +155,14 @@ proc putUserScript {} {
 
 puts "Content-Type: text/javascript; charset=utf-8"
 puts ""
-puts "Configuration ="
 puts "\{"
-putMails
-puts "  ,"
-putAccount
-puts "  ,"
-putUserScript
-puts "\};"
+if {[info exists sid] && [check_session $sid]} {
+  putMails
+  puts "  ,"
+  putAccount
+  puts "  ,"
+  putUserScript
+} else {
+  puts "ERROR: no valid session"
+}
+puts "\}"

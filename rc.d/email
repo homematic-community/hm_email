@@ -17,9 +17,10 @@ case "$1" in
     ;;
 
   info)
-    echo "Info: <b>E-Mail CCU Addon</b><br>"
-    echo "Info: (c) 2010-2016 HMside, Jens Maus<br>"
-    echo "Info: <a href='https://github.com/jens-maus/hm_email' target='_blank'>https://github.com/jens-maus/hm_email</a>"
+    echo "Info: <b>E-Mail CCU Addon</b><br/>"
+    echo "Info: Erlaubt E-Mails zu versenden<br/><br/>"
+    echo "Info: (c) 2010-2020 HMside, Jens Maus<br/>"
+    echo "Info: <a href='https://github.com/homematic-community/hm_email' target='_blank'>https://github.com/homematic-community/hm_email</a>"
     echo "Version: $(cat ${ADDON_DIR}/VERSION)"
     echo "Name: E-Mail"
     echo "Operations: uninstall"

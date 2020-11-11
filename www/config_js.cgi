@@ -50,11 +50,11 @@ proc jsstring { value } {
   return [string map {
     "\\" "\\"
     "\"" "\\\""
-    "\'" "\\\'"
     "\t" "\\t"
     "\r" "\\r"
     "\n" "\\n"
-    
+    "\b" "\\b"
+    "\f" "\\f"
   } $value]
 }
 

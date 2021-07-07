@@ -5,6 +5,11 @@ ADDON_DIR=/usr/local/etc/config/addons/${ADDONNAME}
 WWW_DIR=/usr/local/etc/config/addons/www/${ADDONNAME}
 RCD_DIR=/usr/local/etc/config/rc.d
 
+# check for unsupported platforms
+if grep -qim1 busmatic /www/api/methods/ccu/downloadFirmware.tcl; then
+  exit 13
+fi
+
 case "$1" in
 
   ""|start)

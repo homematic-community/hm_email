@@ -164,7 +164,11 @@ set fd ""
       set mailSubjectPart $mailSubject 
       set mailSubject ""
     }
-    set fd "$fd$mailSubjectPartStart=?UTF-8?B?[::base64::encode -wrapchar "" [encoding convertto utf-8 $mailSubjectPart]]?="
+    if { [encoding system] == "identity" } {
+      set fd "$fd$mailSubjectPartStart=?UTF-8?B?[::base64::encode -wrapchar "" [encoding convertto utf-8 $mailSubjectPart]]?="
+    } else {
+      set fd "$fd$mailSubjectPartStart=?UTF-8?B?[::base64::encode -wrapchar "" $mailSubjectPart]?="
+    }
     set mailSubjectPartStart "\r\n\t" 
     set mailSubjectLength [string length $mailSubject]  
   }

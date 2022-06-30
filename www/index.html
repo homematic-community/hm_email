@@ -1,205 +1,213 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-  <title>E-Mail Konfiguration</title>
-  <!-- Refresh   //-->
-  <meta http-equiv="expires" content="0">
-  <link rel="stylesheet" type="text/css" href="style.css" />
-  <script type="text/javascript" src="email.js"></script>
-</head>
-<body onload="startup();">
-<div id="page">
-  
-  <div id="menubar">
-    <div class="menuButton" onclick="MainMenu.select(id);" id="mailMenuButton">E-Mails</div>
-    <div class="menuButton" onclick="MainMenu.select(id);" id="accountMenuButton">Account</div>
-    <div class="menuButton" onclick="MainMenu.select(id);" id="tclMenuButton">Tcl</div>
-    <div class="menuButton" onclick="MainMenu.select(id);" id="testMenuButton">Hilfe</div>
-    <div class="menuButton" onclick="MainMenu.select(id);" id="infoMenuButton">Info</div>
-    <div style="clear: both"></div>
-  </div>
-        
-  <div id="mailContent" class="content" style="display:none;">
-    <table border="0" width="100%">
-      <tr>
-        <td width="20%">E-Mail (ID / Beschreibung):</td>
-        <td>
-          <select class="select2" id="idListBox" onchange="MailCollection.show();"></select>
-          <input class="input3" style="float:right;" id="descriptionBox" type="text" /></td>
-        </td>
-      </tr>
-      <tr>
-        <td>An:</td>
-        <td><input class="input1" id="toTextBox" type="text" /></td>
-      </tr>
-      <tr>
-        <td>Betreff:</td>
-        <td><input class="input1" id="subjectTextBox" type="text"></td>
-      </tr>      
-      <tr>
-        <td><div class="tooltip">Dateianhang:<span class="tooltiptext"><u>Snapshot:</u>
-f&uuml;r Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"<br><br>
-<u>Snapshot 1:</u> es werden lediglich die Dateiformate jpg, jpeg, png und cgi geladen und ggf. entsprechend gewandelt.<br>wie z.B. http://meine-cam-ip:port/snapshot.cgi</span>
+   <head>
+      <title>E-Mail Konfiguration</title>
+      <!-- Refresh   //-->
+      <meta http-equiv="expires" content="0">
+      <link rel="stylesheet" type="text/css" href="style.css" />
+      <script type="text/javascript" src="email.js"></script>
+   </head>
+   <body onload="startup();">
+      <div id="page">
+      <div id="menubar">
+         <div class="menuButton" onclick="MainMenu.select(id);" id="mailMenuButton">E-Mails</div>
+         <div class="menuButton" onclick="MainMenu.select(id);" id="accountMenuButton">Account</div>
+         <div class="menuButton" onclick="MainMenu.select(id);" id="tclMenuButton">Tcl</div>
+         <div class="menuButton" onclick="MainMenu.select(id);" id="testMenuButton">Hilfe</div>
+         <div class="menuButton" onclick="MainMenu.select(id);" id="infoMenuButton">Info</div>
+         <div style="clear: both"></div>
+      </div>
+      <div id="mailContent" class="content" style="display:none;">
+      <table border="0" width="100%">
+         <tr>
+            <td width="20%">E-Mail (ID / Beschreibung):</td>
+            <td>
+               <select class="select2" id="idListBox" onchange="MailCollection.show();"></select>
+               <input class="input3" style="float:right;" id="descriptionBox" type="text" />
+            </td>
+            </td>
+         </tr>
+         <tr>
+            <td>An:</td>
+            <td><input class="input1" id="toTextBox" type="text" /></td>
+         </tr>
+         <tr>
+            <td>Betreff:</td>
+            <td><input class="input1" id="subjectTextBox" type="text"></td>
+         </tr>
+         <tr>
+            <td>
+               <div class="tooltip">
+                  Dateianhang:<span class="tooltiptext"><u>Snapshot:</u>
+                  f&uuml;r Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"<br><br>
+                  <u>Snapshot 1:</u> es werden lediglich die Dateiformate jpg, jpeg, png und cgi geladen und ggf. entsprechend gewandelt.<br>wie z.B. http://meine-cam-ip:port/snapshot.cgi</span>
             <td><select class="select3" id="attTypeBox">
             <option value="off">Aus</option>
             <option value="local">CCU-File</option>
             <option value="down">Download</option>
             <option value="snapshot">Snapshot</option>
             <option value="snapshot1">Snapshot 1</option>
-          </select></div>
-          <tr>        
-        </td>
-        <td>
-        <tr><td>Pfad:</td><td><input class="input1" id="attachmentTextBox" type="text"></td></tr>
-        <tr><td><div class="tooltip">Benutzer:<span class="tooltiptext">Bei manchen Kameras greift das setzen des Benutzernamens und Passworts &uuml;ber die Eingabefelder nicht. Es ist dann erforderlich dies im Aufruf selbst einzusetzen. Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"</span>
-        </td><td><input class="input2" id="snapuserTextBox" type="text"></td></tr>
-        <tr><td>Passwort:</td><td><input class="input2" id="snappassTextBox" type="password"></td></tr>
-        </tr>
-      <tr>
-        <td colspan="2"><textarea id="contentTextArea" wrap="off"></textarea></td>
-      </tr>
-      <tr>
-        <td colspan="2"><input id="tclCheckBox" class="checkbox" type="checkbox" />Tcl aktivieren <input id="prioCheckBox" class="checkbox" type="checkbox" />E-Mail mit hoher Priorit&auml;t</td>
-      </tr>
-    </table>
-    <hr/>
-    <div>
+            </select></div>
+         <tr>
+            </td>
+            <td>
+         <tr>
+            <td>Pfad:</td>
+            <td><input class="input1" id="attachmentTextBox" type="text"></td>
+         </tr>
+         <tr>
+            <td>
+               <div class="tooltip">
+                  Benutzer:<span class="tooltiptext">Bei manchen Kameras greift das setzen des Benutzernamens und Passworts &uuml;ber die Eingabefelder nicht. Es ist dann erforderlich dies im Aufruf selbst einzusetzen. Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"</span>
+            </td>
+            <td><input class="input2" id="snapuserTextBox" type="text"></td>
+         </tr>
+         <tr><td>Passwort:</td><td><input class="input2" id="snappassTextBox" type="password"></td></tr>
+         </tr>
+         <tr>
+         <td colspan="2"><textarea id="contentTextArea" wrap="off"></textarea></td>
+         </tr>
+         <tr>
+         <td colspan="2"><input id="tclCheckBox" class="checkbox" type="checkbox" />Tcl aktivieren <input id="prioCheckBox" class="checkbox" type="checkbox" />E-Mail mit hoher Priorit&auml;t</td>
+         </tr>
+      </table>
+      <hr/>
+      <div>
       <div class="button" onclick="MailCollection.saveSelectedMail();">&Uuml;bernehmen</div>
       <div style="clear:both;"></div>
-    </div>
-  </div>
-
-  <div id="accountContent" class="content" style="display:none;">
-    <table border="0" style="width:100%;">
-      <colgroup>
-        <col width="35%" />
-        <col width="65%" />
-      </colgroup>
+      </div>
+      </div>
+      <div id="accountContent" class="content" style="display:none;">
+         <table border="0" style="width:100%;">
+            <colgroup>
+               <col width="35%" />
+               <col width="65%" />
+            </colgroup>
+            <tr>
+               <td>SMTP Server:</td>
+               <td><input class="input1" id="smtpTextBox" type="text" /></td>
+            </tr>
+            <tr>
+               <td>Absender:</td>
+               <td><input class="input1" id="fromTextBox" type="text" /></td>
+            </tr>
+            <tr>
+               <td>Authentifikation:</td>
+               <td>
+                  <select class="select4" id="authListBox">
+                     <option value="off">Aus</option>
+                     <option value="on">Auto</option>
+                     <option value="plain">PLAIN</option>
+                     <option value="cram-md5">CRAM-MD5</option>
+                     <option value="external">EXTERNAL</option>
+                     <option value="login">LOGIN</option>
+                  </select>
+               </td>
+            </tr>
+            <tr>
+               <td>Port:</td>
+               <td><input class="select2" id="portTextBox" type="number"  />
+            </tr>
+            <tr>
+               <td>Verschl&uuml;sselte Verbindung (TLS):</td>
+               <td><input id="tlsCheckBox" class="checkbox" type="checkbox" />
+            </tr>
+            <tr>
+               <td>STARTTLS deaktivieren (bei Port 465):</td>
+               <td><input id="starttlsCheckBox" class="checkbox" type="checkbox" />
+            </tr>
+            <tr>
+               <td>Benutzername:</td>
+               <td><input class="input1" id="userTextBox" type="text" /></td>
+            </tr>
+            <tr>
+               <td>Passwort:</td>
+               <td><input class="input1" id="passwordTextBox" type="password" /></td>
+            </tr>
+            <tr>
+               <td>Passwort wiederholen:</td>
+               <td><input class="input1" id="password2TextBox" type="password" /></td>
+            </tr>
+         </table>
+         <hr/>
+         <div>
+            <div class="button" onclick="Account.apply();">&Uuml;bernehmen</div>
+            <div style="clear:both;"></div>
+         </div>
+      </div>
+      <div id="tclContent" class="content" style="display:none;">
+         <table width="100%" border="0">
+            <tr>
+               <td><textarea id="userScriptTextArea" wrap="off" ></textarea></td>
+            </tr>
+         </table>
+         <hr>
+         <div style="text-align:justify;">
+            An dieser Stelle kann ein benutzerdefiniertes Tcl-Skript hinterlegt werden, dass vor dem Versenden jeder E-Mail ausgef&uuml;hrt wird. Ist f&uuml;r eine E-Mail die Tcl-Option aktiviert, k&ouml;nnen dort Variablen und Prozeduren verwendet werden, die hier definiert sind. Einige Tcl-Skript Beispiele sind in der Anleitung unter dem Reiter Hilfe zu finden.
+            <hr>
+            <div class="divhover"><b>Tcl-Check:</b> Erst auf &Uuml;bernehmen und anschlie&szlig;end auf Tcl-Check klicken um das Skript auf eventuelle Fehler zu pr&uuml;fen.</div>
+         </div>
+         <hr/>
+         <div>
+            <div class="buttontesttcl" onclick="TestTCL.apply()">Tcl-Check</div>
+            <div class="button" onclick="Tcl.apply();">&Uuml;bernehmen</div>
+            <div style="clear:both;"></div>
+         </div>
+      </div>
+      <div id="testContent" class="content" style="display:none;">
+      <table width="100%" border="0">
+         <tr>
+            <td>
+               <div style="text-align:justify;">
+         </tr>
+         <tr><td>
+         <center><img src='img/achtung.png' height="25"><b> Bitte erst die Anleitung lesen und dann <a href="http://homematic-forum.de/forum/viewtopic.php?f=41&t=18610" target="_blank">Fragen</a> stellen.</b><br><br>
+         <a href="/addons/email/anleitung/" target="_blank"><b>Hier geht es zur Anleitung!</b></a></center>
+         <hr>
+         <b>Test-E-Mail:</b> Hiermit kann getestet werden, ob die Account Konfiguration korrekt ist. In der E-Mail-Vorlage 1 muss hierzu eine Empf&auml;nger E-Mail-Adresse eingetragen werden.<br>
+         <div class="buttontest" align="right" onclick="Test.apply()">Test-E-Mail senden</div><br><br><hr>
+         <b>Backup:</b> Hiermit kann ein Backup der E-Mail-Vorlagen, der Account-Einstellungen und des Tcl-Skripts erstellt werden. Das Backup kann &uuml;ber die WebUI unter Einstellungen -> Systemsteuerung -> Zusatzsoftware wiederhergestellt werden.<br>
+         <div class="buttonbackup" align="right" onclick="Backup.apply()">Backup erstellen</div></div></td></tr>
+         <div style="clear:both;"></div>
+         <tr>
+            <td>
+               <hr>
+               <div class="divhover">
+                  E-Mail-Log <a><img src='img/help1.png' height="15"></a>
+                  <divhover>Nach CCU Neustart bzw. bei erster Verwendung des Addons ist kein E-Mail Logfile vorhanden und es wird "404 - Not Found" oder "Die Webseite wurde nicht gefunden" angezeigt.</divhover>
+                  <iframe name='logdisplay' src='/addons/email/logfile.html' width='100%' height='100' scrolling='no' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe>
+            </td>
+         </tr>
+         <tr><td><hr>
+         <div class="divhover">CCU-Syslog <a><img src='img/help1.png' height="15"></a><divhover>Hier werden die Ereignisse zum msmtp-Dienst des E-Mail-Addons angezeigt.</divhover>
+         <iframe name='logdisplay1' src='/addons/email/messages.html' width='100%' height='100' scrolling='no' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe></td></tr>
+         <tr><td>
+      </table>
+      </div>
+      <div id="infoContent" class="content" style="display:none;">
+      <img src="img/info_64.png" style="float:left;"/>
+      <table border="0" style="float:right;">
       <tr>
-        <td>SMTP Server:</td>
-        <td><input class="input1" id="smtpTextBox" type="text" /></td>
-      </tr>
-      <tr>
-        <td>Absender:</td>
-        <td><input class="input1" id="fromTextBox" type="text" /></td>
-      </tr>
-      <tr>
-        <td>Authentifikation:</td>
-        <td>
-          <select class="select4" id="authListBox">
-            <option value="off">Aus</option>
-            <option value="on">Auto</option>
-            <option value="plain">PLAIN</option>
-            <option value="cram-md5">CRAM-MD5</option>
-            <option value="external">EXTERNAL</option>
-            <option value="login">LOGIN</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>Port:</td>
-        <td><input class="select2" id="portTextBox" type="number"  />
-      </tr>
-      <tr>
-        <td>Verschl&uuml;sselte Verbindung (TLS):</td>
-        <td><input id="tlsCheckBox" class="checkbox" type="checkbox" />
-      </tr>
-      <tr>
-        <td>STARTTLS deaktivieren (bei Port 465):</td>
-        <td><input id="starttlsCheckBox" class="checkbox" type="checkbox" />
-      </tr>
-      <tr>
-        <td>Benutzername:</td>
-        <td><input class="input1" id="userTextBox" type="text" /></td>
-      </tr>
-      <tr>
-        <td>Passwort:</td>
-        <td><input class="input1" id="passwordTextBox" type="password" /></td>
-      </tr>
-      <tr>
-        <td>Passwort wiederholen:</td>
-        <td><input class="input1" id="password2TextBox" type="password" /></td>
-      </tr>
-    </table>
-    <hr/>
-    <div>
-      <div class="button" onclick="Account.apply();">&Uuml;bernehmen</div>
-      <div style="clear:both;"></div>
-    </div>
-  </div>
-
-  <div id="tclContent" class="content" style="display:none;">
-    <table width="100%" border="0">
-      <tr>
-        <td><textarea id="userScriptTextArea" wrap="off" ></textarea></td>
-      </tr>
-    </table>
-    <hr>
-    <div style="text-align:justify;">
-    An dieser Stelle kann ein benutzerdefiniertes Tcl-Skript definiert werden, dass vor dem Versenden jeder E-Mail ausgef&uuml;hrt wird. Ist f&uuml;r eine E-Mail die Tcl-Option aktiviert, k&ouml;nnen dort Variablen und Prozeduren verwendet werden, die hier definiert sind. Einige Tcl-Skript Beispiele sind in der Anleitung unter dem Reiter Hilfe zu finden.
-      <hr>
-      <div class="divhover"><b>Tcl-Check:</b> Erst auf &Uuml;bernehmen und anschlie&szlig;end auf Tcl-Check klicken um das Skript auf eventuelle Fehler zu pr&uuml;fen.</div>
-    </div>
-    <hr/>
-    <div>
-      <div class="buttontesttcl" onclick="TestTCL.apply()">Tcl-Check</div>
-      <div class="button" onclick="Tcl.apply();">&Uuml;bernehmen</div>
-      <div style="clear:both;"></div>
-    </div>
-  </div>
-  
-  <div id="testContent" class="content" style="display:none;">
-    <table width="100%" border="0">
-    <tr><td>
-    <div style="text-align:justify;">
-    </tr>
-    <tr><td>
-    <center><img src='img/achtung.png' height="25"><b> Bitte erst die Anleitung lesen und dann <a href="http://homematic-forum.de/forum/viewtopic.php?f=41&t=18610" target="_blank">Fragen</a> stellen.</b><br><br>
-    <a href="/addons/email/anleitung/" target="_blank"><b>Hier geht es zur Anleitung!</b></a></center>
-    <hr>
-    <b>Test-E-Mail:</b>Hiermit kann getestet werden, ob die Account Konfiguration korrekt ist. In der E-Mail-Vorlage 1 muss hierzu eine Empf&auml;nger E-Mail-Adresse eingetragen werden.<br>
-    <div class="buttontest" align="right" onclick="Test.apply()">Test-E-Mail senden</div><br><br><hr>
-    
-    <b>Backup:</b>Hiermit kann ein Backup der E-Mail-Vorlagen, der Account-Einstellungen und des Tcl-Skripts erstellt werden. Das Backup kann &uuml;ber die WebUI unter Einstellungen -> Systemsteuerung -> Zusatzsoftware wiederhergestellt werden.<br>
-    <div class="buttonbackup" align="right" onclick="Backup.apply()">Backup erstellen</div></div></td></tr>
-
-<div style="clear:both;"></div>
-    <tr><td><hr>
-    <div class="divhover">E-Mail-Log <a><img src='img/help1.png' height="15"></a><divhover>Nach CCU Neustart bzw. bei erster Verwendung des Addons ist kein E-Mail Logfile vorhanden und es wird "404 - Not Found" oder "Die Webseite wurde nicht gefunden" angezeigt.</divhover>
-<iframe name='logdisplay' src='/addons/email/logfile.html' width='100%' height='100' scrolling='no' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe></td></tr>
-    <tr><td><hr>
-    <div class="divhover">CCU-Syslog <a><img src='img/help1.png' height="15"></a><divhover>Hier werden die Ereignisse zum msmtp-Dienst des E-Mail-Addons angezeigt.</divhover>
-<iframe name='logdisplay1' src='/addons/email/messages.html' width='100%' height='100' scrolling='no' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe></td></tr>
-    <tr><td>
-    </table>
-    </div>
-
-  <div id="infoContent" class="content" style="display:none;">
-    <img src="img/info_64.png" style="float:left;"/>
-    <table border="0" style="float:right;">
-      <tr>
-        <th colspan="2">HomeMatic E-Mail Zusatzsoftware</hr>
-      </tr>
-      <tr>
-        <td>Version:</td>
-        <td align="right"><iframe width="55" height="25" scrolling="no" frameborder="0" src="VERSION.txt"></iframe></td>
+      <th colspan="2">HomeMatic E-Mail Zusatzsoftware</hr>
       </tr>
       <tr>
-        <td>Autoren:</td>
-        <td align="right"><a href="http://homematic-forum.de/forum/memberlist.php?mode=viewprofile&u=5264"  target="_blank">HMside</a>, <a href="http://homematic-forum.de/forum/memberlist.php?mode=viewprofile&u=11444" target="_blank">jmaus</a> (Harima-kun, Mathias)</td>
+      <td>Version:</td>
+      <td align="right"><iframe width="55" height="25" scrolling="no" frameborder="0" src="VERSION.txt"></iframe></td>
       </tr>
-        <td>Lizenz:</td>
-        <td align="right"><a href="http://de.wikipedia.org/wiki/Gemeinfreiheit#Public_Domain"  target="_blank">Public Domain</a>
+      <tr>
+      <td>Autoren:</td>
+      <td align="right"><a href="http://homematic-forum.de/forum/memberlist.php?mode=viewprofile&u=5264"  target="_blank">HMside</a>, <a href="http://homematic-forum.de/forum/memberlist.php?mode=viewprofile&u=11444" target="_blank">jmaus</a> (Harima-kun, Mathias)</td>
+      </tr>
+      <td>Lizenz:</td>
+      <td align="right"><a href="http://de.wikipedia.org/wiki/Gemeinfreiheit#Public_Domain"  target="_blank">Public Domain</a>
       </tr>
       </tr>
-        <td>Github:</td>
-        <td align="right"><a href="https://github.com/homematic-community/hm_email"  target="_blank">Project on Github</a>
+      <td>Github:</td>
+      <td align="right"><a href="https://github.com/homematic-community/hm_email"  target="_blank">Project on Github</a>
       </tr></table>
-    <div style="clear:both"></div>
-    <hr>
-    Dieses Paket verwendet Icons von <a href="https://www.iconfinder.com/search/?q=iconset%3A20-flat-icons" target="_blank">www.iconfinder.com</a>
-  </div>
-    
-</div>
-</body>
+      <div style="clear:both"></div>
+      <hr>Dieses Paket verwendet Icons von <a href="https://www.iconfinder.com/search/?q=iconset%3A20-flat-icons" target="_blank">www.iconfinder.com</a>
+      </div>
+      </div>
+   </body>
 </html>

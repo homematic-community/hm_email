@@ -38,7 +38,7 @@
       </tr>      
       <tr>
         <td><div class="tooltip">Dateianhang:<span class="tooltiptext"><u>Snapshot:</u>
-für Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"<br><br>
+f&uuml;r Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"<br><br>
 <u>Snapshot 1:</u> es werden lediglich die Dateiformate jpg, jpeg, png und cgi geladen und ggf. entsprechend gewandelt.<br>wie z.B. http://meine-cam-ip:port/snapshot.cgi</span>
             <td><select class="select3" id="attTypeBox">
             <option value="off">Aus</option>
@@ -52,7 +52,7 @@ für Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip
         </td>
         <td>
         <tr><td>Pfad:</td><td><input class="input1" id="attachmentTextBox" type="text"></td></tr>
-        <tr><td><div class="tooltip">Benutzer:<span class="tooltiptext">Bei manchen Kameras greift das setzen des Benutzernamens und Passworts über die Eingabefelder nicht. Es ist dann erforderlich dies im Aufruf selbst einzusetzen. Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"</span>
+        <tr><td><div class="tooltip">Benutzer:<span class="tooltiptext">Bei manchen Kameras greift das setzen des Benutzernamens und Passworts &uuml;ber die Eingabefelder nicht. Es ist dann erforderlich dies im Aufruf selbst einzusetzen. Wie z.B. "http://meine-cam-ip:port/CGIProxy.fcgi?cmd=snapPicture2&amp;usr=admin&amp;pwd=meinPW"</span>
         </td><td><input class="input2" id="snapuserTextBox" type="text"></td></tr>
         <tr><td>Passwort:</td><td><input class="input2" id="snappassTextBox" type="password"></td></tr>
         </tr>
@@ -60,7 +60,7 @@ für Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip
         <td colspan="2"><textarea id="contentTextArea" wrap="off"></textarea></td>
       </tr>
       <tr>
-        <td colspan="2"><input id="tclCheckBox" class="checkbox" type="checkbox" />Tcl aktivieren <input id="prioCheckBox" class="checkbox" type="checkbox" />Mail mit hoher Priorität</td>
+        <td colspan="2"><input id="tclCheckBox" class="checkbox" type="checkbox" />Tcl aktivieren <input id="prioCheckBox" class="checkbox" type="checkbox" />E-Mail mit hoher Priorit&auml;t</td>
       </tr>
     </table>
     <hr/>
@@ -137,12 +137,12 @@ für Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip
     </table>
     <hr>
     <div style="text-align:justify;">
-      An dieser Stelle kann ein benutzerdefiniertes Tcl-Skript definiert werden,
+      An dieser Stelle kann ein benutzerdefiniertes Tcl-Skript hinterlegt werden,
       dass vor dem Versenden jeder E-Mail ausgef&uuml;hrt wird. Ist f&uuml;r 
-      eine E-Mail die Tcl-Option aktiviert, können dort Variablen und Prozeduren 
-      verwendet werden, die hier definiert sind. Einige Tcl-Skript Beispiele sind die Anleitung unter dem Reiter Hilfe zu finden.
+      eine E-Mail die Tcl-Option aktiviert, k&ouml;nnen dort Variablen und Prozeduren 
+      verwendet werden, die hier definiert sind. Einige Tcl-Skript Beispiele sind in der Anleitung unter dem Reiter Hilfe zu finden.
       <hr>
-      <div class="divhover"><b>Tcl-Check:</b> Erst auf &Uuml;bernehmen und anschließend auf Tcl-Check klicken um das Skript auf eventuelle Fehler zu prüfen.</div>
+      <div class="divhover"><b>Tcl-Check:</b> Erst auf &Uuml;bernehmen und anschlie&szlig;end auf Tcl-Check klicken um das Skript auf eventuelle Fehler zu pr&uuml;fen.</div>
     </div>
     <hr/>
     <div>
@@ -161,18 +161,18 @@ für Kameras die keinen klaren Dateityp ausgeben<br>Wie z.B. "http://meine-cam-ip
     <center><img src='img/achtung.png' height="25"><b> Bitte erst die Anleitung lesen und dann <a href="http://homematic-forum.de/forum/viewtopic.php?f=41&t=18610" target="_blank">Fragen</a> stellen.</b><br><br>
     <a href="/addons/email/anleitung/"  target="_blank"><b>Hier geht es zur Anleitung!</b></a></center>
     <hr>
-    <b>Testmail:</b> Hiermit kann getestet werden, ob die Account Konfiguration korrekt ist. In der Mail-Vorlage 1 muss hierzu eine Empfänger Mail-Adresse eingetragen werden.<br>
-    <div class="buttontest" align="right" onclick="Test.apply()">Testmail senden</div><br><br><hr>
+    <b>Test E-Mail</b> Hiermit kann getestet werden, ob die Account Konfiguration korrekt ist. In der E-Mail Vorlage 1 muss hierzu eine Empf&auml;nger E-Mail Adresse eingetragen werden.<br>
+    <div class="buttontest" align="right" onclick="Test.apply()">Test E-Mail senden</div><br><br><hr>
     
-    <b>Backup:</b> Hiermit kann ein Backup der Email-Vorlagen, der Account-Einstellungen und des Tcl-Skripts erstellt werden. Das Backup kann über die WebUI unter Einstellungen -> Systemsteuerung -> Zusatzsoftware wiederhergestellt werden.<br>
+    <b>Backup:</b> Hiermit kann ein Backup der E-Mail Vorlagen, der Account-Einstellungen und des Tcl-Skripts erstellt werden. Das Backup kann &uuml;ber die WebUI unter Einstellungen -> Systemsteuerung -> Zusatzsoftware wiederhergestellt werden.<br>
     <div class="buttonbackup" align="right" onclick="Backup.apply()">Backup erstellen</div></div></td></tr>
 
 <div style="clear:both;"></div>
     <tr><td><hr>
-    <div class="divhover">Email-Log <a><img src='img/help1.png' height="15"></a><divhover>Nach CCU Neustart bzw. bei erster Verwendung des Addons ist kein Email Logfile vorhanden und es wird "404 - Not Found" oder "Die Webseite wurde nicht gefunden" angezeigt.</divhover>
+    <div class="divhover">E-Mail Log <a><img src='img/help1.png' height="15"></a><divhover>Nach CCU Neustart bzw. bei erster Verwendung des Addons ist kein E-Mail Logfile vorhanden und es wird "404 - Not Found" oder "Die Webseite wurde nicht gefunden" angezeigt.</divhover>
 <iframe name='logdisplay' src='/addons/email/logfile.html' width='100%' height='100' scrolling='no' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe></td></tr>
     <tr><td><hr>
-    <div class="divhover">CCU-Syslog <a><img src='img/help1.png' height="15"></a><divhover>Hier werden die Ereignisse zum msmtp-Dienst des Email-Addons angezeigt.</divhover>
+    <div class="divhover">CCU-Syslog <a><img src='img/help1.png' height="15"></a><divhover>Hier werden die Ereignisse zum msmtp-Dienst des E-Mail Addons angezeigt.</divhover>
 <iframe name='logdisplay1' src='/addons/email/messages.html' width='100%' height='100' scrolling='no' frameborder='1' style='background-color:transparent;border:1px solid #000000;padding:0px;'></iframe></td></tr>
     <tr><td>
     </table>

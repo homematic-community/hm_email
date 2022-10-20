@@ -253,8 +253,7 @@ if {$mail(AttType) == "local"} {
     set AttNewName [file tail $mailAttachment]
 
 } elseif {$mail(AttType) == "snapshot"} {
-    exec wget --no-check-certificate -q -r -nd --user=$mailSnapuser --password=$mailSnappass --auth-no-challenge -P /usr/local/etc/config/addons/email/tmp/ "$mailAttachment"
-    exec mv /usr/local/etc/config/addons/email/tmp/$AttName /usr/local/etc/config/addons/email/tmp/snapshot.jpg
+    exec wget --no-check-certificate -q -r -nd --user=$mailSnapuser --password=$mailSnappass --auth-no-challenge -O /usr/local/etc/config/addons/email/tmp/snapshot.jpg "$mailAttachment"
     set fp [open "/usr/local/etc/config/addons/email/tmp/snapshot.jpg" r]
     fconfigure $fp -translation binary
     set imgdata [read $fp]

@@ -8,8 +8,6 @@
 # @license Public Domain
 ##
 
-load tclrega.so
-source querystring.tcl
 source session.tcl
 source /etc/config/addons/email/config.tcl
 

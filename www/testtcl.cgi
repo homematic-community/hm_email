@@ -7,8 +7,6 @@
 #
 ###
 
-load tclrega.so
-source querystring.tcl
 source session.tcl
 
 puts "Content-Type: text/plain; charset=iso-8859-1"

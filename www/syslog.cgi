@@ -1,19 +1,9 @@
 #!/bin/tclsh
 
 set logfile "/var/log/messages"
-set filter *
+set filter "msmtp"
 
-catch {
-  set input $env(QUERY_STRING)
-  set pairs [split $input &]
-  foreach pair $pairs {
-    if {0 != [regexp "^(\[^=]*)=(.*)$" $pair dummy varname val]} {
-      set $varname $val
-    }
-  }
-}
-
-puts "Content-Type: text/plain;Charset=ISO-8859-1"
+puts "Content-Type: text/plain; charset=iso-8859-1"
 puts ""
 
 if {[catch {open "$logfile" r} fd]} {

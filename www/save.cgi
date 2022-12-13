@@ -34,9 +34,7 @@
 # @license Public Domain
 ##
 
-load tclrega.so
 source session.tcl
-source querystring.tcl
 
 puts "Content-Type: text/plain; charset=iso-8859-1"
 puts ""

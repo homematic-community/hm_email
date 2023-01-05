@@ -99,9 +99,8 @@ if { [info exists sid] && [check_session $sid] } {
       set input $env(QUERY_STRING)
       set pairs [split $input &]
       foreach pair $pairs {
-        if {0 == [regexp "^(\[^=]*)=(.*)$" $pair dummy varname val]} {
-          set __args(Query) $pair
-          break
+        if {0 != [regexp "cmd=(.*)" $pair dummy val]} {
+          set __args(cmd) $val
         }
       }
     }
@@ -255,11 +254,11 @@ if { [info exists sid] && [check_session $sid] } {
   
   __args_init
 
-  switch -exact -- [__args_get Query] {
+  switch -exact -- [__args_get cmd] {
     mail       { __saveMail }
     account    { __saveAccount }
     userScript { __saveUserScript }
-    default    { error "Unknown Command [__args_get Query]" }
+    default    { error "Unknown Command [__args_get cmd]" }
   }
   
   puts -nonewline "OK"

@@ -309,7 +309,7 @@ Mail.prototype =
     data += this.m_content;
     
     var result = "AJAX error";
-    try { result = http.post(Mail.URL + '?sid=' + SessionId + '&mail', data); }
+    try { result = http.post(Mail.URL + '?sid=' + SessionId + '&cmd=mail', data); }
     catch (ex) { }
     if ("OK" == result) { alert("E-Mail wurde erfolgreich gespeichert!"); }
     else { alert("Fehler beim Speichern der E-Mail (" + result + ")!"); }
@@ -414,7 +414,7 @@ Account =
 	    data += "\n";
     
       var result = "AJAX error";
-      try { result = http.post(Account.URL + '?sid='+SessionId+'&account', data); }
+      try { result = http.post(Account.URL + '?sid='+SessionId+'&cmd=account', data); }
       catch (ex) { }
       if ("OK" == result) { alert("Kontodaten wurden erfolgreich gespeichert!"); }
       else { alert("Fehler beim Speichern der Kontodaten (" + result + ")!"); }
@@ -459,7 +459,7 @@ Tcl =
     data += $("userScriptTextArea").value;
     
     var result = "AJAX error";
-    try { result = http.post(Tcl.URL + '?sid='+SessionId+'&userScript', data); }
+    try { result = http.post(Tcl.URL + '?sid='+SessionId+'&cmd=userScript', data); }
     catch (ex) { }
     if ("OK" == result) { alert("Tcl Script wurde erfolgreich gespeichert!"); }
     else { alert("Fehler beim Speichern des Tcl Scripts (" + result + ")!"); }
